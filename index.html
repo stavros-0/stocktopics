@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robinhood Metric Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --rh-green: #00C805;
+            --bg-dark: #0E0E0E;
+            --card-bg: #1A1A1A;
+            --text-main: #FFFFFF;
+            --text-dim: #8E8E8E;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1; 
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+
+        h2 { font-size: 1.2rem; margin-top: 0; color: var(--rh-green); }
+        p { color: var(--text-dim); font-size: 0.9rem; }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Robinhood Analytics</h1>
+        <p>Focus: Banking & International Expansion</p>
+    </header>
+
+    <div class="grid">
+        <!-- Chart 1: Banking Monetization -->
+        <div class="card">
+            <h2>Robinhood Strategies</h2>
+            <p>Total assets under management by Robinhood Strategies</p>
+            <canvas id="bankingChart"></canvas>
+        </div>
+
+        <!-- Chart 2: International Velocity -->
+        <div class="card">
+            <h2>International Growth (EU/UK)</h2>
+            <p>Customer acquisition velocity in non-US markets</p>
+            <canvas id="growthChart"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Equities</h2>
+            <canvas id="equities"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Crypto</h2>
+            <canvas id="crypto"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Options</h2>
+            <canvas id="options"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Margin Book</h2>
+            <canvas id="margin"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Cash Sweep</h2>
+            <canvas id="cashSweep"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Platform Assets</h2>
+            <canvas id="platformAssets"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Funded Customers</h2>
+            <canvas id="fundedCustomers"></canvas>
+        </div>
+
+         <div class="card">
+            <h2>Net Deposits</h2>
+            <canvas id="netDeposits"></canvas>
+
+    </div>
+</div>
+
+<script>
+    async function loadChartData() {
+    const response = await fetch('./robinhood_metrics.json');
+    const rawData = await response.json();
+    const ctx1 = document.getElementById('equities').getContext('2d');
+    const ctx2 = document.getElementById('crypto').getContext('2d');
+    const ctx3 = document.getElementById('options').getContext('2d');
+    const ctx4 = document.getElementById('margin').getContext('2d');
+    const ctx5 = document.getElementById('cashSweep').getContext('2d');
+    const ctx6 = document.getElementById('platformAssets').getContext('2d');
+    const ctx7 = document.getElementById('netDeposits').getContext('2d');
+    const ctx8 = document.getElementById('fundedCustomers').getContext('2d');
+
+
+    // Equities Chart
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Equity Volumes ($B)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.Equities), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    new Chart(ctx2, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Crypto Volumes ($B)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.Crypto), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx3, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Option Volumes ($M)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.Options), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx4, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Margin Book ($B)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.Margin), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx5, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Cash Sweep ($B)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.CashSweep), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx6, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Platform Assets ($B)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.PlatformAssets), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    new Chart(ctx7, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Net Deposits ($B)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.NetDeposits), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    new Chart(ctx8, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: rawData.map(row => row.Month), 
+            
+            datasets: [{
+                label: 'Funded Customers (M)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: rawData.map(row => row.FundedCustomers), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+loadChartData();
+
+    // 1. Banking Chart: Tracking Membership vs Total Customers
+    const ctxBanking = document.getElementById('bankingChart').getContext('2d');
+    new Chart(ctxBanking, {
+        type: 'line',
+        data: {
+            labels: ['4/25', '9/25', '2/26', '3/26'], // Replace with your spreadsheet dates
+            datasets: [{
+                label: 'Robinhood Strategies AUM',
+                data: [100, 1000, 1300, 1600], // Input data from your "Robinhood Banking Members" column
+                borderColor: '#00C805',
+                tension: 0.3,
+                fill: true,
+                backgroundColor: 'rgba(0, 200, 5, 0.1)'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: '#333' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+    // 2. International Growth: Comparing M/M % Change
+    const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+    new Chart(ctxGrowth, {
+        type: 'bar',
+        data: {
+            labels: ['4/25', '9/25', '2/26', '4/26'], 
+            datasets: [{
+                label: 'EU/UK M/M % Change',
+                data: [150, 750, 750, 1000], // Input data from your derived EU/UK M/M % calculations
+                backgroundColor: '#00C805',
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: '#333' }, beginAtZero: true },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>
