@@ -119,8 +119,11 @@
          <div class="card">
             <h2>Net Deposits</h2>
             <canvas id="netDeposits"></canvas>
+        </div>
 
-    </div>
+        <div>
+            <canvas id="VerticalLine" width="600" height="400"></canvas>
+        </div>
 </div>
 
 <script>
@@ -136,6 +139,40 @@
     const ctx7 = document.getElementById('netDeposits').getContext('2d');
     const ctx8 = document.getElementById('fundedCustomers').getContext('2d');
 
+    const verticalLinePlugin = {
+    getLinePosition: function (chart, pointIndex) {
+        const meta = chart.getDatasetMeta(0); // First dataset is used to discover X coordinate of a point
+        const data = meta.data;
+        return data[pointIndex].x;
+    },
+
+    renderVerticalLine: function (chartInstance, description) {
+        const { index: pointIndex, text } = description; // Destructure index and text
+        const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+        const scale = chartInstance.scales.y;
+        const context = chartInstance.ctx;
+
+        // Render vertical line
+        context.beginPath();
+        context.strokeStyle = '#348a37';
+        context.moveTo(lineLeftOffset, scale.top);
+        context.lineTo(lineLeftOffset, scale.bottom);
+        context.stroke();
+
+        // Write label
+        context.fillStyle = "#348a37";
+        context.textAlign = 'center';
+        context.fillText(text, lineLeftOffset, (scale.bottom - scale.top) / 2 + scale.top);
+    },
+
+    beforeDatasetsDraw: function (chart, easing) {
+        if (chart.config.options.plugins.descriptions) {
+            chart.config.options.plugins.descriptions.forEach(description => {
+                this.renderVerticalLine(chart, description);
+            });
+        }
+    }
+};
 
     // Equities Chart
     new Chart(ctx1, {
@@ -216,30 +253,34 @@
     });
 
     new Chart(ctx4, {
-        type: 'line',
-        data: {
-            // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
-            
-            datasets: [{
-                label: 'Margin Book ($B)',
-                // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.Margin), 
-                borderColor: '#00C805',
-                backgroundColor: 'rgba(0, 200, 5, 0.1)',
-                fill: true,
-                tension: 0.3
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+    type: 'line',
+    data: {
+        labels: rawData.map(row => row.Month),
+        datasets: [{
+            label: 'Margin Book ($B)',
+            data: rawData.map(row => row.Margin),
+            borderColor: '#00C805',
+            backgroundColor: 'rgba(0, 200, 5, 0.1)',
+            fill: true,
+            tension: 0.3
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
             }
+        },
+        plugins: {
+            descriptions: [
+                { index: 16, text: '' },
+                { index: 38, text: '' }
+            ]
         }
-    });
+    },
+    plugins: [verticalLinePlugin]
+});
 
     new Chart(ctx5, {
         type: 'line',
@@ -263,8 +304,14 @@
                 y: {
                     beginAtZero: true
                 }
+            },
+            plugins: {
+                descriptions: [
+                    { index: 38, text: '' }
+                ]
             }
-        }
+        },
+        plugins: [verticalLinePlugin]
     });
 
     new Chart(ctx6, {
@@ -338,7 +385,8 @@
             responsive: true,
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: false,
+                    min: Math.min(...rawData.map(row => row.FundedCustomers)) * .95
                 }
             }
         }
