@@ -67,14 +67,21 @@
     </header>
 
     <div class="grid">
-        <!-- Chart 1: Banking Monetization -->
         <div class="card">
             <h2>Robinhood Strategies</h2>
             <p>Total assets under management by Robinhood Strategies</p>
             <canvas id="bankingChart"></canvas>
         </div>
 
-        <!-- Chart 2: International Velocity -->
+        <div class="grid">
+            <div class="card">
+                <h2>Robinhood Banking AUM ($M)</h2>
+                <p>Released 12/25</p>
+                <canvas id="bankingAUM"></canvas>
+            </div>
+
+        </div>
+
         <div class="card">
             <h2>International Growth (EU/UK)</h2>
             <p>Customer acquisition velocity in non-US markets</p>
@@ -395,15 +402,38 @@
 
 loadChartData();
 
-    // 1. Banking Chart: Tracking Membership vs Total Customers
+    // Banking Chart: Tracking Membership vs Total Customers
     const ctxBanking = document.getElementById('bankingChart').getContext('2d');
     new Chart(ctxBanking, {
         type: 'line',
         data: {
-            labels: ['4/25', '9/25', '2/26', '3/26'], // Replace with your spreadsheet dates
+            labels: ['4/25', '9/25', '2/26', '3/26'],
             datasets: [{
                 label: 'Robinhood Strategies AUM',
-                data: [100, 1000, 1300, 1600], // Input data from your "Robinhood Banking Members" column
+                data: [100, 1000, 1300, 1600],
+                borderColor: '#00C805',
+                tension: 0.3,
+                fill: true,
+                backgroundColor: 'rgba(0, 200, 5, 0.1)'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: '#333' } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+    const ctxBankingAUM = document.getElementById('bankingAUM').getContext('2d');
+    new Chart(ctxBankingAUM, {
+        type: 'line',
+        data: {
+            labels: ['12/25','1/26','2/26','3/26','4/26','4/26','6/26'],
+            datasets: [{
+                label: 'Robinhood Banking AUM',
+                data: [100, 300, 400, 1000, 1500, 2000, 2500],
                 borderColor: '#00C805',
                 tension: 0.3,
                 fill: true,
