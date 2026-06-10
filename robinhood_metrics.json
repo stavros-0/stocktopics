@@ -574,5 +574,20 @@
         "StockHigh": 91.28,
         "EventContracts": 3.2,
         "SecuritiesLending": 32
+    },
+    {
+        "Month": "5/26",
+        "Equities": 315.3,
+        "Options": 231.1,
+        "Crypto": 12.2,
+        "Margin": 19.5,
+        "CashSweep": 28.8,
+        "PlatformAssets": 377,
+        "NetDeposits": 5.8,
+        "FundedCustomers": 27.7,
+        "StockLow": 73.06,
+        "StockHigh": 94.4,
+        "EventContracts": 3.9,
+        "SecuritiesLending": 36
     }
 ]
