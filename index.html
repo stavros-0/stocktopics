@@ -408,11 +408,11 @@
     new Chart(ctxVelocity, {
             type: 'bar', // Default base layer
             data: {
-                labels: ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026'],
+                labels: rawData.map(row => row.Month),
                 datasets: [
                     {
                         label: 'Net New Deposits ($B)',
-                        data: [4.5, 4.8, 5.2, 6.0, 5.6],
+                        data: rawData.map(row => row.NetDeposits),
                         backgroundColor: 'rgba(0, 200, 5, 0.3)',
                         borderColor: 'rgb(0, 200, 5)',
                         borderWidth: 1,
@@ -421,7 +421,7 @@
                     },
                     {
                         label: '1% Deposit Baseline ($B)',
-                        data: [3.24, 3.31, 3.385, 3.454, 3.77], // 1% of platform assets
+                        data: rawData.map(row => row.PlatformAssets *.01), // 1% of platform assets
                         type: 'line',
                         borderColor: 'rgba(255, 159, 64, 0.8)',
                         borderWidth: 2,
@@ -433,7 +433,7 @@
                     },
                     {
                         label: 'Total Platform Assets ($B)',
-                        data: [324.0, 331.0, 338.5, 345.4, 377.0],
+                        data: rawData.map(row => row.PlatformAssets),
                         type: 'line',
                         borderColor: '#1f77b4',
                         borderWidth: 3,
@@ -451,7 +451,7 @@
                         type: 'linear',
                         position: 'left',
                         title: { display: true, text: 'Platform Assets ($B)' },
-                        min: 300,
+                        min: 40,
                         max: 400
                     },
                     yRight: {
