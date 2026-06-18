@@ -93,6 +93,16 @@
             <canvas id="equities"></canvas>
         </div>
 
+         <div class="card">
+            <h2>Equity Assets</h2>
+            <canvas id="equityAssets"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Crypto Assets</h2>
+            <canvas id="cryptoAssets"></canvas>
+        </div>
+
         <div class="card">
             <h2>Crypto</h2>
             <canvas id="crypto"></canvas>
@@ -134,7 +144,7 @@
         </div>
 
         <div>
-            <canvas id="VerticalLine" width="600" height="400"></canvas>
+            <canvas id="VerticalLine"width="600" height="400"></canvas>
         </div>
 </div>
 
@@ -142,7 +152,11 @@
     async function loadChartData() {
     const response = await fetch('./robinhood_metrics.json');
     const monthly_metrics = await response.json();
+    const response2 = await fetch('./financials.json');
+    const financials = await response2.json();
     const ctx1 = document.getElementById('equities').getContext('2d');
+    const equity_assets = document.getElementById('equityAssets').getContext('2d');
+    const crypto_assets = document.getElementById('cryptoAssets').getContext('2d');
     const ctx2 = document.getElementById('crypto').getContext('2d');
     const ctx3 = document.getElementById('options').getContext('2d');
     const ctx4 = document.getElementById('margin').getContext('2d');
@@ -198,6 +212,58 @@
                 label: 'Equity Volumes ($B)',
                 // This grabs all the "Equities" numbers for the Y-axis
                 data: monthly_metrics.map(row => row.Equities), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    //equity assets chart
+    new Chart(equity_assets, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: financials.map(row => row.Quarter), 
+            
+            datasets: [{
+                label: 'Equity Assets ($B)',
+                // This grabs all the "Equities" numbers for the Y-axis
+                data: financials.map(row => row.Equities), 
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    // Crypto Asset Chart
+    new Chart(cryptoAssets, {
+        type: 'line',
+        data: {
+            // This grabs all the "Month" strings for the X-axis
+            labels: financials.map(row => row.Quarter), 
+            
+            datasets: [{
+                label: 'Crypto Assets ($B)',
+                // This grabs all the "Crypto" numbers for the Y-axis
+                data: financials.map(row => row.Cryptocurrencies), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
