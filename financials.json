@@ -1,0 +1,256 @@
+
+[
+    {
+        "Quarter": "Q220",
+        "Equities": 26.394,
+        "Cryptocurrencies": 0.9307,
+        "OptionsFutures": 0.7808,
+        "RIAAssets": 0.0,
+        "CustomerCash": 6.7126,
+        "CustomerReceivables": -1.3974,
+        "TotalPlatform": 33.4207,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q320",
+        "Equities": 37.727,
+        "Cryptocurrencies": 1.3556,
+        "OptionsFutures": 1.064,
+        "RIAAssets": 0.0,
+        "CustomerCash": 6.617,
+        "CustomerReceivables": -2.319,
+        "TotalPlatform": 44.4446,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q221",
+        "Equities": 72.5683,
+        "Cryptocurrencies": 2.3842,
+        "OptionsFutures": 22.6933,
+        "RIAAssets": 0.0,
+        "CustomerCash": 9.9247,
+        "CustomerReceivables": -5.5357,
+        "TotalPlatform": 102.0348,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q321",
+        "Equities": 69.185,
+        "Cryptocurrencies": 1.4034,
+        "OptionsFutures": 22.233,
+        "RIAAssets": 0.0,
+        "CustomerCash": 8.784,
+        "CustomerReceivables": -6.2174,
+        "TotalPlatform": 95.388,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q421",
+        "Equities": 72.1,
+        "Cryptocurrencies": 22.1,
+        "OptionsFutures": 1.5,
+        "RIAAssets": 0.0,
+        "CustomerCash": 8.8,
+        "CustomerReceivables": -6.5,
+        "TotalPlatform": 98.0,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q122",
+        "Equities": 68.5,
+        "Cryptocurrencies": 19.7,
+        "OptionsFutures": 1.1,
+        "RIAAssets": 0.0,
+        "CustomerCash": 9.2,
+        "CustomerReceivables": -5.4,
+        "TotalPlatform": 93.1,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q222",
+        "Equities": 51.2,
+        "Cryptocurrencies": 8.6,
+        "OptionsFutures": 0.5,
+        "RIAAssets": 0.0,
+        "CustomerCash": 8.1,
+        "CustomerReceivables": -4.2,
+        "TotalPlatform": 64.2,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q322",
+        "Equities": 50.7,
+        "Cryptocurrencies": 9.4,
+        "OptionsFutures": 0.4,
+        "RIAAssets": 0.0,
+        "CustomerCash": 8.1,
+        "CustomerReceivables": -4.0,
+        "TotalPlatform": 64.6,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q422",
+        "Equities": 45.8,
+        "Cryptocurrencies": 8.4,
+        "OptionsFutures": 0.3,
+        "RIAAssets": 0.0,
+        "CustomerCash": 10.8,
+        "CustomerReceivables": -3.1,
+        "TotalPlatform": 62.2,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q123",
+        "Equities": 55.3,
+        "Cryptocurrencies": 11.5,
+        "OptionsFutures": 0.4,
+        "RIAAssets": 0.0,
+        "CustomerCash": 14.2,
+        "CustomerReceivables": -3.0,
+        "TotalPlatform": 78.4,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q223",
+        "Equities": 62.8,
+        "Cryptocurrencies": 11.5,
+        "OptionsFutures": 0.5,
+        "RIAAssets": 0.0,
+        "CustomerCash": 17.2,
+        "CustomerReceivables": -3.2,
+        "TotalPlatform": 88.8,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q323",
+        "Equities": 61.4,
+        "Cryptocurrencies": 10.2,
+        "OptionsFutures": 0.4,
+        "RIAAssets": 0.0,
+        "CustomerCash": 18.0,
+        "CustomerReceivables": -3.5,
+        "TotalPlatform": 86.5,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q423",
+        "Equities": 69.4,
+        "Cryptocurrencies": 14.7,
+        "OptionsFutures": 0.6,
+        "RIAAssets": 0.0,
+        "CustomerCash": 21.3,
+        "CustomerReceivables": -3.4,
+        "TotalPlatform": 102.6,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q123",
+        "Equities": 55.3,
+        "Cryptocurrencies": 11.5,
+        "OptionsFutures": 0.4,
+        "RIAAssets": 0.0,
+        "CustomerCash": 14.2,
+        "CustomerReceivables": -3.0,
+        "TotalPlatform": 78.4,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q124",
+        "Equities": 81.5,
+        "Cryptocurrencies": 26.2,
+        "OptionsFutures": 1.2,
+        "RIAAssets": 0.0,
+        "CustomerCash": 24.8,
+        "CustomerReceivables": -4.1,
+        "TotalPlatform": 129.6,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q224",
+        "Equities": 96.3,
+        "Cryptocurrencies": 20.7,
+        "OptionsFutures": 1.1,
+        "RIAAssets": 0.0,
+        "CustomerCash": 26.6,
+        "CustomerReceivables": -5.0,
+        "TotalPlatform": 139.7,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q324",
+        "Equities": 106.4,
+        "Cryptocurrencies": 19.5,
+        "OptionsFutures": 1.2,
+        "RIAAssets": 0.0,
+        "CustomerCash": 30.6,
+        "CustomerReceivables": -5.5,
+        "TotalPlatform": 152.2,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q424",
+        "Equities": 130.6,
+        "Cryptocurrencies": 35.2,
+        "OptionsFutures": 1.8,
+        "RIAAssets": 0.0,
+        "CustomerCash": 33.3,
+        "CustomerReceivables": -8.0,
+        "TotalPlatform": 192.9,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q125",
+        "Equities": 125.5,
+        "Cryptocurrencies": 27.5,
+        "OptionsFutures": 1.1,
+        "RIAAssets": 41.3,
+        "CustomerCash": 34.0,
+        "CustomerReceivables": -8.8,
+        "TotalPlatform": 220.6,
+        "AcquiredAssets": 42.9
+    },
+    {
+        "Quarter": "Q225",
+        "Equities": 160.1,
+        "Cryptocurrencies": 41.1,
+        "OptionsFutures": 2.0,
+        "RIAAssets": 42.9,
+        "CustomerCash": 41.8,
+        "CustomerReceivables": -9.3,
+        "TotalPlatform": 278.6,
+        "AcquiredAssets": 8.9
+    },
+    {
+        "Quarter": "Q325",
+        "Equities": 203.0,
+        "Cryptocurrencies": 51.1,
+        "OptionsFutures": 3.9,
+        "RIAAssets": 42.2,
+        "CustomerCash": 46.3,
+        "CustomerReceivables": -13.8,
+        "TotalPlatform": 332.7,
+        "AcquiredAssets": 0.0
+    },
+    {
+        "Quarter": "Q425",
+        "Equities": 212.0,
+        "Cryptocurrencies": 38.2,
+        "OptionsFutures": 2.8,
+        "RIAAssets": 42.5,
+        "CustomerCash": 43.4,
+        "CustomerReceivables": -16.8,
+        "TotalPlatform": 322.1,
+        "AcquiredAssets": 51.8
+    },
+    {
+        "Quarter": "Q126",
+        "Equities": 207.5,
+        "Cryptocurrencies": 30.5,
+        "OptionsFutures": 2.0,
+        "RIAAssets": 42.6,
+        "CustomerCash": 41.6,
+        "CustomerReceivables": -16.9,
+        "TotalPlatform": 307.3,
+        "AcquiredAssets": 0.0
+    }
+]
