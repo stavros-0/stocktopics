@@ -141,7 +141,7 @@
 <script>
     async function loadChartData() {
     const response = await fetch('./robinhood_metrics.json');
-    const rawData = await response.json();
+    const monthly_metrics = await response.json();
     const ctx1 = document.getElementById('equities').getContext('2d');
     const ctx2 = document.getElementById('crypto').getContext('2d');
     const ctx3 = document.getElementById('options').getContext('2d');
@@ -192,12 +192,12 @@
         type: 'line',
         data: {
             // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
+            labels: monthly_metrics.map(row => row.Month), 
             
             datasets: [{
                 label: 'Equity Volumes ($B)',
                 // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.Equities), 
+                data: monthly_metrics.map(row => row.Equities), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -217,12 +217,12 @@
         type: 'line',
         data: {
             // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
+            labels: monthly_metrics.map(row => row.Month), 
             
             datasets: [{
                 label: 'Crypto Volumes ($B)',
                 // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.Crypto), 
+                data: monthly_metrics.map(row => row.Crypto), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -243,12 +243,12 @@
         type: 'line',
         data: {
             // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
+            labels: monthly_metrics.map(row => row.Month), 
             
             datasets: [{
                 label: 'Option Volumes ($M)',
                 // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.Options), 
+                data: monthly_metrics.map(row => row.Options), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -268,10 +268,10 @@
     new Chart(ctx4, {
     type: 'line',
     data: {
-        labels: rawData.map(row => row.Month),
+        labels: monthly_metrics.map(row => row.Month),
         datasets: [{
             label: 'Margin Book ($B)',
-            data: rawData.map(row => row.Margin),
+            data: monthly_metrics.map(row => row.Margin),
             borderColor: '#00C805',
             backgroundColor: 'rgba(0, 200, 5, 0.1)',
             fill: true,
@@ -299,12 +299,12 @@
         type: 'line',
         data: {
             // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
+            labels: monthly_metrics.map(row => row.Month), 
             
             datasets: [{
                 label: 'Cash Sweep ($B)',
                 // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.CashSweep), 
+                data: monthly_metrics.map(row => row.CashSweep), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -331,12 +331,12 @@
         type: 'line',
         data: {
             // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
+            labels: monthly_metrics.map(row => row.Month), 
             
             datasets: [{
                 label: 'Platform Assets ($B)',
                 // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.PlatformAssets), 
+                data: monthly_metrics.map(row => row.PlatformAssets), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -356,12 +356,12 @@
         type: 'line',
         data: {
             // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
+            labels: monthly_metrics.map(row => row.Month), 
             
             datasets: [{
                 label: 'Net Deposits ($B)',
                 // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.NetDeposits), 
+                data: monthly_metrics.map(row => row.NetDeposits), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -382,12 +382,12 @@
         type: 'line',
         data: {
             // This grabs all the "Month" strings for the X-axis
-            labels: rawData.map(row => row.Month), 
+            labels: monthly_metrics.map(row => row.Month), 
             
             datasets: [{
                 label: 'Funded Customers (M)',
                 // This grabs all the "Equities" numbers for the Y-axis
-                data: rawData.map(row => row.FundedCustomers), 
+                data: monthly_metrics.map(row => row.FundedCustomers), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -399,7 +399,7 @@
             scales: {
                 y: {
                     beginAtZero: false,
-                    min: Math.min(...rawData.map(row => row.FundedCustomers)) * .95
+                    min: Math.min(...monthly_metrics.map(row => row.FundedCustomers)) * .95
                 }
             }
         }
@@ -408,11 +408,11 @@
     new Chart(ctxVelocity, {
             type: 'bar', // Default base layer
             data: {
-                labels: rawData.map(row => row.Month),
+                labels: monthly_metrics.map(row => row.Month),
                 datasets: [
                     {
                         label: 'Net New Deposits ($B)',
-                        data: rawData.map(row => row.NetDeposits),
+                        data: monthly_metrics.map(row => row.NetDeposits),
                         backgroundColor: 'rgba(0, 200, 5, 0.3)',
                         borderColor: 'rgb(0, 200, 5)',
                         borderWidth: 1,
@@ -421,7 +421,7 @@
                     },
                     {
                         label: '1% Deposit Baseline ($B)',
-                        data: rawData.map(row => row.PlatformAssets *.01), // 1% of platform assets
+                        data: monthly_metrics.map(row => row.PlatformAssets *.01),
                         type: 'line',
                         borderColor: 'rgba(255, 159, 64, 0.8)',
                         borderWidth: 2,
@@ -433,7 +433,7 @@
                     },
                     {
                         label: 'Total Platform Assets ($B)',
-                        data: rawData.map(row => row.PlatformAssets),
+                        data: monthly_metrics.map(row => row.PlatformAssets),
                         type: 'line',
                         borderColor: '#1f77b4',
                         borderWidth: 3,
