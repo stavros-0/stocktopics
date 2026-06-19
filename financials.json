@@ -25,8 +25,8 @@
     {
         "Quarter": "Q221",
         "Equities": 72.5683,
-        "Cryptocurrencies": 2.3842,
-        "OptionsFutures": 22.6933,
+        "Cryptocurrencies": 22.6933,
+        "OptionsFutures": 2.3842,
         "RIAAssets": 0.0,
         "CustomerCash": 9.9247,
         "CustomerReceivables": -5.5357,
@@ -36,8 +36,8 @@
     {
         "Quarter": "Q321",
         "Equities": 69.185,
-        "Cryptocurrencies": 1.4034,
-        "OptionsFutures": 22.233,
+        "Cryptocurrencies": 22.233,
+        "OptionsFutures": 1.4034,
         "RIAAssets": 0.0,
         "CustomerCash": 8.784,
         "CustomerReceivables": -6.2174,
