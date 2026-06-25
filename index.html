@@ -611,7 +611,24 @@
                 fill: true,
                 tension: 0.3
             }]
+        },
+        options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: false
+            }
+        },
+        plugins: {
+            descriptions: [
+                { index: 6, text: '' }, // gold credit card + ira match
+                { index: 14, text: '' }, // platinum credit cards
+                { index: 13, text: '' }, // sage mortgage loans
+                { index: 10, text: '' }  // AI Insights + Robinhood strategies
+            ]
         }
+        },
+        plugins: [verticalLinePlugin]
     })
 }
 
