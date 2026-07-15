@@ -166,6 +166,11 @@
             <canvas id="goldSubscribers"></canvas>
         </div>
 
+        <div class="card">
+            <h2>Gold Share of Total Customers</h2>
+            <canvas id="goldShare"></canvas>
+        </div>
+
         <div>
             <canvas id="VerticalLine"width="600" height="400"></canvas>
         </div>
@@ -183,6 +188,7 @@
     const op_fut_assets = document.getElementById('optionsAssets').getContext('2d');
     const auc_breakdown = document.getElementById('aucBreakdown').getContext('2d');
     const gold_subscribers = document.getElementById('goldSubscribers').getContext('2d');
+    const gold_share = document.getElementById('goldShare').getContext('2d');
     const ctx2 = document.getElementById('crypto').getContext('2d');
     const ctx3 = document.getElementById('options').getContext('2d');
     const ctx4 = document.getElementById('margin').getContext('2d');
@@ -629,7 +635,36 @@
         }
         },
         plugins: [verticalLinePlugin]
-    })
+    });
+
+    new Chart(gold_share, {
+        type: 'line',
+        data: {
+            labels: financials
+                .slice(financials.findIndex(row => row.Quarter === 'Q322'))
+                .map(row => row.Quarter),
+            datasets: [{
+                label: 'Gold Share of Total Customers (%)',
+                data: financials
+                    .slice(financials.findIndex(row => row.Quarter === 'Q322'))
+                    .map(row => (row.Gold / row.TotalCustomers) * 100),
+                borderColor: '#00C805',
+                backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 0,
+                    max: 20
+                }
+            }
+        }
+    });
 }
 
 loadChartData();
