@@ -162,6 +162,11 @@
         </div>
 
         <div class="card">
+            <h2>Revenue / Net Income</h2>
+            <canvas id="revenueChart" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
             <h2>Gold Subscriber Growth</h2>
             <canvas id="goldSubscribers"></canvas>
         </div>
@@ -197,6 +202,7 @@
     const ctx7 = document.getElementById('netDeposits').getContext('2d');
     const ctx8 = document.getElementById('fundedCustomers').getContext('2d');
     const ctxVelocity = document.getElementById('velocityChart').getContext('2d');
+    const revenue = document.getElementById('revenueChart').getContext('2d');
 
     const verticalLinePlugin = {
         getLinePosition: function (chart, pointIndex) {
@@ -571,7 +577,7 @@
         type: 'bar',
         data: {
             labels: financials.map(row => row.Quarter),
-            datasets: Object.keys(financials[0])
+            datasets: Object.keys(financials[0]) // retrieve all keys from the first object in the financials json
                 .filter(key => key !== 'Quarter' && key !== 'TotalPlatform' && key !== 'AcquiredAssets')
                 .map((key, index) => ({
                     label: key,
@@ -596,6 +602,42 @@
                     title: { display: true, text: 'Percentage Contribution (%)' },
                     min: 0,
                     max: 400
+                }
+            }
+        }
+    });
+    const filteredFinancials = financials.slice(financials.findIndex(row => row.Quarter === 'Q321'));
+    new Chart(revenue, {
+        type: 'bar',
+        data: {
+            labels: filteredFinancials.map(row => row.Quarter),
+            datasets: Object.keys(financials[5])
+            .filter(key => key === 'Revenue' || key === 'NetIncome')
+            .map((key, index) => ({
+                    label: key,
+                    data: filteredFinancials.map(row => row[key]),
+                    borderColor: key === 'Revenue' ? 'hsl(220, 85%, 45%)' : 'hsl(120, 65%, 40%)',
+                    backgroundColor: filteredFinancials.map(row => 
+                    row[key] < 0 ? 'rgba(255, 0, 0, 0.7)' : 
+                    (key === 'Revenue' ? 'hsla(220, 85%, 45%, 0.7)' : 'hsla(120, 65%, 40%, 0.7)') 
+                ),
+                    fill: true,
+                    tension: 0.3
+                }))
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' } },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Revenue / Net Income ($M)' },
+                    min: -1900
                 }
             }
         }
