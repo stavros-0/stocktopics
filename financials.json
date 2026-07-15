@@ -20,7 +20,25 @@
         "CustomerCash": 6.617,
         "CustomerReceivables": -2.319,
         "TotalPlatform": 44.4446,
-        "AcquiredAssets": 0.0
+        "AcquiredAssets": 0.0,
+        "TotalCustomers": 11400
+
+    },
+    {
+        "Quarter": "Q420",
+        "TotalCustomers": 12500
+    },
+    {
+        "Quarter": "Q121",
+        "Equities": 61.5,
+        "Cryptocurrencies": 22.5,
+        "OptionsFutures": 2.5,
+        "RIAAssets": 0.0,
+        "CustomerCash": 9.5,
+        "CustomerReceivables": -4.5,
+        "TotalPlatform": 91.5,
+        "AcquiredAssets": 0.0,
+        "TotalCustomers": 18000
     },
     {
         "Quarter": "Q221",
@@ -31,7 +49,8 @@
         "CustomerCash": 9.9247,
         "CustomerReceivables": -5.5357,
         "TotalPlatform": 102.0348,
-        "AcquiredAssets": 0.0
+        "AcquiredAssets": 0.0,
+        "TotalCustomers": 22500
     },
     {
         "Quarter": "Q321",
@@ -42,7 +61,8 @@
         "CustomerCash": 8.784,
         "CustomerReceivables": -6.2174,
         "TotalPlatform": 95.388,
-        "AcquiredAssets": 0.0
+        "AcquiredAssets": 0.0,
+        "TotalCustomers": 22400
     },
     {
         "Quarter": "Q421",
@@ -53,7 +73,8 @@
         "CustomerCash": 8.8,
         "CustomerReceivables": -6.5,
         "TotalPlatform": 98.0,
-        "AcquiredAssets": 0.0
+        "AcquiredAssets": 0.0,
+        "TotalCustomers": 22700
     },
     {
         "Quarter": "Q122",
@@ -64,7 +85,8 @@
         "CustomerCash": 9.2,
         "CustomerReceivables": -5.4,
         "TotalPlatform": 93.1,
-        "AcquiredAssets": 0.0
+        "AcquiredAssets": 0.0,
+        "TotalCustomers": 22800
     },
     {
         "Quarter": "Q222",
@@ -75,7 +97,8 @@
         "CustomerCash": 8.1,
         "CustomerReceivables": -4.2,
         "TotalPlatform": 64.2,
-        "AcquiredAssets": 0.0
+        "AcquiredAssets": 0.0,
+        "TotalCustomers": 22900
     },
     {
         "Quarter": "Q322",
@@ -87,7 +110,8 @@
         "CustomerReceivables": -4.0,
         "TotalPlatform": 64.6,
         "AcquiredAssets": 0.0,
-        "Gold": 1090
+        "Gold": 1090,
+        "TotalCustomers": 22900
     },
     {
         "Quarter": "Q422",
@@ -99,7 +123,8 @@
         "CustomerReceivables": -3.1,
         "TotalPlatform": 62.2,
         "AcquiredAssets": 0.0,
-        "Gold": 1140
+        "Gold": 1140,
+        "TotalCustomers": 23000
     },
     {
         "Quarter": "Q123",
@@ -111,7 +136,8 @@
         "CustomerReceivables": -3.0,
         "TotalPlatform": 78.4,
         "AcquiredAssets": 0.0,
-        "Gold": 1180
+        "Gold": 1180,
+        "TotalCustomers": 23100
     },
     {
         "Quarter": "Q223",
@@ -123,7 +149,8 @@
         "CustomerReceivables": -3.2,
         "TotalPlatform": 88.8,
         "AcquiredAssets": 0.0,
-        "Gold": 1230
+        "Gold": 1230,
+        "TotalCustomers": 23200
     },
     {
         "Quarter": "Q323",
@@ -135,7 +162,8 @@
         "CustomerReceivables": -3.5,
         "TotalPlatform": 86.5,
         "AcquiredAssets": 0.0,
-        "Gold": 1330
+        "Gold": 1330,
+        "TotalCustomers": 23300
     },
     {
         "Quarter": "Q423",
@@ -147,7 +175,8 @@
         "CustomerReceivables": -3.4,
         "TotalPlatform": 102.6,
         "AcquiredAssets": 0.0,
-        "Gold": 1420
+        "Gold": 1420,
+        "TotalCustomers": 23400
     },
     {
         "Quarter": "Q124",
@@ -159,7 +188,8 @@
         "CustomerReceivables": -4.1,
         "TotalPlatform": 129.6,
         "AcquiredAssets": 0.0,
-        "Gold": 1680
+        "Gold": 1680,
+        "TotalCustomers": 23900
     },
     {
         "Quarter": "Q224",
@@ -171,7 +201,8 @@
         "CustomerReceivables": -5.0,
         "TotalPlatform": 139.7,
         "AcquiredAssets": 0.0,
-        "Gold": 1980
+        "Gold": 1980,
+        "TotalCustomers": 24200
     },
     {
         "Quarter": "Q324",
@@ -183,7 +214,9 @@
         "CustomerReceivables": -5.5,
         "TotalPlatform": 152.2,
         "AcquiredAssets": 0.0,
-        "Gold": 2190
+        "Gold": 2190,
+        "TotalCustomers": 24300
+
     },
     {
         "Quarter": "Q424",
@@ -195,7 +228,8 @@
         "CustomerReceivables": -8.0,
         "TotalPlatform": 192.9,
         "AcquiredAssets": 0.0,
-        "Gold": 2640
+        "Gold": 2640,
+        "TotalCustomers": 25200
     },
     {
         "Quarter": "Q125",
@@ -207,7 +241,8 @@
         "CustomerReceivables": -8.8,
         "TotalPlatform": 220.6,
         "AcquiredAssets": 42.9,
-        "Gold": 3200
+        "Gold": 3200,
+        "TotalCustomers": 25800
     },
     {
         "Quarter": "Q225",
@@ -219,7 +254,8 @@
         "CustomerReceivables": -9.3,
         "TotalPlatform": 278.6,
         "AcquiredAssets": 8.9,
-        "Gold": 3500
+        "Gold": 3500,
+        "TotalCustomers": 26500
     },
     {
         "Quarter": "Q325",
@@ -231,7 +267,8 @@
         "CustomerReceivables": -13.8,
         "TotalPlatform": 332.7,
         "AcquiredAssets": 0.0,
-        "Gold": 3900
+        "Gold": 3900,
+        "TotalCustomers": 26800
     },
     {
         "Quarter": "Q425",
@@ -243,7 +280,8 @@
         "CustomerReceivables": -16.8,
         "TotalPlatform": 322.1,
         "AcquiredAssets": 51.8,
-        "Gold": 4200
+        "Gold": 4200,
+        "TotalCustomers": 27000
     },
     {
         "Quarter": "Q126",
@@ -255,6 +293,7 @@
         "CustomerReceivables": -16.9,
         "TotalPlatform": 307.3,
         "AcquiredAssets": 0.0,
-        "Gold": 4340
+        "Gold": 4340,
+        "TotalCustomers": 27400
     }
 ]
