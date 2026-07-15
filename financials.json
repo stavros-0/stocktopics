@@ -62,7 +62,9 @@
         "CustomerReceivables": -6.2174,
         "TotalPlatform": 95.388,
         "AcquiredAssets": 0.0,
-        "TotalCustomers": 22400
+        "TotalCustomers": 22400,
+        "Revenue": 364.923,
+        "NetIncome": -1316.7
     },
     {
         "Quarter": "Q421",
@@ -74,7 +76,9 @@
         "CustomerReceivables": -6.5,
         "TotalPlatform": 98.0,
         "AcquiredAssets": 0.0,
-        "TotalCustomers": 22700
+        "TotalCustomers": 22700,
+        "Revenue": 363,
+        "NetIncome": -1679
     },
     {
         "Quarter": "Q122",
@@ -86,7 +90,9 @@
         "CustomerReceivables": -5.4,
         "TotalPlatform": 93.1,
         "AcquiredAssets": 0.0,
-        "TotalCustomers": 22800
+        "TotalCustomers": 22800,
+        "Revenue": 299,
+        "NetIncome": -1371
     },
     {
         "Quarter": "Q222",
@@ -98,7 +104,9 @@
         "CustomerReceivables": -4.2,
         "TotalPlatform": 64.2,
         "AcquiredAssets": 0.0,
-        "TotalCustomers": 22900
+        "TotalCustomers": 22900,
+        "Revenue": 318,
+        "NetIncome": -295
     },
     {
         "Quarter": "Q322",
@@ -111,7 +119,9 @@
         "TotalPlatform": 64.6,
         "AcquiredAssets": 0.0,
         "Gold": 1090,
-        "TotalCustomers": 22900
+        "TotalCustomers": 22900,
+        "Revenue": 361,
+        "NetIncome": -175
     },
     {
         "Quarter": "Q422",
@@ -124,7 +134,9 @@
         "TotalPlatform": 62.2,
         "AcquiredAssets": 0.0,
         "Gold": 1140,
-        "TotalCustomers": 23000
+        "TotalCustomers": 23000,
+        "Revenue": 380,
+        "NetIncome": 332
     },
     {
         "Quarter": "Q123",
@@ -137,7 +149,9 @@
         "TotalPlatform": 78.4,
         "AcquiredAssets": 0.0,
         "Gold": 1180,
-        "TotalCustomers": 23100
+        "TotalCustomers": 23100,
+        "Revenue": 441,
+        "NetIncome": -513
     },
     {
         "Quarter": "Q223",
@@ -150,7 +164,10 @@
         "TotalPlatform": 88.8,
         "AcquiredAssets": 0.0,
         "Gold": 1230,
-        "TotalCustomers": 23200
+        "TotalCustomers": 23200,
+        "Revenue": 486,
+        "NetIncome": 25
+
     },
     {
         "Quarter": "Q323",
@@ -163,7 +180,9 @@
         "TotalPlatform": 86.5,
         "AcquiredAssets": 0.0,
         "Gold": 1330,
-        "TotalCustomers": 23300
+        "TotalCustomers": 23300,
+        "Revenue": 467,
+        "NetIncome": -85
     },
     {
         "Quarter": "Q423",
@@ -176,7 +195,9 @@
         "TotalPlatform": 102.6,
         "AcquiredAssets": 0.0,
         "Gold": 1420,
-        "TotalCustomers": 23400
+        "TotalCustomers": 23400,
+        "Revenue": 471,
+        "NetIncome": 23
     },
     {
         "Quarter": "Q124",
@@ -189,7 +210,9 @@
         "TotalPlatform": 129.6,
         "AcquiredAssets": 0.0,
         "Gold": 1680,
-        "TotalCustomers": 23900
+        "TotalCustomers": 23900,
+        "Revenue": 618,
+        "NetIncome": 157
     },
     {
         "Quarter": "Q224",
@@ -202,7 +225,9 @@
         "TotalPlatform": 139.7,
         "AcquiredAssets": 0.0,
         "Gold": 1980,
-        "TotalCustomers": 24200
+        "TotalCustomers": 24200,
+        "Revenue": 682,
+        "NetIncome": 188
     },
     {
         "Quarter": "Q324",
@@ -215,8 +240,9 @@
         "TotalPlatform": 152.2,
         "AcquiredAssets": 0.0,
         "Gold": 2190,
-        "TotalCustomers": 24300
-
+        "TotalCustomers": 24300,
+        "Revenue": 637,
+        "NetIncome": 150
     },
     {
         "Quarter": "Q424",
@@ -229,7 +255,9 @@
         "TotalPlatform": 192.9,
         "AcquiredAssets": 0.0,
         "Gold": 2640,
-        "TotalCustomers": 25200
+        "TotalCustomers": 25200,
+        "Revenue": 672,
+        "NetIncome": 916
     },
     {
         "Quarter": "Q125",
@@ -242,7 +270,9 @@
         "TotalPlatform": 220.6,
         "AcquiredAssets": 42.9,
         "Gold": 3200,
-        "TotalCustomers": 25800
+        "TotalCustomers": 25800,
+        "Revenue": 927,
+        "NetIncome": 336
     },
     {
         "Quarter": "Q225",
@@ -255,7 +285,9 @@
         "TotalPlatform": 278.6,
         "AcquiredAssets": 8.9,
         "Gold": 3500,
-        "TotalCustomers": 26500
+        "TotalCustomers": 26500,
+        "Revenue": 989,
+        "NetIncome": 386
     },
     {
         "Quarter": "Q325",
@@ -268,7 +300,9 @@
         "TotalPlatform": 332.7,
         "AcquiredAssets": 0.0,
         "Gold": 3900,
-        "TotalCustomers": 26800
+        "TotalCustomers": 26800,
+        "Revenue": 1270,
+        "NetIncome": 556
     },
     {
         "Quarter": "Q425",
@@ -281,7 +315,9 @@
         "TotalPlatform": 322.1,
         "AcquiredAssets": 51.8,
         "Gold": 4200,
-        "TotalCustomers": 27000
+        "TotalCustomers": 27000,
+        "Revenue": 1283,
+        "NetIncome": 605
     },
     {
         "Quarter": "Q126",
@@ -294,6 +330,8 @@
         "TotalPlatform": 307.3,
         "AcquiredAssets": 0.0,
         "Gold": 4340,
-        "TotalCustomers": 27400
+        "TotalCustomers": 27400,
+        "Revenue": 1067,
+        "NetIncome": 293
     }
 ]
