@@ -167,6 +167,11 @@
         </div>
 
         <div class="card">
+            <h2>Credit Card Provisions</h2>
+            <canvas id="creditCardProvisions" width="600" height="400"></canvas>    
+        </div>
+
+        <div class="card">
             <h2>Gold Subscriber Growth</h2>
             <canvas id="goldSubscribers"></canvas>
         </div>
@@ -203,6 +208,7 @@
     const ctx8 = document.getElementById('fundedCustomers').getContext('2d');
     const ctxVelocity = document.getElementById('velocityChart').getContext('2d');
     const revenue = document.getElementById('revenueChart').getContext('2d');
+    const credit_card_provisions = document.getElementById('creditCardProvisions').getContext('2d');
 
     const verticalLinePlugin = {
         getLinePosition: function (chart, pointIndex) {
@@ -707,6 +713,37 @@
             }
         }
     });
+
+    new Chart(credit_card_provisions, {
+        type: 'bar',
+        data: {
+            labels: financials
+                .slice(financials.findIndex(row => row.Quarter === 'Q423'))
+                .map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Credit Card Provisions ($M)',
+                    data: financials
+                        .slice(financials.findIndex(row => row.Quarter === 'Q423'))
+                        .map(row => row.ProvisionForCreditCardLosses),
+                    borderColor: '#00C805',
+                    backgroundColor: 'rgba(0, 200, 5)',
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: 'Write-offs ($M)',
+                    data: financials
+                        .slice(financials.findIndex(row => row.Quarter === 'Q423'))
+                        .map(row => row.CreditCardWriteOffs),
+                    borderColor: '#FF0000',
+                    backgroundColor: 'rgba(255, 0, 0)',
+                    fill: false,
+                    tension: 0.3
+                }
+        ]
+        }
+    })
 }
 
 loadChartData();
