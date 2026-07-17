@@ -197,7 +197,9 @@
         "Gold": 1420,
         "TotalCustomers": 23400,
         "Revenue": 471,
-        "NetIncome": 23
+        "NetIncome": 23,
+        "ProvisionForCreditCardLosses": 2,
+        "CreditCardWriteOffs": 1
     },
     {
         "Quarter": "Q124",
@@ -212,7 +214,9 @@
         "Gold": 1680,
         "TotalCustomers": 23900,
         "Revenue": 618,
-        "NetIncome": 157
+        "NetIncome": 157,
+        "ProvisionForCreditCardLosses": 2,
+        "CreditCardWriteOffs": 1
     },
     {
         "Quarter": "Q224",
@@ -227,7 +231,9 @@
         "Gold": 1980,
         "TotalCustomers": 24200,
         "Revenue": 682,
-        "NetIncome": 188
+        "NetIncome": 188,
+        "ProvisionForCreditCardLosses": 3,
+        "CreditCardWriteOffs": 2
     },
     {
         "Quarter": "Q324",
@@ -242,7 +248,9 @@
         "Gold": 2190,
         "TotalCustomers": 24300,
         "Revenue": 637,
-        "NetIncome": 150
+        "NetIncome": 150,
+        "ProvisionForCreditCardLosses": 6,
+        "CreditCardWriteOffs": 1
     },
     {
         "Quarter": "Q424",
@@ -258,7 +266,8 @@
         "TotalCustomers": 25200,
         "Revenue": 672,
         "NetIncome": 916,
-        "ProvisionForCreditLosses": 19
+        "ProvisionForCreditCardLosses": 4,
+        "CreditCardWriteOffs": 1
     },
     {
         "Quarter": "Q125",
@@ -274,7 +283,8 @@
         "TotalCustomers": 25800,
         "Revenue": 927,
         "NetIncome": 336,
-        "ProvisionForCreditLosses": 24
+        "ProvisionForCreditCardLosses": 6,
+        "CreditCardWriteOffs": 2
     },
     {
         "Quarter": "Q225",
@@ -290,7 +300,8 @@
         "TotalCustomers": 26500,
         "Revenue": 989,
         "NetIncome": 386,
-        "ProvisionForCreditLosses": 28
+        "ProvisionForCreditCardLosses": 12,
+        "CreditCardWriteOffs": 3
     },
     {
         "Quarter": "Q325",
@@ -306,7 +317,9 @@
         "TotalCustomers": 26800,
         "Revenue": 1270,
         "NetIncome": 556,
-        "ProvisionForCreditLosses": 26
+        "ProvisionForCreditCardLosses": 15,
+        "CreditCardWriteOffs": 5
+
     },
     {
         "Quarter": "Q425",
@@ -322,7 +335,8 @@
         "TotalCustomers": 27000,
         "Revenue": 1283,
         "NetIncome": 605,
-        "ProvisionForCreditLosses": 36
+        "ProvisionForCreditCardLosses": 26,
+        "CreditCardWriteOffs": 7
     },
     {
         "Quarter": "Q126",
@@ -338,6 +352,7 @@
         "TotalCustomers": 27400,
         "Revenue": 1067,
         "NetIncome": 293,
-        "ProvisionForCreditLosses": 36
+        "ProvisionForCreditCardLosses": 24,
+        "CreditCardWriteOffs": 9
     }
 ]
