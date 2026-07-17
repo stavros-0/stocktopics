@@ -257,7 +257,8 @@
         "Gold": 2640,
         "TotalCustomers": 25200,
         "Revenue": 672,
-        "NetIncome": 916
+        "NetIncome": 916,
+        "ProvisionForCreditLosses": 19
     },
     {
         "Quarter": "Q125",
@@ -272,7 +273,8 @@
         "Gold": 3200,
         "TotalCustomers": 25800,
         "Revenue": 927,
-        "NetIncome": 336
+        "NetIncome": 336,
+        "ProvisionForCreditLosses": 24
     },
     {
         "Quarter": "Q225",
@@ -287,7 +289,8 @@
         "Gold": 3500,
         "TotalCustomers": 26500,
         "Revenue": 989,
-        "NetIncome": 386
+        "NetIncome": 386,
+        "ProvisionForCreditLosses": 28
     },
     {
         "Quarter": "Q325",
@@ -302,7 +305,8 @@
         "Gold": 3900,
         "TotalCustomers": 26800,
         "Revenue": 1270,
-        "NetIncome": 556
+        "NetIncome": 556,
+        "ProvisionForCreditLosses": 26
     },
     {
         "Quarter": "Q425",
@@ -317,7 +321,8 @@
         "Gold": 4200,
         "TotalCustomers": 27000,
         "Revenue": 1283,
-        "NetIncome": 605
+        "NetIncome": 605,
+        "ProvisionForCreditLosses": 36
     },
     {
         "Quarter": "Q126",
@@ -332,6 +337,7 @@
         "Gold": 4340,
         "TotalCustomers": 27400,
         "Revenue": 1067,
-        "NetIncome": 293
+        "NetIncome": 293,
+        "ProvisionForCreditLosses": 36
     }
 ]
