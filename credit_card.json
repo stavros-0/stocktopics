@@ -1,0 +1,29 @@
+[
+    {
+        "Quarter": "Q425",
+        "Current_ON_BS": 814,
+        "Current_OFF_BS": 177,
+        "LT_90_Days_ON_BS": 18,
+        "LT_90_Days_OFF_BS": 15,
+        "GT_90_Days_ON_BS": 8,
+        "GT_90_Days_OFF_BS": 8,
+        "Total_Past_Due_ON_BS": 26,
+        "Total_Past_Due_OFF_BS": 23,
+        "Total_AR_ON_BS": 840,
+        "Total_AR_OFF_BS": 200
+    },
+
+    {
+        "Quarter": "Q126",
+        "Current_ON_BS": 877,
+        "Current_OFF_BS": 193,
+        "LT_90_Days_ON_BS": 27,
+        "LT_90_Days_OFF_BS": 15,
+        "GT_90_Days_ON_BS": 12,
+        "GT_90_Days_OFF_BS": 8,
+        "Total_Past_Due_ON_BS": 39,
+        "Total_Past_Due_OFF_BS": 23,
+        "Total_AR_ON_BS": 916,
+        "Total_AR_OFF_BS": 216
+    }
+]
