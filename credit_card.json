@@ -1,5 +1,57 @@
 [
     {
+        "Quarter": "Q424",
+        "Current_ON_BS": 186,
+        "Current_OFF_BS": 177,
+        "LT_90_Days_ON_BS": 2,
+        "LT_90_Days_OFF_BS": 15,
+        "GT_90_Days_ON_BS": 1,
+        "GT_90_Days_OFF_BS": 10,
+        "Total_Past_Due_ON_BS": 3,
+        "Total_Past_Due_OFF_BS": 25,
+        "Total_AR_ON_BS": 189,
+        "Total_AR_OFF_BS": 202
+    },
+    {
+        "Quarter": "Q125",
+        "Current_ON_BS": 217,
+        "Current_OFF_BS": 182,
+        "LT_90_Days_ON_BS": 4,
+        "LT_90_Days_OFF_BS": 14,
+        "GT_90_Days_ON_BS": 2,
+        "GT_90_Days_OFF_BS": 10,
+        "Total_Past_Due_ON_BS": 6,
+        "Total_Past_Due_OFF_BS": 24,
+        "Total_AR_ON_BS": 223,
+        "Total_AR_OFF_BS": 206
+    },
+    {
+        "Quarter": "Q225",
+        "Current_ON_BS": 349,
+        "Current_OFF_BS": 179,
+        "LT_90_Days_ON_BS": 8,
+        "LT_90_Days_OFF_BS": 15,
+        "GT_90_Days_ON_BS": 3,
+        "GT_90_Days_OFF_BS": 8,
+        "Total_Past_Due_ON_BS": 11,
+        "Total_Past_Due_OFF_BS": 23,
+        "Total_AR_ON_BS": 360,
+        "Total_AR_OFF_BS": 202
+    },
+    {
+        "Quarter": "Q325",
+        "Current_ON_BS": 517,
+        "Current_OFF_BS": 184,
+        "LT_90_Days_ON_BS": 14,
+        "LT_90_Days_OFF_BS": 15,
+        "GT_90_Days_ON_BS": 4,
+        "GT_90_Days_OFF_BS": 8,
+        "Total_Past_Due_ON_BS": 18,
+        "Total_Past_Due_OFF_BS": 23,
+        "Total_AR_ON_BS": 535,
+        "Total_AR_OFF_BS": 207
+    },
+    {
         "Quarter": "Q425",
         "Current_ON_BS": 814,
         "Current_OFF_BS": 177,
