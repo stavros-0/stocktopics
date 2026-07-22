@@ -172,13 +172,18 @@
         </div>
 
         <div class="card">
+            <h2>Credit Card Balance Sheet</h2>
+            <canvas id="creditCardBalanceSheet" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
             <h2>Gold Subscriber Growth</h2>
-            <canvas id="goldSubscribers"></canvas>
+            <canvas id="goldSubscribers" width="600" height="400"></canvas>
         </div>
 
         <div class="card">
             <h2>Gold Share of Total Customers</h2>
-            <canvas id="goldShare"></canvas>
+            <canvas id="goldShare"  width="600" height="400"></canvas>
         </div>
 
         <div>
@@ -192,6 +197,8 @@
     const monthly_metrics = await response.json();
     const response2 = await fetch('./financials.json');
     const financials = await response2.json();
+    const response3 = await fetch('./credit_card.json');
+    const credit_card = await response3.json();
     const ctx1 = document.getElementById('equities').getContext('2d');
     const equity_assets = document.getElementById('equityAssets').getContext('2d');
     const crypto_assets = document.getElementById('cryptoAssets').getContext('2d');
@@ -209,6 +216,7 @@
     const ctxVelocity = document.getElementById('velocityChart').getContext('2d');
     const revenue = document.getElementById('revenueChart').getContext('2d');
     const credit_card_provisions = document.getElementById('creditCardProvisions').getContext('2d');
+    const credit_card_bs = document.getElementById('creditCardBalanceSheet').getContext('2d');
 
     const verticalLinePlugin = {
         getLinePosition: function (chart, pointIndex) {
@@ -612,6 +620,49 @@
             }
         }
     });
+    new Chart(credit_card_bs, {
+        type: 'bar',
+        data: {
+            labels: credit_card.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Current',
+                    data: credit_card.map(row => row.Current_ON_BS + row.Current_OFF_BS), 
+                    borderColor: 'hsl(220, 85%, 45%)', 
+                    backgroundColor: 'hsla(220, 85%, 45%, 0.7)'
+                },
+                {
+                    label: 'LT 90 Days',
+                    data: credit_card.map(row => row.LT_90_Days_ON_BS + row.LT_90_Days_OFF_BS), 
+                    borderColor: 'hsl(120, 65%, 40%)', 
+                    backgroundColor: 'hsla(120, 65%, 40%, 0.7)'
+                },
+                {
+                    label: 'GT 90 Days',
+                    data: credit_card.map(row => row.GT_90_Days_ON_BS + row.GT_90_Days_OFF_BS), 
+                    borderColor: 'hsl(0, 85%, 45%)', 
+                    backgroundColor: 'hsla(0, 85%, 45%, 0.7)'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' } },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Credit Card Balance Sheet ($M)' },
+                    min: 0
+                }
+            }
+        }
+    });
+
     const filteredFinancials = financials.slice(financials.findIndex(row => row.Quarter === 'Q321'));
     new Chart(revenue, {
         type: 'bar',
