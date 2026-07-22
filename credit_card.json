@@ -10,7 +10,12 @@
         "Total_Past_Due_ON_BS": 3,
         "Total_Past_Due_OFF_BS": 25,
         "Total_AR_ON_BS": 189,
-        "Total_AR_OFF_BS": 202
+        "Total_AR_OFF_BS": 202,
+        "FICO": {
+            "LT_640": 64,
+            "640_679": 100,
+            "GT_690": 227
+        }
     },
     {
         "Quarter": "Q125",
@@ -23,7 +28,12 @@
         "Total_Past_Due_ON_BS": 6,
         "Total_Past_Due_OFF_BS": 24,
         "Total_AR_ON_BS": 223,
-        "Total_AR_OFF_BS": 206
+        "Total_AR_OFF_BS": 206,
+        "FICO": {
+            "LT_640": 73,
+            "640_679": 117,
+            "GT_690": 239
+        }
     },
     {
         "Quarter": "Q225",
@@ -36,7 +46,12 @@
         "Total_Past_Due_ON_BS": 11,
         "Total_Past_Due_OFF_BS": 23,
         "Total_AR_ON_BS": 360,
-        "Total_AR_OFF_BS": 202
+        "Total_AR_OFF_BS": 202,
+        "FICO": {
+            "LT_640": 88,
+            "640_679": 150,
+            "GT_690": 324
+        }
     },
     {
         "Quarter": "Q325",
@@ -49,7 +64,12 @@
         "Total_Past_Due_ON_BS": 18,
         "Total_Past_Due_OFF_BS": 23,
         "Total_AR_ON_BS": 535,
-        "Total_AR_OFF_BS": 207
+        "Total_AR_OFF_BS": 207,
+        "FICO": {
+            "LT_640": 37,
+            "640_679": 234,
+            "GT_690": 861
+        }
     },
     {
         "Quarter": "Q425",
@@ -62,7 +82,12 @@
         "Total_Past_Due_ON_BS": 26,
         "Total_Past_Due_OFF_BS": 23,
         "Total_AR_ON_BS": 840,
-        "Total_AR_OFF_BS": 200
+        "Total_AR_OFF_BS": 200,
+        "FICO": {
+            "LT_640": 26,
+            "640_679": 202,
+            "GT_690": 812
+        }
     },
 
     {
@@ -76,6 +101,11 @@
         "Total_Past_Due_ON_BS": 39,
         "Total_Past_Due_OFF_BS": 23,
         "Total_AR_ON_BS": 916,
-        "Total_AR_OFF_BS": 216
+        "Total_AR_OFF_BS": 216,
+        "FICO": {
+            "LT_640": 37,
+            "640_679": 234,
+            "GT_690": 861
+        }
     }
 ]

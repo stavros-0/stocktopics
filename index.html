@@ -177,6 +177,11 @@
         </div>
 
         <div class="card">
+            <h2>Credit Card FICO Distribution</h2>
+            <canvas id="creditCardFICO" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
             <h2>Gold Subscriber Growth</h2>
             <canvas id="goldSubscribers" width="600" height="400"></canvas>
         </div>
@@ -217,6 +222,7 @@
     const revenue = document.getElementById('revenueChart').getContext('2d');
     const credit_card_provisions = document.getElementById('creditCardProvisions').getContext('2d');
     const credit_card_bs = document.getElementById('creditCardBalanceSheet').getContext('2d');
+    const cc_fico = document.getElementById('creditCardFICO').getContext('2d');
 
     const verticalLinePlugin = {
         getLinePosition: function (chart, pointIndex) {
@@ -657,6 +663,49 @@
                 y: {
                     stacked: true,
                     title: { display: true, text: 'Credit Card Balance Sheet ($M)' },
+                    min: 0
+                }
+            }
+        }
+    });
+
+    new Chart(cc_fico, {
+        type: 'bar',
+        data: {
+            labels: credit_card.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'FICO < 640',
+                    data: credit_card.map(row => row.FICO['LT_640']), 
+                    borderColor: 'hsl(0, 85%, 45%)', 
+                    backgroundColor: 'hsla(0, 85%, 45%, 0.7)'
+                },
+                {
+                    label: 'FICO 640-699',
+                    data: credit_card.map(row => row.FICO['640_679']), 
+                    borderColor: 'hsl(30, 85%, 45%)', 
+                    backgroundColor: 'hsla(30, 85%, 45%, 0.7)'
+                },
+                {
+                    label: 'FICO > 690',
+                    data: credit_card.map(row => row.FICO['GT_690']), 
+                    borderColor: 'hsl(60, 85%, 45%)', 
+                    backgroundColor: 'hsla(60, 85%, 45%, 0.7)'
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' } },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Credit Card FICO Distribution' },
                     min: 0
                 }
             }
