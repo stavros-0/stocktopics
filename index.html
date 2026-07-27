@@ -177,6 +177,11 @@
         </div>
 
         <div class="card">
+            <h2>Credit Card Balance Sheet Percentage</h2>
+            <canvas id="creditCardBalanceSheetPercentage" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
             <h2>Credit Card FICO Distribution</h2>
             <canvas id="creditCardFICO" width="600" height="400"></canvas>
         </div>
@@ -222,6 +227,7 @@
     const revenue = document.getElementById('revenueChart').getContext('2d');
     const credit_card_provisions = document.getElementById('creditCardProvisions').getContext('2d');
     const credit_card_bs = document.getElementById('creditCardBalanceSheet').getContext('2d');
+    const credit_card_bs_percentage = document.getElementById('creditCardBalanceSheetPercentage').getContext('2d');
     const cc_fico = document.getElementById('creditCardFICO').getContext('2d');
 
     const verticalLinePlugin = {
@@ -647,6 +653,64 @@
                     label: 'GT 90 Days',
                     data: credit_card.map(row => row.GT_90_Days_ON_BS + row.GT_90_Days_OFF_BS), 
                     borderColor: 'hsl(0, 85%, 45%)', 
+                    backgroundColor: 'hsla(0, 85%, 45%, 0.7)'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' } },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Credit Card Balance Sheet ($M)' },
+                    min: 0
+                }
+            }
+        }
+    });
+
+    new Chart(credit_card_bs_percentage, {
+        type: 'bar',
+        data: {
+            labels: credit_card.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Current',
+                    data: credit_card.map(row => 
+                        ((row.Current_ON_BS + row.Current_OFF_BS) / 
+                        ((row.Current_ON_BS + row.Current_OFF_BS) + 
+                        (row.LT_90_Days_ON_BS + row.LT_90_Days_OFF_BS) + 
+                        (row.GT_90_Days_ON_BS + row.GT_90_Days_OFF_BS)))*100
+                    ),
+                    borderColor: 'hsl(220, 85%, 45%)',
+                    backgroundColor: 'hsla(220, 85%, 45%, 0.7)'
+                },
+                {
+                    label: 'LT 90 Days',
+                    data: credit_card.map(row => 
+                        ((row.LT_90_Days_ON_BS + row.LT_90_Days_OFF_BS) / 
+                        ((row.Current_ON_BS + row.Current_OFF_BS) + 
+                        (row.LT_90_Days_ON_BS + row.LT_90_Days_OFF_BS) + 
+                        (row.GT_90_Days_ON_BS + row.GT_90_Days_OFF_BS)))*100
+                    ),
+                    borderColor: 'hsl(120, 65%, 40%)',
+                    backgroundColor: 'hsla(120, 65%, 40%, 0.7)'
+                },
+                {
+                    label: 'GT 90 Days',
+                    data: credit_card.map(row => 
+                        ((row.GT_90_Days_ON_BS + row.GT_90_Days_OFF_BS) / 
+                        ((row.Current_ON_BS + row.Current_OFF_BS) + 
+                        (row.LT_90_Days_ON_BS + row.LT_90_Days_OFF_BS) + 
+                        (row.GT_90_Days_ON_BS + row.GT_90_Days_OFF_BS)))*100
+                    ),
+                    borderColor: 'hsl(0, 85%, 45%)',
                     backgroundColor: 'hsla(0, 85%, 45%, 0.7)'
                 }
             ]
