@@ -583,11 +583,22 @@
         "Margin": 19.5,
         "CashSweep": 28.8,
         "PlatformAssets": 377,
-        "NetDeposits": 5.8,
+        "NetDeposits": 5.6,
         "FundedCustomers": 27.7,
         "StockLow": 73.06,
         "StockHigh": 94.4,
         "EventContracts": 3.9,
         "SecuritiesLending": 36
+    },
+    {
+        "Month": "6/26",
+        "Equities": 392.0,
+        "Options": 318,
+        "Crypto": 16.3,
+        "Margin": 21.6,
+        "CashSweep": 29.7,
+        "PlatformAssets": 368.7,
+        "NetDeposits": 10.1,
+        "FundedCustomers": 28.4
     }
 ]
