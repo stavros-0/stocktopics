@@ -354,5 +354,13 @@
         "NetIncome": 293,
         "ProvisionForCreditCardLosses": 24,
         "CreditCardWriteOffs": 9
+    },
+    {
+        "Quarter": "Q226",
+        "TotalPlatform": 369,
+        "Gold": 4840,
+        "TotalCustomers": 28400,
+        "Revenue": 1308,
+        "NetIncome": 561
     }
 ]
