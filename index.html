@@ -293,7 +293,7 @@
     new Chart(equity_assets, {
         type: 'line',
         data: {
-            labels: financials.map(row => row.Quarter), 
+            labels: financials[0].Financials.map(row => row.Quarter), 
             
             datasets: [{
                 label: 'Equity Assets ($B)',
@@ -317,7 +317,7 @@
     new Chart(crypto_assets, {
         type: 'line',
         data: {
-            labels: financials.map(row => row.Quarter), 
+            labels: financials[0].Financials.map(row => row.Quarter), 
             datasets: [{
                 label: 'Crypto Assets ($B)',
                 data: financials.map(row => row.Cryptocurrencies), 
@@ -340,7 +340,7 @@
     new Chart(op_fut_assets, {
         type: 'line',
         data: {
-            labels: financials.map(row => row.Quarter), 
+            labels: financials[0].Financials.map(row => row.Quarter), 
             datasets: [{
                 label: 'Options & Futures Assets ($B)',
                 data: financials.map(row => row.OptionsFutures), 
@@ -602,7 +602,7 @@
     new Chart(auc_breakdown, {
         type: 'bar',
         data: {
-            labels: financials.map(row => row.Quarter),
+            labels: financials[0].Financials.map(row => row.Quarter),
             datasets: Object.keys(financials[0]) // retrieve all keys from the first object in the financials json
                 .filter(key => key !== 'Quarter' && key !== 'TotalPlatform' && key !== 'AcquiredAssets')
                 .map((key, index) => ({
@@ -776,7 +776,10 @@
         }
     });
 
-    const filteredFinancials = financials.slice(financials.findIndex(row => row.Quarter === 'Q321'));
+    const companyData = financials.find(company => company.Company === 'Robinhood');
+    const filteredFinancials = companyData.Financials.slice(
+        companyData.Financials.findIndex(row => row.Quarter === 'Q321')
+    );
     new Chart(revenue, {
         type: 'bar',
         data: {
