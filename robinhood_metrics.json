@@ -611,5 +611,16 @@
         "PlatformAssets": 355,
         "NetDeposits": 5.6,
         "FundedCustomers": 28.5
+    },
+    {
+        "Month": "8/26",
+        "Equities": 335.4,
+        "Options": 292.5,
+        "Crypto": 17.5,
+        "Margin": 21.5,
+        "CashSweep": 31.2,
+        "PlatformAssets": 383.7,
+        "NetDeposits": 4,
+        "FundedCustomers": 28.6
     }
 ]
