@@ -294,10 +294,9 @@
         type: 'line',
         data: {
             labels: financials[0].Financials.map(row => row.Quarter), 
-            
             datasets: [{
                 label: 'Equity Assets ($B)',
-                data: financials.map(row => row.Equities), 
+                data: financials[0].Financials.map(row => row.Equities), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -320,7 +319,7 @@
             labels: financials[0].Financials.map(row => row.Quarter), 
             datasets: [{
                 label: 'Crypto Assets ($B)',
-                data: financials.map(row => row.Cryptocurrencies), 
+                data: financials[0].Financials.map(row => row.Cryptocurrencies), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -343,7 +342,7 @@
             labels: financials[0].Financials.map(row => row.Quarter), 
             datasets: [{
                 label: 'Options & Futures Assets ($B)',
-                data: financials.map(row => row.OptionsFutures), 
+                data: financials[0].Financials.map(row => row.OptionsFutures), 
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -603,11 +602,11 @@
         type: 'bar',
         data: {
             labels: financials[0].Financials.map(row => row.Quarter),
-            datasets: Object.keys(financials[0]) // retrieve all keys from the first object in the financials json
+            datasets: Object.keys(financials[0].Financials[0]) // retrieve all keys from the first object in the financials json
                 .filter(key => key !== 'Quarter' && key !== 'TotalPlatform' && key !== 'AcquiredAssets')
                 .map((key, index) => ({
                     label: key,
-                    data: financials.map(row => row[key]),
+                    data: financials[0].Financials.map(row => row[key]),
                     borderColor: `hsl(${index * 50}, 85%, 35%)`, // Wider range of hues for borders
                     backgroundColor: `hsla(${index * 50}, 70%, 50%, 0.7)`,
                     fill: true,
@@ -784,7 +783,7 @@
         type: 'bar',
         data: {
             labels: filteredFinancials.map(row => row.Quarter),
-            datasets: Object.keys(financials[5])
+            datasets: Object.keys(filteredFinancials[0])
             .filter(key => key === 'Revenue' || key === 'NetIncome')
             .map((key, index) => ({
                     label: key,
@@ -943,10 +942,10 @@ loadChartData();
     new Chart(ctxBankingAUM, {
         type: 'bar',
         data: {
-            labels: ['12/25','1/26','2/26','3/26','4/26','4/26','6/26', '7/26'],
+            labels: ['12/25','1/26','2/26','3/26','4/26','4/26','6/26', '7/26', '8/26'],
             datasets: [{
                 label: 'Robinhood Banking AUM',
-                data: [100, 300, 400, 1000, 1500, 2000, 2500, 3100],
+                data: [100, 300, 400, 1000, 1500, 2000, 2500, 3100, 4000],
                 borderColor: '#00C805',
                 tension: 0.3,
                 fill: true,
