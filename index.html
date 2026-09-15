@@ -818,14 +818,14 @@
     new Chart(gold_subscribers, {
         type: 'line',
         data: {
-            labels: financials
-                .slice(financials.findIndex(row => row.Quarter === 'Q322'))
-                .map(row => row.Quarter),
+        labels: financials[0].Financials
+            .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
+            .map(row => row.Quarter),
             datasets: [{
                 label: 'Gold Subscribers (M)',
-                data: financials
-                    .slice(financials.findIndex(row => row.Quarter === 'Q322'))
-                    .map(row => row.Gold),
+                data: financials[0].Financials
+                    .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
+                    .map(row => row.Gold || 0),
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
                 fill: true,
@@ -854,13 +854,13 @@
     new Chart(gold_share, {
         type: 'line',
         data: {
-            labels: financials
-                .slice(financials.findIndex(row => row.Quarter === 'Q322'))
+            labels: financials[0].Financials
+                .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
                 .map(row => row.Quarter),
             datasets: [{
                 label: 'Gold Share of Total Customers (%)',
-                data: financials
-                    .slice(financials.findIndex(row => row.Quarter === 'Q322'))
+                data: financials[0].Financials
+                    .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
                     .map(row => (row.Gold / row.TotalCustomers) * 100),
                 borderColor: '#00C805',
                 backgroundColor: 'rgba(0, 200, 5, 0.1)',
