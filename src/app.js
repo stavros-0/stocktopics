@@ -616,18 +616,18 @@ async function loadChartData() {
         })
     });
 
+    const creditCardFinancials = financials[0].Financials.slice(
+        financials[0].Financials.findIndex(row => row.Quarter === 'Q423')
+    );
+
     new Chart(credit_card_provisions, {
         type: 'bar',
         data: {
-            labels: financials
-                .slice(financials.findIndex(row => row.Quarter === 'Q423'))
-                .map(row => row.Quarter),
+            labels: creditCardFinancials.map(row => row.Quarter),
             datasets: [
                 {
                     label: 'Credit Card Provisions ($M)',
-                    data: financials
-                        .slice(financials.findIndex(row => row.Quarter === 'Q423'))
-                        .map(row => row.ProvisionForCreditCardLosses),
+                    data: creditCardFinancials.map(row => row.ProvisionForCreditCardLosses),
                     borderColor: '#00C805',
                     backgroundColor: 'rgba(0, 200, 5)',
                     fill: false,
@@ -635,9 +635,7 @@ async function loadChartData() {
                 },
                 {
                     label: 'Write-offs ($M)',
-                    data: financials
-                        .slice(financials.findIndex(row => row.Quarter === 'Q423'))
-                        .map(row => row.CreditCardWriteOffs),
+                    data: creditCardFinancials.map(row => row.CreditCardWriteOffs),
                     borderColor: '#FF0000',
                     backgroundColor: 'rgba(255, 0, 0)',
                     fill: false,
