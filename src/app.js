@@ -65,6 +65,8 @@ async function loadChartData() {
     const ctx8 = getChartContext('fundedCustomers');
     const ctxVelocity = getChartContext('velocityChart');
     const revenue = getChartContext('revenueChart');
+    const revenue_platform_assets = getChartContext('revenuePlatformAssets');
+    const revenue_per_customer = getChartContext('revenuePerCustomer');
     const credit_card_provisions = getChartContext('creditCardProvisions');
     const credit_card_bs = getChartContext('creditCardBalanceSheet');
     const credit_card_bs_percentage = getChartContext('creditCardBalanceSheetPercentage');
@@ -552,6 +554,79 @@ async function loadChartData() {
                     stacked: true,
                     title: { display: true, text: 'Revenue / Net Income ($M)' },
                     min: -1900
+                }
+            }
+        })
+    });
+
+    const financialsWithRevenue = filteredFinancials.filter(row =>
+        row.Revenue !== undefined &&
+        row.TotalPlatform !== undefined &&
+        row.TotalCustomers !== undefined
+    );
+
+    new Chart(revenue_platform_assets, {
+        type: 'bar',
+        data: {
+            labels: financialsWithRevenue.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Revenue ($M)',
+                    data: financialsWithRevenue.map(row => row.Revenue),
+                    backgroundColor: 'hsla(220, 85%, 45%, 0.7)',
+                    borderColor: 'hsl(220, 85%, 45%)',
+                    yAxisID: 'yRevenue'
+                },
+                {
+                    label: 'Platform Assets ($B)',
+                    data: financialsWithRevenue.map(row => row.TotalPlatform),
+                    type: 'line',
+                    borderColor: '#00C805',
+                    backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    yAxisID: 'yAssets'
+                }
+            ]
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                yRevenue: {
+                    type: 'linear',
+                    position: 'left',
+                    title: { display: true, text: 'Revenue ($M)' },
+                    min: 0
+                },
+                yAssets: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'Platform Assets ($B)' },
+                    min: 0,
+                    grid: { drawOnChartArea: false }
+                }
+            }
+        })
+    });
+
+    new Chart(revenue_per_customer, {
+        type: 'line',
+        data: {
+            labels: financialsWithRevenue.map(row => row.Quarter),
+            datasets: [
+                greenLineDataset(
+                    'Revenue per Funded Customer ($)',
+                    financialsWithRevenue.map(row => row.Revenue / row.TotalCustomers * 1000)
+                )
+            ]
+        },
+        options: withDarkChartDefaults({
+            scales: {
+                y: {
+                    title: { display: true, text: 'Revenue per Customer ($)' },
+                    min: 0
                 }
             }
         })
