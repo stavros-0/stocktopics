@@ -23,6 +23,30 @@ header {
     margin-bottom: 30px;
 }
 
+.period-toggle {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: 12px;
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+.period-toggle__button {
+    color: var(--text-dim);
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.period-toggle__button.is-active {
+    color: var(--bg-dark);
+    background: var(--rh-green);
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));

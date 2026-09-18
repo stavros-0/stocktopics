@@ -20,6 +20,22 @@ export const darkChartDefaults = {
     }
 };
 
+export const chartColors = [
+    '#00C805',
+    '#1f77b4',
+    '#7A8BFF',
+    '#E45756',
+    '#B279A2',
+    '#A3A3A3',
+    '#86EFAC',
+    '#C084FC',
+    '#FACC15'
+];
+
+export function chartColor(index, opacity = 'CC') {
+    return `${chartColors[index % chartColors.length]}${opacity}`;
+}
+
 export function greenLineDataset(label, data) {
     return {
         label, 
