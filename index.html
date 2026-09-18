@@ -15,92 +15,93 @@
     <header>
         <h1>Robinhood Analytics</h1>
         <p>Focus: Banking & International Expansion</p>
+        <div class="company-tabs" aria-label="Company">
+            <button type="button" class="company-tab is-active" data-company="Robinhood">Robinhood</button>
+            <button type="button" class="company-tab" data-company="Starbucks">Starbucks</button>
+        </div>
     </header>
 
     <div class="grid">
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Robinhood Strategies</h2>
             <p>Total assets under management by Robinhood Strategies</p>
             <canvas id="bankingChart"></canvas>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <h2>Robinhood Banking AUM ($M)</h2>
-                <p>Released 12/25</p>
-                <canvas id="bankingAUM"></canvas>
-            </div>
-
+        <div class="card" data-company-only="Robinhood">
+            <h2>Robinhood Banking AUM ($M)</h2>
+            <p>Released 12/25</p>
+            <canvas id="bankingAUM"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>International Growth (EU/UK)</h2>
             <p>Customer acquisition velocity in non-US markets</p>
             <canvas id="growthChart"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Equities</h2>
             <canvas id="equities"></canvas>
         </div>
 
-         <div class="card">
+         <div class="card" data-company-only="Robinhood">
             <h2>Equity Assets</h2>
             <canvas id="equityAssets"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Crypto Assets</h2>
             <canvas id="cryptoAssets"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Options and Futures Assets</h2>
             <canvas id="optionsAssets"></canvas>
         </div>
 
         
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Crypto</h2>
             <canvas id="crypto"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Options</h2>
             <canvas id="options"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Margin Book</h2>
             <canvas id="margin"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Cash Sweep</h2>
             <canvas id="cashSweep"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Platform Assets</h2>
             <canvas id="platformAssets"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Funded Customers</h2>
             <canvas id="fundedCustomers"></canvas>
         </div>
 
-         <div class="card">
+         <div class="card" data-company-only="Robinhood">
             <h2>Net Deposits</h2>
             <canvas id="netDeposits"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Velocity Chart</h2>
             <canvas id="velocityChart" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>AUC Breakdown</h2>
             <canvas id="aucBreakdown" width="600" height="400"></canvas> 
         </div>
@@ -110,9 +111,14 @@
             <canvas id="revenueChart" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Transaction Revenue Breakdown</h2>
             <canvas id="transactionRevenueBreakdown" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card" data-company-only="Robinhood">
+            <h2>Transaction Revenue Mix %</h2>
+            <canvas id="transactionRevenueMixPercentage" width="600" height="400"></canvas>
         </div>
 
         <div class="card">
@@ -120,57 +126,62 @@
             <canvas id="revenueMix" width="600" height="400"></canvas>
         </div>
 
+        <div class="card" data-company-only="Starbucks">
+            <h2>Starbucks Revenue Breakdown</h2>
+            <canvas id="starbucksRevenueBreakdown" width="600" height="400"></canvas>
+        </div>
+
         <div class="card">
             <h2>Revenue Mix %</h2>
             <canvas id="revenueMixPercentage" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Revenue vs Platform Assets</h2>
             <canvas id="revenuePlatformAssets" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Revenue per Funded Customer</h2>
             <canvas id="revenuePerCustomer" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Platform Assets per Funded Customer</h2>
             <canvas id="platformAssetsPerCustomer" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Credit Card Provisions</h2>
             <canvas id="creditCardProvisions" width="600" height="400"></canvas>    
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Credit Card Balance Sheet</h2>
             <canvas id="creditCardBalanceSheet" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Credit Card Balance Sheet Percentage</h2>
             <canvas id="creditCardBalanceSheetPercentage" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Credit Card FICO Distribution</h2>
             <canvas id="creditCardFICO" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Gold Subscriber Growth</h2>
             <canvas id="goldSubscribers" width="600" height="400"></canvas>
         </div>
 
-        <div class="card">
+        <div class="card" data-company-only="Robinhood">
             <h2>Gold Share of Total Customers</h2>
             <canvas id="goldShare"  width="600" height="400"></canvas>
         </div>
 
-        <div>
+        <div data-company-only="Robinhood">
             <canvas id="VerticalLine"width="600" height="400"></canvas>
         </div>
 </div>

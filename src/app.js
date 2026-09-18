@@ -1,4 +1,4 @@
-import { darkChartDefaults, greenLineDataset, loadJson } from './lib/chartDefaults.js';
+import { chartColor, chartColors, darkChartDefaults, greenLineDataset, loadJson } from './lib/chartDefaults.js';
 
 function withDarkChartDefaults(options = {}) {
     const scales = Object.entries(options.scales || {}).reduce((mergedScales, [scaleName, scaleOptions]) => {
@@ -44,11 +44,208 @@ function getChartContext(id) {
     return document.getElementById(id).getContext('2d');
 }
 
+const periodChartIds = new Set([
+    'equityAssets',
+    'cryptoAssets',
+    'optionsAssets',
+    'aucBreakdown',
+    'revenueChart',
+    'transactionRevenueBreakdown',
+    'transactionRevenueMixPercentage',
+    'revenueMix',
+    'starbucksRevenueBreakdown',
+    'revenueMixPercentage',
+    'revenuePlatformAssets',
+    'revenuePerCustomer',
+    'platformAssetsPerCustomer',
+    'goldSubscribers',
+    'goldShare',
+    'creditCardProvisions'
+]);
+
+const chartPeriods = {};
+let dynamicCharts = [];
+let selectedCompany = 'Robinhood';
+
+function createChart(context, config) {
+    if (context.canvas.closest('.is-hidden')) {
+        return null;
+    }
+
+    const chart = new Chart(context, config);
+    dynamicCharts.push(chart);
+    return chart;
+}
+
+function clearDynamicCharts() {
+    dynamicCharts.forEach(chart => chart.destroy());
+    dynamicCharts = [];
+}
+
+function yearFromQuarter(quarter) {
+    return `20${quarter.slice(2)}`;
+}
+
+function toAnnualFinancials(rows) {
+    const endingPeriodFields = new Set([
+        'Equities',
+        'Cryptocurrencies',
+        'OptionsFutures',
+        'RIAAssets',
+        'CustomerCash',
+        'CustomerReceivables',
+        'TotalPlatform',
+        'AcquiredAssets',
+        'TotalCustomers',
+        'Gold',
+        'AverageClientBalance',
+        'AUC',
+        'Cash',
+        'Debt',
+        'Assets',
+        'MarketCap',
+        'EnterpriseValue',
+        'Shares',
+        'EPS',
+        'Price',
+        'GrossMarginRate',
+        'GrossMarginRateQoQ',
+        'GrossMarginRateYoY',
+        'OperatingMarginRate',
+        'OperatingMarginRateQoQ',
+        'OperatingMarginRateYoY',
+        'NetIncomeGrowthQoQ',
+        'NetIncomeGrowthYoY',
+        'TaxRate',
+        'PEIncludingRestructuring'
+    ]);
+
+    const rowsByYear = rows.reduce((groups, row) => {
+        const year = yearFromQuarter(row.Quarter);
+        groups[year] = groups[year] || [];
+        groups[year].push(row);
+        return groups;
+    }, {});
+
+    return Object.entries(rowsByYear).map(([year, yearRows]) => {
+        const annualRow = { Quarter: year };
+        const lastRow = yearRows[yearRows.length - 1];
+        const keys = [...new Set(yearRows.flatMap(row => Object.keys(row)))].filter(key => key !== 'Quarter');
+
+        keys.forEach(key => {
+            if (endingPeriodFields.has(key)) {
+                if (lastRow[key] !== undefined) {
+                    annualRow[key] = lastRow[key];
+                }
+                return;
+            }
+
+            const values = yearRows
+                .map(row => row[key])
+                .filter(value => typeof value === 'number');
+
+            if (values.length) {
+                annualRow[key] = values.reduce((sum, value) => sum + value, 0);
+            }
+        });
+
+        return annualRow;
+    });
+}
+
+function getChartPeriod(chartId) {
+    return chartPeriods[chartId] || 'quarterly';
+}
+
+function getFinancialRowsForChart(chartId, rows) {
+    return getChartPeriod(chartId) === 'annual' ? toAnnualFinancials(rows) : rows;
+}
+
+function filteredFinancialRowsForChart(chartId, rows, quarterlyStart, annualStart) {
+    const chartRows = getFinancialRowsForChart(chartId, rows);
+    const startQuarter = getChartPeriod(chartId) === 'annual' ? annualStart : quarterlyStart;
+    const startIndex = chartRows.findIndex(row => row.Quarter === startQuarter);
+    return chartRows.slice(startIndex === -1 ? 0 : startIndex);
+}
+
+function setupChartPeriodControls() {
+    periodChartIds.forEach(chartId => {
+        const canvas = document.getElementById(chartId);
+        const card = canvas?.closest('.card');
+
+        if (!card || card.classList.contains('is-hidden')) {
+            card?.querySelector(`[data-period-chart="${chartId}"]`)?.remove();
+            return;
+        }
+
+        if (card.querySelector(`[data-period-chart="${chartId}"]`)) {
+            return;
+        }
+
+        const toggle = document.createElement('div');
+        toggle.className = 'period-toggle';
+        toggle.dataset.periodChart = chartId;
+        toggle.setAttribute('aria-label', `${chartId} period`);
+        toggle.innerHTML = `
+            <button type="button" class="period-toggle__button is-active" data-chart-period="quarterly">Quarterly</button>
+            <button type="button" class="period-toggle__button" data-chart-period="annual">Annual</button>
+        `;
+        canvas.before(toggle);
+
+        toggle.addEventListener('click', event => {
+            const button = event.target.closest('[data-chart-period]');
+
+            if (!button) {
+                return;
+            }
+
+            chartPeriods[chartId] = button.dataset.chartPeriod;
+            toggle.querySelectorAll('[data-chart-period]').forEach(periodButton => {
+                periodButton.classList.toggle('is-active', periodButton === button);
+            });
+            loadChartData();
+        });
+    });
+}
+
+function updateCompanyVisibility() {
+    document.querySelector('header h1').textContent = `${selectedCompany} Analytics`;
+    document.querySelector('header p').textContent = selectedCompany === 'Robinhood'
+        ? 'Focus: Banking & International Expansion'
+        : 'Focus: Revenue, margins, and operating trends';
+
+    document.querySelectorAll('[data-company-only]').forEach(element => {
+        element.classList.toggle('is-hidden', element.dataset.companyOnly !== selectedCompany);
+    });
+}
+
+function setupCompanyTabs() {
+    document.querySelectorAll('[data-company]').forEach(button => {
+        button.addEventListener('click', () => {
+            selectedCompany = button.dataset.company;
+            document.querySelectorAll('[data-company]').forEach(companyButton => {
+                companyButton.classList.toggle('is-active', companyButton === button);
+            });
+            updateCompanyVisibility();
+            setupChartPeriodControls();
+            loadChartData();
+        });
+    });
+}
+
 async function loadChartData() {
+    clearDynamicCharts();
+
     const monthly_metrics = await loadJson('./data/robinhood_metrics.json');
     const financials = await loadJson('./data/financials.json');
     const credit_card = await loadJson('./data/credit_card.json');
+    const companyData = financials.find(company => company.Company === selectedCompany);
+    const companyBaseFinancials = companyData.Financials;
+    const isRobinhood = selectedCompany === 'Robinhood';
 
+    const ctxBanking = getChartContext('bankingChart');
+    const ctxBankingAUM = getChartContext('bankingAUM');
+    const ctxGrowth = getChartContext('growthChart');
     const ctx1 = getChartContext('equities');
     const equity_assets = getChartContext('equityAssets');
     const crypto_assets = getChartContext('cryptoAssets');
@@ -65,8 +262,14 @@ async function loadChartData() {
     const ctx8 = getChartContext('fundedCustomers');
     const ctxVelocity = getChartContext('velocityChart');
     const revenue = getChartContext('revenueChart');
+    const transaction_revenue_breakdown = getChartContext('transactionRevenueBreakdown');
+    const transaction_revenue_mix_percentage = getChartContext('transactionRevenueMixPercentage');
+    const revenue_mix = getChartContext('revenueMix');
+    const starbucks_revenue_breakdown = getChartContext('starbucksRevenueBreakdown');
+    const revenue_mix_percentage = getChartContext('revenueMixPercentage');
     const revenue_platform_assets = getChartContext('revenuePlatformAssets');
     const revenue_per_customer = getChartContext('revenuePerCustomer');
+    const platform_assets_per_customer = getChartContext('platformAssetsPerCustomer');
     const credit_card_provisions = getChartContext('creditCardProvisions');
     const credit_card_bs = getChartContext('creditCardBalanceSheet');
     const credit_card_bs_percentage = getChartContext('creditCardBalanceSheetPercentage');
@@ -108,7 +311,7 @@ async function loadChartData() {
     };
 
     // Equities Chart
-    new Chart(ctx1, {
+    createChart(ctx1, {
         type: 'line',
         data: {
             labels: monthly_metrics.map(row => row.Month), 
@@ -122,49 +325,52 @@ async function loadChartData() {
         options: withDarkChartDefaults()
     });
     //equity assets chart
-    new Chart(equity_assets, {
+    const equityAssetsFinancials = getFinancialRowsForChart('equityAssets', companyBaseFinancials);
+    createChart(equity_assets, {
         type: 'line',
         data: {
-            labels: financials[0].Financials.map(row => row.Quarter), 
+            labels: equityAssetsFinancials.map(row => row.Quarter), 
             datasets: [
                 greenLineDataset(
                     'Equity Assets ($B)',
-                    financials[0].Financials.map(row => row.Equities)
+                    equityAssetsFinancials.map(row => row.Equities)
                 )
             ]
         },
         options: withDarkChartDefaults()
     });
     // Crypto Asset Chart
-    new Chart(crypto_assets, {
+    const cryptoAssetsFinancials = getFinancialRowsForChart('cryptoAssets', companyBaseFinancials);
+    createChart(crypto_assets, {
         type: 'line',
         data: {
-            labels: financials[0].Financials.map(row => row.Quarter), 
+            labels: cryptoAssetsFinancials.map(row => row.Quarter), 
             datasets: [
                 greenLineDataset(
                     'Crypto Assets ($B)',
-                    financials[0].Financials.map(row => row.Cryptocurrencies)
+                    cryptoAssetsFinancials.map(row => row.Cryptocurrencies)
                 )
             ]
         },
         options: withDarkChartDefaults()
     });
 
-    new Chart(op_fut_assets, {
+    const optionsAssetsFinancials = getFinancialRowsForChart('optionsAssets', companyBaseFinancials);
+    createChart(op_fut_assets, {
         type: 'line',
         data: {
-            labels: financials[0].Financials.map(row => row.Quarter), 
+            labels: optionsAssetsFinancials.map(row => row.Quarter), 
             datasets: [
                 greenLineDataset(
                     'Options & Futures Assets ($B)',
-                    financials[0].Financials.map(row => row.OptionsFutures)
+                    optionsAssetsFinancials.map(row => row.OptionsFutures)
                 )
             ]
         },
         options: withDarkChartDefaults()
     });
 
-    new Chart(ctx2, {
+    createChart(ctx2, {
         type: 'line',
         data: {
             labels: monthly_metrics.map(row => row.Month), 
@@ -178,7 +384,7 @@ async function loadChartData() {
         options: withDarkChartDefaults()
     });
 
-    new Chart(ctx3, {
+    createChart(ctx3, {
         type: 'line',
         data: {
             labels: monthly_metrics.map(row => row.Month), 
@@ -193,7 +399,7 @@ async function loadChartData() {
         options: withDarkChartDefaults()
     });
 
-    new Chart(ctx4, {
+    createChart(ctx4, {
     type: 'line',
     data: {
         labels: monthly_metrics.map(row => row.Month),
@@ -215,7 +421,7 @@ async function loadChartData() {
     plugins: [verticalLinePlugin]
 });
 
-    new Chart(ctx5, {
+    createChart(ctx5, {
         type: 'line',
         data: {
             labels: monthly_metrics.map(row => row.Month), 
@@ -236,7 +442,7 @@ async function loadChartData() {
         plugins: [verticalLinePlugin]
     });
 
-    new Chart(ctx6, {
+    createChart(ctx6, {
         type: 'line',
         data: {
             labels: monthly_metrics.map(row => row.Month), 
@@ -249,7 +455,7 @@ async function loadChartData() {
         },
         options: withDarkChartDefaults()
     });
-    new Chart(ctx7, {
+    createChart(ctx7, {
         type: 'line',
         data: {
             labels: monthly_metrics.map(row => row.Month), 
@@ -263,7 +469,7 @@ async function loadChartData() {
         options: withDarkChartDefaults()
     });
 
-    new Chart(ctx8, {
+    createChart(ctx8, {
         type: 'line',
         data: {
             labels: monthly_metrics.map(row => row.Month), 
@@ -284,7 +490,7 @@ async function loadChartData() {
         })
     });
 
-    new Chart(ctxVelocity, {
+    createChart(ctxVelocity, {
             type: 'bar',
             data: {
                 labels: monthly_metrics.map(row => row.Month),
@@ -347,17 +553,24 @@ async function loadChartData() {
             })
     });
 
-    new Chart(auc_breakdown, {
+    const aucBreakdownKeys = [
+        'Equities',
+        'Cryptocurrencies',
+        'OptionsFutures',
+        'RIAAssets',
+        'CustomerCash'
+    ];
+    const aucBreakdownFinancials = getFinancialRowsForChart('aucBreakdown', companyBaseFinancials);
+
+    createChart(auc_breakdown, {
         type: 'bar',
         data: {
-            labels: financials[0].Financials.map(row => row.Quarter),
-            datasets: Object.keys(financials[0].Financials[0]) // retrieve all keys from the first object in the financials json
-                .filter(key => key !== 'Quarter' && key !== 'TotalPlatform' && key !== 'AcquiredAssets')
-                .map((key, index) => ({
+            labels: aucBreakdownFinancials.map(row => row.Quarter),
+            datasets: aucBreakdownKeys.map((key, index) => ({
                     label: key,
-                    data: financials[0].Financials.map(row => row[key]),
-                    borderColor: `hsl(${index * 50}, 85%, 35%)`, // Wider range of hues for borders
-                    backgroundColor: `hsla(${index * 50}, 70%, 50%, 0.7)`,
+                    data: aucBreakdownFinancials.map(row => row[key]),
+                    borderColor: chartColors[index % chartColors.length],
+                    backgroundColor: chartColor(index),
                     fill: true,
                     tension: 0.3
                 }))
@@ -372,14 +585,13 @@ async function loadChartData() {
                     title: { display: true, text: 'Quarters' } },
                 y: {
                     stacked: true,
-                    title: { display: true, text: 'Percentage Contribution (%)' },
-                    min: 0,
-                    max: 400
+                    title: { display: true, text: 'AUC Breakdown ($B)' },
+                    min: 0
                 }
             }
         })
     });
-    new Chart(credit_card_bs, {
+    createChart(credit_card_bs, {
         type: 'bar',
         data: {
             labels: credit_card.map(row => row.Quarter),
@@ -421,7 +633,7 @@ async function loadChartData() {
         })
     });
 
-    new Chart(credit_card_bs_percentage, {
+    createChart(credit_card_bs_percentage, {
         type: 'bar',
         data: {
             labels: credit_card.map(row => row.Quarter),
@@ -478,7 +690,7 @@ async function loadChartData() {
         })
     });
 
-    new Chart(cc_fico, {
+    createChart(cc_fico, {
         type: 'bar',
         data: {
             labels: credit_card.map(row => row.Quarter),
@@ -520,21 +732,21 @@ async function loadChartData() {
         })
     });
 
-    const companyData = financials.find(company => company.Company === 'Robinhood');
-    const filteredFinancials = companyData.Financials.slice(
-        companyData.Financials.findIndex(row => row.Quarter === 'Q321')
-    );
-    new Chart(revenue, {
+    const financialStartQuarter = isRobinhood ? 'Q321' : companyBaseFinancials[0]?.Quarter;
+    const financialStartYear = isRobinhood ? '2021' : yearFromQuarter(companyBaseFinancials[0]?.Quarter || 'Q100');
+
+    const revenueFinancials = filteredFinancialRowsForChart('revenueChart', companyBaseFinancials, financialStartQuarter, financialStartYear);
+    createChart(revenue, {
         type: 'bar',
         data: {
-            labels: filteredFinancials.map(row => row.Quarter),
-            datasets: Object.keys(filteredFinancials[0])
+            labels: revenueFinancials.map(row => row.Quarter),
+            datasets: Object.keys(revenueFinancials[0])
             .filter(key => key === 'Revenue' || key === 'NetIncome')
             .map((key, index) => ({
                     label: key,
-                    data: filteredFinancials.map(row => row[key]),
+                    data: revenueFinancials.map(row => row[key]),
                     borderColor: key === 'Revenue' ? 'hsl(220, 85%, 45%)' : 'hsl(120, 65%, 40%)',
-                    backgroundColor: filteredFinancials.map(row => 
+                    backgroundColor: revenueFinancials.map(row => 
                     row[key] < 0 ? 'rgba(255, 0, 0, 0.7)' : 
                     (key === 'Revenue' ? 'hsla(220, 85%, 45%, 0.7)' : 'hsla(120, 65%, 40%, 0.7)') 
                 ),
@@ -559,27 +771,233 @@ async function loadChartData() {
         })
     });
 
-    const financialsWithRevenue = filteredFinancials.filter(row =>
+    const transactionRevenueFinancials = filteredFinancialRowsForChart('transactionRevenueBreakdown', companyBaseFinancials, 'Q321', '2021').filter(row =>
+        row.TransactionRevenue !== undefined &&
+        (
+            row.EquitiesRevenue !== undefined ||
+            row.CryptoRevenue !== undefined ||
+            row.OptionsRevenue !== undefined ||
+            row.EventContractsRevenue !== undefined ||
+            row.OtherTransactionRevenue !== undefined
+        )
+    );
+    const transactionRevenueKeys = [
+        ['EquitiesRevenue', 'Equities'],
+        ['CryptoRevenue', 'Crypto'],
+        ['OptionsRevenue', 'Options'],
+        ['EventContractsRevenue', 'Event Contracts'],
+        ['OtherTransactionRevenue', 'Other']
+    ];
+
+    createChart(transaction_revenue_breakdown, {
+        type: 'bar',
+        data: {
+            labels: transactionRevenueFinancials.map(row => row.Quarter),
+            datasets: transactionRevenueKeys.map(([key, label], index) => ({
+                label,
+                data: transactionRevenueFinancials.map(row => row[key] || 0),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Transaction Revenue ($M)' },
+                    min: 0
+                }
+            }
+        })
+    });
+
+    const transactionRevenueMixFinancials = filteredFinancialRowsForChart('transactionRevenueMixPercentage', companyBaseFinancials, 'Q321', '2021').filter(row =>
+        row.TransactionRevenue !== undefined &&
+        (
+            row.EquitiesRevenue !== undefined ||
+            row.CryptoRevenue !== undefined ||
+            row.OptionsRevenue !== undefined ||
+            row.EventContractsRevenue !== undefined ||
+            row.OtherTransactionRevenue !== undefined
+        )
+    );
+
+    createChart(transaction_revenue_mix_percentage, {
+        type: 'bar',
+        data: {
+            labels: transactionRevenueMixFinancials.map(row => row.Quarter),
+            datasets: transactionRevenueKeys.map(([key, label], index) => ({
+                label,
+                data: transactionRevenueMixFinancials.map(row => {
+                    const total = transactionRevenueKeys.reduce((sum, [transactionKey]) => sum + (row[transactionKey] || 0), 0);
+                    return total ? (row[key] || 0) / total * 100 : 0;
+                }),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Transaction Revenue Mix (%)' },
+                    min: 0,
+                    max: 100
+                }
+            }
+        })
+    });
+
+    const revenueMixFinancials = filteredFinancialRowsForChart('revenueMix', companyBaseFinancials, financialStartQuarter, financialStartYear);
+    const revenueMixKeys = isRobinhood
+        ? [
+            ['TransactionRevenue', 'Transaction Revenue'],
+            ['NetInterestRevenue', 'Net Interest'],
+            ['OtherRevenue', 'Other']
+        ]
+        : [
+            ['CompanyOperatedStoresRevenue', 'Company Operated Stores'],
+            ['LicensedStoresRevenue', 'Licensed Stores'],
+            ['ChannelDevelopmentSegmentRevenue', 'Channel Development'],
+            ['OtherRevenue', 'Other']
+        ];
+
+    createChart(revenue_mix, {
+        type: 'bar',
+        data: {
+            labels: revenueMixFinancials.map(row => row.Quarter),
+            datasets: revenueMixKeys.map(([key, label], index) => ({
+                label,
+                data: revenueMixFinancials.map(row => row[key] || 0),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Revenue ($M)' },
+                    min: 0
+                }
+            }
+        })
+    });
+
+    const starbucksRevenueBreakdownFinancials = filteredFinancialRowsForChart('starbucksRevenueBreakdown', companyBaseFinancials, financialStartQuarter, financialStartYear);
+    const starbucksRevenueBreakdownKeys = [
+        ['CompanyOperatedStoresRevenue', 'Company Operated Stores'],
+        ['LicensedStoresRevenue', 'Licensed Stores'],
+        ['ChannelDevelopmentSegmentRevenue', 'Channel Development'],
+        ['OtherRevenue', 'Other']
+    ];
+
+    createChart(starbucks_revenue_breakdown, {
+        type: 'bar',
+        data: {
+            labels: starbucksRevenueBreakdownFinancials.map(row => row.Quarter),
+            datasets: starbucksRevenueBreakdownKeys.map(([key, label], index) => ({
+                label,
+                data: starbucksRevenueBreakdownFinancials.map(row => row[key] || 0),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Revenue ($M)' },
+                    min: 0
+                }
+            }
+        })
+    });
+
+    const revenueMixPercentageFinancials = filteredFinancialRowsForChart('revenueMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear);
+
+    createChart(revenue_mix_percentage, {
+        type: 'bar',
+        data: {
+            labels: revenueMixPercentageFinancials.map(row => row.Quarter),
+            datasets: revenueMixKeys.map(([key, label], index) => ({
+                label,
+                data: revenueMixPercentageFinancials.map(row => {
+                    const total = revenueMixKeys.reduce((sum, [mixKey]) => sum + (row[mixKey] || 0), 0);
+                    return total ? (row[key] || 0) / total * 100 : 0;
+                }),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Revenue Mix (%)' },
+                    min: 0,
+                    max: 100
+                }
+            }
+        })
+    });
+
+    const revenuePlatformFinancials = filteredFinancialRowsForChart('revenuePlatformAssets', companyBaseFinancials, 'Q321', '2021').filter(row =>
         row.Revenue !== undefined &&
         row.TotalPlatform !== undefined &&
         row.TotalCustomers !== undefined
     );
 
-    new Chart(revenue_platform_assets, {
+    createChart(revenue_platform_assets, {
         type: 'bar',
         data: {
-            labels: financialsWithRevenue.map(row => row.Quarter),
+            labels: revenuePlatformFinancials.map(row => row.Quarter),
             datasets: [
                 {
                     label: 'Revenue ($M)',
-                    data: financialsWithRevenue.map(row => row.Revenue),
+                    data: revenuePlatformFinancials.map(row => row.Revenue),
                     backgroundColor: 'hsla(220, 85%, 45%, 0.7)',
                     borderColor: 'hsl(220, 85%, 45%)',
                     yAxisID: 'yRevenue'
                 },
                 {
                     label: 'Platform Assets ($B)',
-                    data: financialsWithRevenue.map(row => row.TotalPlatform),
+                    data: revenuePlatformFinancials.map(row => row.TotalPlatform),
                     type: 'line',
                     borderColor: '#00C805',
                     backgroundColor: 'rgba(0, 200, 5, 0.1)',
@@ -611,15 +1029,64 @@ async function loadChartData() {
         })
     });
 
-    new Chart(revenue_per_customer, {
+    const revenuePerCustomerFinancials = filteredFinancialRowsForChart('revenuePerCustomer', companyBaseFinancials, 'Q321', '2021').filter(row =>
+        row.Revenue !== undefined &&
+        row.TotalPlatform !== undefined &&
+        row.TotalCustomers !== undefined
+    );
+    const financialsWithMarketing = revenuePerCustomerFinancials.filter(row =>
+        row.Marketing !== undefined
+    );
+    const financialsWithOperatingExpenses = revenuePerCustomerFinancials.filter(row =>
+        row.OperatingExpenses !== undefined
+    );
+
+    createChart(revenue_per_customer, {
         type: 'line',
         data: {
-            labels: financialsWithRevenue.map(row => row.Quarter),
+            labels: revenuePerCustomerFinancials.map(row => row.Quarter),
             datasets: [
                 greenLineDataset(
                     'Revenue per Funded Customer ($)',
-                    financialsWithRevenue.map(row => row.Revenue / row.TotalCustomers * 1000)
-                )
+                    revenuePerCustomerFinancials.map(row => row.Revenue / row.TotalCustomers * 1000)
+                ),
+                {
+                    label: 'Marketing Spend per Funded Customer ($)',
+                    data: financialsWithMarketing.map(row => row.Marketing / row.TotalCustomers * 1000),
+                    borderColor: 'rgba(255, 159, 64, 0.9)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.1)',
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: 'Operating Expenses Ex. Credit Losses per Funded Customer ($)',
+                    data: financialsWithOperatingExpenses.map(row =>
+                        (row.OperatingExpenses - (row.ProvisionForCreditLosses || 0)) / row.TotalCustomers * 1000
+                    ),
+                    borderColor: 'rgba(214, 39, 40, 0.9)',
+                    backgroundColor: 'rgba(214, 39, 40, 0.1)',
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: 'Provision for Credit Losses per Funded Customer ($)',
+                    data: financialsWithOperatingExpenses.map(row =>
+                        (row.ProvisionForCreditLosses || 0) / row.TotalCustomers * 1000
+                    ),
+                    borderColor: 'rgba(148, 103, 189, 0.9)',
+                    backgroundColor: 'rgba(148, 103, 189, 0.1)',
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: 'Platform Assets per Funded Customer ($)',
+                    data: revenuePerCustomerFinancials.map(row => row.TotalPlatform / row.TotalCustomers * 1000000),
+                    borderColor: 'rgba(31, 119, 180, 0.9)',
+                    backgroundColor: 'rgba(31, 119, 180, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    yAxisID: 'yAssetsPerCustomer'
+                }
             ]
         },
         options: withDarkChartDefaults({
@@ -627,23 +1094,54 @@ async function loadChartData() {
                 y: {
                     title: { display: true, text: 'Revenue per Customer ($)' },
                     min: 0
+                },
+                yAssetsPerCustomer: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'Assets per Customer ($)' },
+                    min: 0,
+                    grid: { drawOnChartArea: false }
                 }
             }
         })
     });
 
-    new Chart(gold_subscribers, {
+    const platformAssetsPerCustomerFinancials = filteredFinancialRowsForChart('platformAssetsPerCustomer', companyBaseFinancials, 'Q321', '2021').filter(row =>
+        row.TotalPlatform !== undefined &&
+        row.TotalCustomers !== undefined
+    );
+
+    createChart(platform_assets_per_customer, {
         type: 'line',
         data: {
-        labels: financials[0].Financials
-            .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
-            .map(row => row.Quarter),
+            labels: platformAssetsPerCustomerFinancials.map(row => row.Quarter),
+            datasets: [
+                greenLineDataset(
+                    'Platform Assets per Funded Customer ($)',
+                    platformAssetsPerCustomerFinancials.map(row => row.TotalPlatform / row.TotalCustomers * 1000000)
+                )
+            ]
+        },
+        options: withDarkChartDefaults({
+            scales: {
+                y: {
+                    title: { display: true, text: 'Platform Assets per Customer ($)' },
+                    min: 0
+                }
+            }
+        })
+    });
+
+    const goldSubscriberFinancials = filteredFinancialRowsForChart('goldSubscribers', companyBaseFinancials, 'Q322', '2022');
+
+    createChart(gold_subscribers, {
+        type: 'line',
+        data: {
+        labels: goldSubscriberFinancials.map(row => row.Quarter),
             datasets: [
                 greenLineDataset(
                     'Gold Subscribers (M)',
-                    financials[0].Financials
-                    .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
-                    .map(row => row.Gold || 0)
+                    goldSubscriberFinancials.map(row => row.Gold || 0)
                 )
             ]
         },
@@ -665,18 +1163,16 @@ async function loadChartData() {
         plugins: [verticalLinePlugin]
     });
 
-    new Chart(gold_share, {
+    const goldShareFinancials = filteredFinancialRowsForChart('goldShare', companyBaseFinancials, 'Q322', '2022');
+
+    createChart(gold_share, {
         type: 'line',
         data: {
-            labels: financials[0].Financials
-                .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
-                .map(row => row.Quarter),
+            labels: goldShareFinancials.map(row => row.Quarter),
             datasets: [
                 greenLineDataset(
                     'Gold Share of Total Customers (%)',
-                    financials[0].Financials
-                    .slice(financials[0].Financials.findIndex(row => row.Quarter === 'Q322'))
-                    .map(row => (row.Gold / row.TotalCustomers) * 100)
+                    goldShareFinancials.map(row => (row.Gold / row.TotalCustomers) * 100)
                 )
             ]
         },
@@ -691,11 +1187,9 @@ async function loadChartData() {
         })
     });
 
-    const creditCardFinancials = financials[0].Financials.slice(
-        financials[0].Financials.findIndex(row => row.Quarter === 'Q423')
-    );
+    const creditCardFinancials = filteredFinancialRowsForChart('creditCardProvisions', companyBaseFinancials, 'Q423', '2023');
 
-    new Chart(credit_card_provisions, {
+    createChart(credit_card_provisions, {
         type: 'bar',
         data: {
             labels: creditCardFinancials.map(row => row.Quarter),
@@ -720,13 +1214,8 @@ async function loadChartData() {
         },
         options: withDarkChartDefaults()
     })
-}
-
-loadChartData();
-
-    // Banking Chart: Tracking Membership vs Total Customers
-    const ctxBanking = getChartContext('bankingChart');
-    new Chart(ctxBanking, {
+    
+    createChart(ctxBanking, {
         type: 'bar',
         data: {
             labels: ['4/25', '9/25', '2/26', '3/26', '7/26'],
@@ -747,8 +1236,8 @@ loadChartData();
             }
         })
     });
-    const ctxBankingAUM = getChartContext('bankingAUM');
-    new Chart(ctxBankingAUM, {
+
+    createChart(ctxBankingAUM, {
         type: 'bar',
         data: {
             labels: ['12/25','1/26','2/26','3/26','4/26','4/26','6/26', '7/26', '8/26'],
@@ -769,9 +1258,8 @@ loadChartData();
             }
         })
     });
-    // 2. International Growth: Comparing M/M % Change
-    const ctxGrowth = getChartContext('growthChart');
-    new Chart(ctxGrowth, {
+
+    createChart(ctxGrowth, {
         type: 'bar',
         data: {
             labels: ['4/25', '9/25', '2/26', '4/26', '6/26'], 
@@ -790,3 +1278,9 @@ loadChartData();
             }
         })
     });
+}
+
+setupChartPeriodControls();
+setupCompanyTabs();
+updateCompanyVisibility();
+loadChartData();
