@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./src/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="./src/app.js"></script>
+    <link rel="icon" type="image/png" href="./src/assets/stock_topics.png">
 </head>
 <body>
 
@@ -110,6 +111,21 @@
         </div>
 
         <div class="card">
+            <h2>Transaction Revenue Breakdown</h2>
+            <canvas id="transactionRevenueBreakdown" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Revenue Mix</h2>
+            <canvas id="revenueMix" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Revenue Mix %</h2>
+            <canvas id="revenueMixPercentage" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
             <h2>Revenue vs Platform Assets</h2>
             <canvas id="revenuePlatformAssets" width="600" height="400"></canvas>
         </div>
@@ -117,6 +133,11 @@
         <div class="card">
             <h2>Revenue per Funded Customer</h2>
             <canvas id="revenuePerCustomer" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card">
+            <h2>Platform Assets per Funded Customer</h2>
+            <canvas id="platformAssetsPerCustomer" width="600" height="400"></canvas>
         </div>
 
         <div class="card">
