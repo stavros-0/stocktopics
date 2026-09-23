@@ -64,15 +64,31 @@ const periodChartIds = new Set([
 ]);
 
 const chartPeriods = {};
+let activeRenderChartId = null;
+let cachedDashboardData = null;
 let dynamicCharts = [];
+const chartInstances = {};
 let selectedCompany = 'Robinhood';
 
 function createChart(context, config) {
+    const chartId = context.canvas.id;
+
+    if (activeRenderChartId && chartId !== activeRenderChartId) {
+        return null;
+    }
+
     if (context.canvas.closest('.is-hidden')) {
         return null;
     }
 
+    if (chartInstances[chartId]) {
+        const existingChart = chartInstances[chartId];
+        dynamicCharts = dynamicCharts.filter(chart => chart !== existingChart);
+        existingChart.destroy();
+    }
+
     const chart = new Chart(context, config);
+    chartInstances[chartId] = chart;
     dynamicCharts.push(chart);
     return chart;
 }
@@ -80,6 +96,32 @@ function createChart(context, config) {
 function clearDynamicCharts() {
     dynamicCharts.forEach(chart => chart.destroy());
     dynamicCharts = [];
+    Object.keys(chartInstances).forEach(chartId => {
+        delete chartInstances[chartId];
+    });
+}
+
+function clearChart(chartId) {
+    const chart = chartInstances[chartId];
+
+    if (chart) {
+        dynamicCharts = dynamicCharts.filter(dynamicChart => dynamicChart !== chart);
+        chart.destroy();
+    }
+
+    delete chartInstances[chartId];
+}
+
+async function getDashboardData() {
+    if (!cachedDashboardData) {
+        cachedDashboardData = {
+            monthly_metrics: await loadJson('./data/robinhood_metrics.json'),
+            financials: await loadJson('./data/financials.json'),
+            credit_card: await loadJson('./data/credit_card.json')
+        };
+    }
+
+    return cachedDashboardData;
 }
 
 function yearFromQuarter(quarter) {
@@ -203,7 +245,7 @@ function setupChartPeriodControls() {
             toggle.querySelectorAll('[data-chart-period]').forEach(periodButton => {
                 periodButton.classList.toggle('is-active', periodButton === button);
             });
-            loadChartData();
+            loadChartData(chartId);
         });
     });
 }
@@ -233,12 +275,14 @@ function setupCompanyTabs() {
     });
 }
 
-async function loadChartData() {
-    clearDynamicCharts();
+async function loadChartData(chartId = null) {
+    activeRenderChartId = chartId;
 
-    const monthly_metrics = await loadJson('./data/robinhood_metrics.json');
-    const financials = await loadJson('./data/financials.json');
-    const credit_card = await loadJson('./data/credit_card.json');
+    if (!chartId) {
+        clearDynamicCharts();
+    }
+
+    const { monthly_metrics, financials, credit_card } = await getDashboardData();
     const companyData = financials.find(company => company.Company === selectedCompany);
     const companyBaseFinancials = companyData.Financials;
     const isRobinhood = selectedCompany === 'Robinhood';
@@ -1278,6 +1322,8 @@ async function loadChartData() {
             }
         })
     });
+
+    activeRenderChartId = null;
 }
 
 setupChartPeriodControls();
