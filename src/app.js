@@ -47,14 +47,19 @@ function getChartContext(id) {
 const periodChartIds = new Set([
     'equityAssets',
     'cryptoAssets',
+    'cryptoRevenueAssets',
     'optionsAssets',
     'aucBreakdown',
     'revenueChart',
+    'expenseMix',
+    'expenseMixPercentage',
     'transactionRevenueBreakdown',
     'transactionRevenueMixPercentage',
     'revenueMix',
     'starbucksRevenueBreakdown',
     'revenueMixPercentage',
+    'netInterestBreakdown',
+    'netInterestMixPercentage',
     'revenuePlatformAssets',
     'revenuePerCustomer',
     'platformAssetsPerCustomer',
@@ -293,6 +298,7 @@ async function loadChartData(chartId = null) {
     const ctx1 = getChartContext('equities');
     const equity_assets = getChartContext('equityAssets');
     const crypto_assets = getChartContext('cryptoAssets');
+    const crypto_revenue_assets = getChartContext('cryptoRevenueAssets');
     const op_fut_assets = getChartContext('optionsAssets');
     const auc_breakdown = getChartContext('aucBreakdown');
     const gold_subscribers = getChartContext('goldSubscribers');
@@ -306,11 +312,15 @@ async function loadChartData(chartId = null) {
     const ctx8 = getChartContext('fundedCustomers');
     const ctxVelocity = getChartContext('velocityChart');
     const revenue = getChartContext('revenueChart');
+    const expense_mix = getChartContext('expenseMix');
+    const expense_mix_percentage = getChartContext('expenseMixPercentage');
     const transaction_revenue_breakdown = getChartContext('transactionRevenueBreakdown');
     const transaction_revenue_mix_percentage = getChartContext('transactionRevenueMixPercentage');
     const revenue_mix = getChartContext('revenueMix');
     const starbucks_revenue_breakdown = getChartContext('starbucksRevenueBreakdown');
     const revenue_mix_percentage = getChartContext('revenueMixPercentage');
+    const net_interest_breakdown = getChartContext('netInterestBreakdown');
+    const net_interest_mix_percentage = getChartContext('netInterestMixPercentage');
     const revenue_platform_assets = getChartContext('revenuePlatformAssets');
     const revenue_per_customer = getChartContext('revenuePerCustomer');
     const platform_assets_per_customer = getChartContext('platformAssetsPerCustomer');
@@ -815,6 +825,113 @@ async function loadChartData(chartId = null) {
         })
     });
 
+    const expenseMixFinancials = filteredFinancialRowsForChart('expenseMix', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        row.Revenue !== undefined &&
+        (
+            row.BrokerageAndTransactionExpense !== undefined ||
+            row.TechnologyAndDevelopmentExpense !== undefined ||
+            row.OperationsExpense !== undefined ||
+            row.GeneralAndAdministrativeExpense !== undefined ||
+            row.Marketing !== undefined ||
+            row.ProvisionForCreditLosses !== undefined
+        )
+    );
+    const expenseMixKeys = [
+        ['BrokerageAndTransactionExpense', 'Brokerage & Transaction'],
+        ['TechnologyAndDevelopmentExpense', 'Technology & Development'],
+        ['OperationsExpense', 'Operations'],
+        ['GeneralAndAdministrativeExpense', 'G&A'],
+        ['Marketing', 'Marketing'],
+        ['ProvisionForCreditLosses', 'Credit Losses']
+    ];
+
+    createChart(expense_mix, {
+        type: 'bar',
+        data: {
+            labels: expenseMixFinancials.map(row => row.Quarter),
+            datasets: [
+                ...expenseMixKeys.map(([key, label], index) => ({
+                    label,
+                    data: expenseMixFinancials.map(row => row[key] || 0),
+                    borderColor: chartColors[index % chartColors.length],
+                    backgroundColor: chartColor(index),
+                    yAxisID: 'y'
+                })),
+                {
+                    label: 'Revenue',
+                    data: expenseMixFinancials.map(row => row.Revenue),
+                    type: 'line',
+                    borderColor: '#FFFFFF',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    yAxisID: 'y'
+                }
+            ]
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Expenses / Revenue ($M)' },
+                    min: 0
+                }
+            }
+        })
+    });
+
+    const expenseMixPercentageFinancials = filteredFinancialRowsForChart('expenseMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        row.Revenue &&
+        (
+            row.BrokerageAndTransactionExpense !== undefined ||
+            row.TechnologyAndDevelopmentExpense !== undefined ||
+            row.OperationsExpense !== undefined ||
+            row.GeneralAndAdministrativeExpense !== undefined ||
+            row.Marketing !== undefined ||
+            row.ProvisionForCreditLosses !== undefined
+        )
+    );
+
+    createChart(expense_mix_percentage, {
+        type: 'bar',
+        data: {
+            labels: expenseMixPercentageFinancials.map(row => row.Quarter),
+            datasets: expenseMixKeys.map(([key, label], index) => ({
+                label,
+                data: expenseMixPercentageFinancials.map(row => {
+                    const total = expenseMixKeys.reduce((sum, [expenseKey]) => sum + (row[expenseKey] || 0), 0);
+                    return total ? (row[key] || 0) / total * 100 : 0;
+                }),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Expense Mix (%)' },
+                    min: 0,
+                    max: 100
+                }
+            }
+        })
+    });
+
     const transactionRevenueFinancials = filteredFinancialRowsForChart('transactionRevenueBreakdown', companyBaseFinancials, 'Q321', '2021').filter(row =>
         row.TransactionRevenue !== undefined &&
         (
@@ -1021,6 +1138,88 @@ async function loadChartData(chartId = null) {
         })
     });
 
+    const netInterestKeys = [
+        ['MarginInterestRevenue', 'Margin Interest'],
+        ['InterestOnCashRevenue', 'Cash Interest'],
+        ['CashSweepRevenue', 'Cash Sweep'],
+        ['InterestOnCorporateCashRevenue', 'Corporate Cash'],
+        ['InterestOnCreditCardsRevenue', 'Credit Cards'],
+        ['SecuritiesLendingRevenue', 'Securities Lending'],
+        ['OtherNetInterestRevenue', 'Other Net Interest'],
+        ['InterestExpensesRelatedToCreditFacilities', 'Credit Facility Expense']
+    ];
+    const netInterestBreakdownFinancials = filteredFinancialRowsForChart('netInterestBreakdown', companyBaseFinancials, 'Q321', '2021').filter(row =>
+        row.NetInterestRevenue !== undefined &&
+        netInterestKeys.some(([key]) => row[key] !== undefined)
+    );
+
+    createChart(net_interest_breakdown, {
+        type: 'bar',
+        data: {
+            labels: netInterestBreakdownFinancials.map(row => row.Quarter),
+            datasets: netInterestKeys.map(([key, label], index) => ({
+                label,
+                data: netInterestBreakdownFinancials.map(row => row[key] || 0),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Net Interest Revenue ($M)' }
+                }
+            }
+        })
+    });
+
+    const netInterestMixFinancials = filteredFinancialRowsForChart('netInterestMixPercentage', companyBaseFinancials, 'Q321', '2021').filter(row =>
+        row.NetInterestRevenue !== undefined &&
+        netInterestKeys.some(([key]) => row[key] !== undefined)
+    );
+    const positiveNetInterestKeys = netInterestKeys.filter(([key]) => key !== 'InterestExpensesRelatedToCreditFacilities');
+
+    createChart(net_interest_mix_percentage, {
+        type: 'bar',
+        data: {
+            labels: netInterestMixFinancials.map(row => row.Quarter),
+            datasets: positiveNetInterestKeys.map(([key, label], index) => ({
+                label,
+                data: netInterestMixFinancials.map(row => {
+                    const total = positiveNetInterestKeys.reduce((sum, [interestKey]) => sum + (row[interestKey] || 0), 0);
+                    return total ? (row[key] || 0) / total * 100 : 0;
+                }),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Net Interest Mix (%)' },
+                    min: 0,
+                    max: 100
+                }
+            }
+        })
+    });
+
     const revenuePlatformFinancials = filteredFinancialRowsForChart('revenuePlatformAssets', companyBaseFinancials, 'Q321', '2021').filter(row =>
         row.Revenue !== undefined &&
         row.TotalPlatform !== undefined &&
@@ -1066,6 +1265,57 @@ async function loadChartData(chartId = null) {
                     type: 'linear',
                     position: 'right',
                     title: { display: true, text: 'Platform Assets ($B)' },
+                    min: 0,
+                    grid: { drawOnChartArea: false }
+                }
+            }
+        })
+    });
+
+    const cryptoRevenueAssetsFinancials = filteredFinancialRowsForChart('cryptoRevenueAssets', companyBaseFinancials, 'Q321', '2021').filter(row =>
+        row.CryptoRevenue !== undefined &&
+        row.Cryptocurrencies !== undefined
+    );
+
+    createChart(crypto_revenue_assets, {
+        type: 'bar',
+        data: {
+            labels: cryptoRevenueAssetsFinancials.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Crypto Revenue ($M)',
+                    data: cryptoRevenueAssetsFinancials.map(row => row.CryptoRevenue),
+                    backgroundColor: 'hsla(220, 85%, 45%, 0.7)',
+                    borderColor: 'hsl(220, 85%, 45%)',
+                    yAxisID: 'yRevenue'
+                },
+                {
+                    label: 'Crypto Assets ($B)',
+                    data: cryptoRevenueAssetsFinancials.map(row => row.Cryptocurrencies),
+                    type: 'line',
+                    borderColor: '#00C805',
+                    backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    yAxisID: 'yAssets'
+                }
+            ]
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                yRevenue: {
+                    type: 'linear',
+                    position: 'left',
+                    title: { display: true, text: 'Crypto Revenue ($M)' },
+                    min: 0
+                },
+                yAssets: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'Crypto Assets ($B)' },
                     min: 0,
                     grid: { drawOnChartArea: false }
                 }
