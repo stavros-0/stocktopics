@@ -133,6 +133,29 @@ function yearFromQuarter(quarter) {
     return `20${quarter.slice(2)}`;
 }
 
+function quarterFromMonth(month) {
+    const [monthNumber, yearSuffix] = month.split('/').map(Number);
+    return `Q${Math.ceil(monthNumber / 3)}${String(yearSuffix).padStart(2, '0')}`;
+}
+
+function quarterlyAverageStockPrice(rows) {
+    const groups = rows.reduce((quarterlyRows, row) => {
+        if (row.StockLow === undefined || row.StockHigh === undefined) {
+            return quarterlyRows;
+        }
+
+        const quarter = quarterFromMonth(row.Month);
+        quarterlyRows[quarter] = quarterlyRows[quarter] || [];
+        quarterlyRows[quarter].push((row.StockLow + row.StockHigh) / 2);
+        return quarterlyRows;
+    }, {});
+
+    return Object.entries(groups).reduce((prices, [quarter, values]) => {
+        prices[quarter] = values.reduce((sum, value) => sum + value, 0) / values.length;
+        return prices;
+    }, {});
+}
+
 function toAnnualFinancials(rows) {
     const endingPeriodFields = new Set([
         'Equities',
@@ -949,17 +972,33 @@ async function loadChartData(chartId = null) {
         ['EventContractsRevenue', 'Event Contracts'],
         ['OtherTransactionRevenue', 'Other']
     ];
+    const quarterlyStockPrices = quarterlyAverageStockPrice(monthly_metrics);
 
     createChart(transaction_revenue_breakdown, {
         type: 'bar',
         data: {
             labels: transactionRevenueFinancials.map(row => row.Quarter),
-            datasets: transactionRevenueKeys.map(([key, label], index) => ({
-                label,
-                data: transactionRevenueFinancials.map(row => row[key] || 0),
-                borderColor: chartColors[index % chartColors.length],
-                backgroundColor: chartColor(index)
-            }))
+            datasets: [
+                ...transactionRevenueKeys.map(([key, label], index) => ({
+                    label,
+                    data: transactionRevenueFinancials.map(row => row[key] || 0),
+                    borderColor: chartColors[index % chartColors.length],
+                    backgroundColor: chartColor(index),
+                    yAxisID: 'y'
+                })),
+                {
+                    label: 'HOOD Stock Price',
+                    type: 'line',
+                    data: transactionRevenueFinancials.map(row => quarterlyStockPrices[row.Quarter] ?? null),
+                    borderColor: '#FFFFFF',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    fill: false,
+                    tension: 0.25,
+                    yAxisID: 'yPrice'
+                }
+            ]
         },
         options: withDarkChartDefaults({
             plugins: {
@@ -974,6 +1013,13 @@ async function loadChartData(chartId = null) {
                     stacked: true,
                     title: { display: true, text: 'Transaction Revenue ($M)' },
                     min: 0
+                },
+                yPrice: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'HOOD Stock Price ($)' },
+                    min: 0,
+                    grid: { drawOnChartArea: false }
                 }
             }
         })
@@ -994,15 +1040,30 @@ async function loadChartData(chartId = null) {
         type: 'bar',
         data: {
             labels: transactionRevenueMixFinancials.map(row => row.Quarter),
-            datasets: transactionRevenueKeys.map(([key, label], index) => ({
-                label,
-                data: transactionRevenueMixFinancials.map(row => {
-                    const total = transactionRevenueKeys.reduce((sum, [transactionKey]) => sum + (row[transactionKey] || 0), 0);
-                    return total ? (row[key] || 0) / total * 100 : 0;
-                }),
-                borderColor: chartColors[index % chartColors.length],
-                backgroundColor: chartColor(index)
-            }))
+            datasets: [
+                ...transactionRevenueKeys.map(([key, label], index) => ({
+                    label,
+                    data: transactionRevenueMixFinancials.map(row => {
+                        const total = transactionRevenueKeys.reduce((sum, [transactionKey]) => sum + (row[transactionKey] || 0), 0);
+                        return total ? (row[key] || 0) / total * 100 : 0;
+                    }),
+                    borderColor: chartColors[index % chartColors.length],
+                    backgroundColor: chartColor(index),
+                    yAxisID: 'y'
+                })),
+                {
+                    label: 'HOOD Stock Price',
+                    type: 'line',
+                    data: transactionRevenueMixFinancials.map(row => quarterlyStockPrices[row.Quarter] ?? null),
+                    borderColor: '#FFFFFF',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 3,
+                    pointRadius: 3,
+                    fill: false,
+                    tension: 0.25,
+                    yAxisID: 'yPrice'
+                }
+            ]
         },
         options: withDarkChartDefaults({
             plugins: {
@@ -1018,6 +1079,13 @@ async function loadChartData(chartId = null) {
                     title: { display: true, text: 'Transaction Revenue Mix (%)' },
                     min: 0,
                     max: 100
+                },
+                yPrice: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'HOOD Stock Price ($)' },
+                    min: 0,
+                    grid: { drawOnChartArea: false }
                 }
             }
         })
