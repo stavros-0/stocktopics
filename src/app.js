@@ -809,8 +809,8 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const financialStartQuarter = isRobinhood ? 'Q321' : companyBaseFinancials[0]?.Quarter;
-    const financialStartYear = isRobinhood ? '2021' : yearFromQuarter(companyBaseFinancials[0]?.Quarter || 'Q100');
+    const financialStartQuarter = companyBaseFinancials[0]?.Quarter;
+    const financialStartYear = yearFromQuarter(companyBaseFinancials[0]?.Quarter || 'Q100');
 
     const revenueFinancials = filteredFinancialRowsForChart('revenueChart', companyBaseFinancials, financialStartQuarter, financialStartYear);
     createChart(revenue, {
@@ -955,7 +955,7 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const transactionRevenueFinancials = filteredFinancialRowsForChart('transactionRevenueBreakdown', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const transactionRevenueFinancials = filteredFinancialRowsForChart('transactionRevenueBreakdown', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.TransactionRevenue !== undefined &&
         (
             row.EquitiesRevenue !== undefined ||
@@ -1025,7 +1025,7 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const transactionRevenueMixFinancials = filteredFinancialRowsForChart('transactionRevenueMixPercentage', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const transactionRevenueMixFinancials = filteredFinancialRowsForChart('transactionRevenueMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.TransactionRevenue !== undefined &&
         (
             row.EquitiesRevenue !== undefined ||
@@ -1216,7 +1216,7 @@ async function loadChartData(chartId = null) {
         ['OtherNetInterestRevenue', 'Other Net Interest'],
         ['InterestExpensesRelatedToCreditFacilities', 'Credit Facility Expense']
     ];
-    const netInterestBreakdownFinancials = filteredFinancialRowsForChart('netInterestBreakdown', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const netInterestBreakdownFinancials = filteredFinancialRowsForChart('netInterestBreakdown', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.NetInterestRevenue !== undefined &&
         netInterestKeys.some(([key]) => row[key] !== undefined)
     );
@@ -1249,7 +1249,7 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const netInterestMixFinancials = filteredFinancialRowsForChart('netInterestMixPercentage', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const netInterestMixFinancials = filteredFinancialRowsForChart('netInterestMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.NetInterestRevenue !== undefined &&
         netInterestKeys.some(([key]) => row[key] !== undefined)
     );
@@ -1288,7 +1288,7 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const revenuePlatformFinancials = filteredFinancialRowsForChart('revenuePlatformAssets', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const revenuePlatformFinancials = filteredFinancialRowsForChart('revenuePlatformAssets', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.Revenue !== undefined &&
         row.TotalPlatform !== undefined &&
         row.TotalCustomers !== undefined
@@ -1340,7 +1340,7 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const cryptoRevenueAssetsFinancials = filteredFinancialRowsForChart('cryptoRevenueAssets', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const cryptoRevenueAssetsFinancials = filteredFinancialRowsForChart('cryptoRevenueAssets', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.CryptoRevenue !== undefined &&
         row.Cryptocurrencies !== undefined
     );
@@ -1391,7 +1391,7 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const revenuePerCustomerFinancials = filteredFinancialRowsForChart('revenuePerCustomer', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const revenuePerCustomerFinancials = filteredFinancialRowsForChart('revenuePerCustomer', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.Revenue !== undefined &&
         row.TotalPlatform !== undefined &&
         row.TotalCustomers !== undefined
@@ -1468,7 +1468,7 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const platformAssetsPerCustomerFinancials = filteredFinancialRowsForChart('platformAssetsPerCustomer', companyBaseFinancials, 'Q321', '2021').filter(row =>
+    const platformAssetsPerCustomerFinancials = filteredFinancialRowsForChart('platformAssetsPerCustomer', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
         row.TotalPlatform !== undefined &&
         row.TotalCustomers !== undefined
     );
