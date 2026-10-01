@@ -18,9 +18,15 @@
         <div class="company-tabs" aria-label="Company">
             <button type="button" class="company-tab is-active" data-company="Robinhood">Robinhood</button>
             <button type="button" class="company-tab" data-company="Starbucks">Starbucks</button>
+            <button type="button" class="company-tab" data-company="Nike">Nike</button>
+        </div>
+        <div class="view-tabs" aria-label="View" data-company-only="Nike">
+            <button type="button" class="view-tab is-active" data-view="dashboard">Dashboard</button>
+            <button type="button" class="view-tab" data-view="roadmap">Product Roadmap</button>
         </div>
     </header>
 
+    <main class="dashboard-view" data-app-view="dashboard">
     <div class="grid">
         <div class="card" data-company-only="Robinhood">
             <h2>Robinhood Strategies</h2>
@@ -117,11 +123,6 @@
         </div>
 
         <div class="card" data-company-only="Robinhood">
-            <h2>Diluted Shares</h2>
-            <canvas id="dilutedShares" width="600" height="400"></canvas>
-        </div>
-
-        <div class="card" data-company-only="Robinhood">
             <h2>Expense Mix Over Time</h2>
             <canvas id="expenseMix" width="600" height="400"></canvas>
         </div>
@@ -214,6 +215,32 @@
         <div data-company-only="Robinhood">
             <canvas id="VerticalLine"width="600" height="400"></canvas>
         </div>
+
+        <div class="card">
+            <h2>Diluted Shares</h2>
+            <canvas id="dilutedShares" width="600" height="400"></canvas>
+        </div>
 </div>
+    </main>
+
+    <main class="roadmap-view is-hidden" data-app-view="roadmap">
+        <section class="full-card product-roadmap">
+            <h2>Product Roadmap</h2>
+            <div class="roadmap-table-wrap">
+                <table class="roadmap-table">
+                    <thead>
+                        <tr>
+                            <th>Release Date</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="nikeProductRoadmap"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

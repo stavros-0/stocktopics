@@ -47,17 +47,20 @@ header {
     background: var(--rh-green);
 }
 
-.company-tabs {
+.company-tabs,
+.view-tabs {
     display: inline-flex;
     gap: 6px;
     margin-top: 8px;
+    margin-right: 8px;
     padding: 4px;
     background: #151515;
     border: 1px solid #333;
     border-radius: 8px;
 }
 
-.company-tab {
+.company-tab,
+.view-tab {
     color: var(--text-dim);
     background: transparent;
     border: 0;
@@ -66,7 +69,8 @@ header {
     cursor: pointer;
 }
 
-.company-tab.is-active {
+.company-tab.is-active,
+.view-tab.is-active {
     color: var(--bg-dark);
     background: var(--rh-green);
 }
@@ -104,4 +108,47 @@ p { color: var(--text-dim); font-size: 0.9rem; }
 
 canvas {
     max-height: 1000px;
+}
+
+.roadmap-table-wrap {
+    overflow-x: auto;
+}
+
+.roadmap-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+}
+
+.roadmap-table th,
+.roadmap-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #333;
+    text-align: left;
+    vertical-align: top;
+}
+
+.roadmap-table th {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+
+.roadmap-table td {
+    font-size: 0.92rem;
+}
+
+.roadmap-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: var(--bg-dark);
+    background: var(--rh-green);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.roadmap-status--released {
+    color: var(--text-main);
+    background: #444;
 }

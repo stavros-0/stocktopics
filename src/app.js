@@ -75,6 +75,7 @@ let cachedDashboardData = null;
 let dynamicCharts = [];
 const chartInstances = {};
 let selectedCompany = 'Robinhood';
+let activeView = 'dashboard';
 
 function createChart(context, config) {
     const chartId = context.canvas.id;
@@ -123,7 +124,8 @@ async function getDashboardData() {
         cachedDashboardData = {
             monthly_metrics: await loadJson('./data/robinhood_metrics.json'),
             financials: await loadJson('./data/financials.json'),
-            credit_card: await loadJson('./data/credit_card.json')
+            credit_card: await loadJson('./data/credit_card.json'),
+            nike_product_roadmap: await loadJson('./data/nike_product_roadmap.json')
         };
     }
 
@@ -280,13 +282,31 @@ function setupChartPeriodControls() {
 }
 
 function updateCompanyVisibility() {
+    const companySubtitles = {
+        Robinhood: 'Focus: Banking & International Expansion',
+        Starbucks: 'Focus: Revenue, margins, and operating trends',
+        Nike: 'Focus: Product mix, margins, and earnings trends'
+    };
+
     document.querySelector('header h1').textContent = `${selectedCompany} Analytics`;
-    document.querySelector('header p').textContent = selectedCompany === 'Robinhood'
-        ? 'Focus: Banking & International Expansion'
-        : 'Focus: Revenue, margins, and operating trends';
+    document.querySelector('header p').textContent = companySubtitles[selectedCompany] || 'Focus: Revenue, margins, and operating trends';
 
     document.querySelectorAll('[data-company-only]').forEach(element => {
         element.classList.toggle('is-hidden', element.dataset.companyOnly !== selectedCompany);
+    });
+}
+
+function updateViewVisibility() {
+    const visibleView = selectedCompany === 'Nike' ? activeView : 'dashboard';
+
+    document.querySelectorAll('[data-app-view]').forEach(view => {
+        view.classList.toggle('is-hidden', view.dataset.appView !== visibleView);
+    });
+}
+
+function updateViewTabs() {
+    document.querySelectorAll('[data-view]').forEach(button => {
+        button.classList.toggle('is-active', button.dataset.view === activeView);
     });
 }
 
@@ -294,13 +314,71 @@ function setupCompanyTabs() {
     document.querySelectorAll('[data-company]').forEach(button => {
         button.addEventListener('click', () => {
             selectedCompany = button.dataset.company;
+            if (selectedCompany !== 'Nike') {
+                activeView = 'dashboard';
+            }
             document.querySelectorAll('[data-company]').forEach(companyButton => {
                 companyButton.classList.toggle('is-active', companyButton === button);
             });
+            updateViewTabs();
             updateCompanyVisibility();
+            updateViewVisibility();
             setupChartPeriodControls();
             loadChartData();
         });
+    });
+}
+
+function setupViewTabs() {
+    document.querySelectorAll('[data-view]').forEach(button => {
+        button.addEventListener('click', () => {
+            activeView = button.dataset.view;
+            updateViewTabs();
+            updateViewVisibility();
+        });
+    });
+}
+
+function roadmapStatus(item) {
+    if (!item.ReleaseDateISO) {
+        return 'TBD';
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const releaseDate = new Date(`${item.ReleaseDateISO}T00:00:00`);
+    return releaseDate < today ? 'Released' : 'Upcoming';
+}
+
+function renderProductRoadmap(rows) {
+    const tableBody = document.getElementById('nikeProductRoadmap');
+
+    if (!tableBody) {
+        return;
+    }
+
+    tableBody.replaceChildren();
+
+    rows.forEach(item => {
+        const status = roadmapStatus(item);
+        const row = document.createElement('tr');
+        const dateCell = document.createElement('td');
+        const productCell = document.createElement('td');
+        const categoryCell = document.createElement('td');
+        const statusCell = document.createElement('td');
+        const notesCell = document.createElement('td');
+        const statusBadge = document.createElement('span');
+
+        dateCell.textContent = item.ReleaseDate || 'TBD';
+        productCell.textContent = item.Product;
+        categoryCell.textContent = item.Category || 'Other';
+        statusBadge.textContent = status;
+        statusBadge.className = `roadmap-status roadmap-status--${status.toLowerCase()}`;
+        statusCell.append(statusBadge);
+        notesCell.textContent = item.Notes || '';
+
+        row.append(dateCell, productCell, categoryCell, statusCell, notesCell);
+        tableBody.append(row);
     });
 }
 
@@ -311,10 +389,12 @@ async function loadChartData(chartId = null) {
         clearDynamicCharts();
     }
 
-    const { monthly_metrics, financials, credit_card } = await getDashboardData();
+    const { monthly_metrics, financials, credit_card, nike_product_roadmap } = await getDashboardData();
     const companyData = financials.find(company => company.Company === selectedCompany);
     const companyBaseFinancials = companyData.Financials;
     const isRobinhood = selectedCompany === 'Robinhood';
+
+    renderProductRoadmap(nike_product_roadmap);
 
     const ctxBanking = getChartContext('bankingChart');
     const ctxBankingAUM = getChartContext('bankingAUM');
@@ -1159,12 +1239,19 @@ async function loadChartData(chartId = null) {
             ['NetInterestRevenue', 'Net Interest'],
             ['OtherRevenue', 'Other']
         ]
-        : [
-            ['CompanyOperatedStoresRevenue', 'Company Operated Stores'],
-            ['LicensedStoresRevenue', 'Licensed Stores'],
-            ['ChannelDevelopmentSegmentRevenue', 'Channel Development'],
-            ['OtherRevenue', 'Other']
-        ];
+        : selectedCompany === 'Nike'
+            ? [
+                ['FootwearRevenue', 'Footwear'],
+                ['ApparelRevenue', 'Apparel'],
+                ['EquipmentRevenue', 'Equipment'],
+                ['OtherRevenue', 'Other']
+            ]
+            : [
+                ['CompanyOperatedStoresRevenue', 'Company Operated Stores'],
+                ['LicensedStoresRevenue', 'Licensed Stores'],
+                ['ChannelDevelopmentSegmentRevenue', 'Channel Development'],
+                ['OtherRevenue', 'Other']
+            ];
 
     createChart(revenue_mix, {
         type: 'bar',
@@ -1707,5 +1794,7 @@ async function loadChartData(chartId = null) {
 
 setupChartPeriodControls();
 setupCompanyTabs();
+setupViewTabs();
 updateCompanyVisibility();
+updateViewVisibility();
 loadChartData();
