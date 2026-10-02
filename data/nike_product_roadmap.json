@@ -210,6 +210,13 @@
         "Category": "Football"
     },
     {
+        "Product": "Nike Ja 4",
+        "ReleaseDate": "08/13/26",
+        "ReleaseDateISO": "2026-08-13",
+        "Category": "Basketball",
+        "Notes": "Released on Nike.com and at select retailers."
+    },
+    {
         "Product": "NikeCraft General Purpose Shoe \"Demerits\"",
         "ReleaseDate": "09/30/26",
         "ReleaseDateISO": "2026-09-30",
@@ -219,13 +226,21 @@
         "Product": "Nike Caitlin 1 \"Blue and Warning Code\"",
         "ReleaseDate": "09/30/26",
         "ReleaseDateISO": "2026-09-30",
-        "Category": "Basketball"
+        "Category": "Basketball",
+        "Notes": "Largest women's signature shoe intro in Nike history. Launched in 5K stores globally, roughly double the distribution of an average Nike basketball signature shoe. Sold out in the first two hours."
     },
     {
         "Product": "Nike Pegasus Plus 2",
         "ReleaseDate": "10/01/26",
         "ReleaseDateISO": "2026-10-01",
         "Category": "Running"
+    },
+    {
+        "Product": "Nike Phantom 6 Low Elite \"Erling Haaland\"",
+        "ReleaseDate": "10/05/26",
+        "ReleaseDateISO": "2026-10-05",
+        "Category": "Football",
+        "Notes": "Nike/member and specialty partner launch on Oct. 1; broader global release around Oct. 5."
     },
     {
         "Product": "Nike Air Max Goadome Low \"Navy\"",

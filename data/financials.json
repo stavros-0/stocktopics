@@ -1390,7 +1390,12 @@
                 "EPS": 0.767769407140518,
                 "Shares": 1526.5,
                 "GrossMarginRate": 0.44750181028240404,
-                "OperatingMarginRate": 0.10749054630300105
+                "OperatingMarginRate": 0.10749054630300105,
+                "NorthAmericaRevenue": 5070.0,
+                "EMEARevenue": 3138.0,
+                "GreaterChinaRevenue": 2084.0,
+                "AsiaPacificLatinAmericaRevenue": 1647.0,
+                "OtherRegionalRevenue": 490.0
             },
             {
                 "Quarter": "Q125",
@@ -1426,7 +1431,12 @@
                 "EPS": 0.699733688415446,
                 "Shares": 1502.0,
                 "GrossMarginRate": 0.4536198118905859,
-                "OperatingMarginRate": 0.10432306497540772
+                "OperatingMarginRate": 0.10432306497540772,
+                "NorthAmericaRevenue": 4826.0,
+                "EMEARevenue": 3143.0,
+                "GreaterChinaRevenue": 1666.0,
+                "AsiaPacificLatinAmericaRevenue": 1462.0,
+                "OtherRegionalRevenue": 492.0
             },
             {
                 "Quarter": "Q325",
@@ -1462,7 +1472,12 @@
                 "EPS": 0.536269080102661,
                 "Shares": 1480.6,
                 "GrossMarginRate": 0.41485491170467653,
-                "OperatingMarginRate": 0.06992634661460644
+                "OperatingMarginRate": 0.06992634661460644,
+                "NorthAmericaRevenue": 4864.0,
+                "EMEARevenue": 2811.0,
+                "GreaterChinaRevenue": 1733.0,
+                "AsiaPacificLatinAmericaRevenue": 1470.0,
+                "OtherRegionalRevenue": 391.0
             },
             {
                 "Quarter": "Q126",
@@ -1498,7 +1513,12 @@
                 "EPS": 0.491548343475321,
                 "Shares": 1479.0,
                 "GrossMarginRate": 0.42175767918088736,
-                "OperatingMarginRate": 0.07909556313993174
+                "OperatingMarginRate": 0.07909556313993174,
+                "NorthAmericaRevenue": 5020.0,
+                "EMEARevenue": 3331.0,
+                "GreaterChinaRevenue": 1512.0,
+                "AsiaPacificLatinAmericaRevenue": 1490.0,
+                "OtherRegionalRevenue": 367.0
             },
             {
                 "Quarter": "Q226",
@@ -1534,7 +1554,12 @@
                 "EPS": 0.534773801485483,
                 "Shares": 1481.0,
                 "GrossMarginRate": 0.4059708698800998,
-                "OperatingMarginRate": 0.08095276414259274
+                "OperatingMarginRate": 0.08095276414259274,
+                "NorthAmericaRevenue": 5633.0,
+                "EMEARevenue": 3392.0,
+                "GreaterChinaRevenue": 1423.0,
+                "AsiaPacificLatinAmericaRevenue": 1667.0,
+                "OtherRegionalRevenue": 312.0
             },
             {
                 "Quarter": "Q326",
@@ -1566,7 +1591,12 @@
                 "EPS": 0.35097192224622,
                 "Shares": 1481.6,
                 "GrossMarginRate": 0.4012597586941093,
-                "OperatingMarginRate": 0.04843860894251242
+                "OperatingMarginRate": 0.04843860894251242,
+                "NorthAmericaRevenue": 5026.0,
+                "EMEARevenue": 2874.0,
+                "GreaterChinaRevenue": 1615.0,
+                "AsiaPacificLatinAmericaRevenue": 1490.0,
+                "OtherRegionalRevenue": 267.0
             },
             {
                 "Quarter": "Q426",
@@ -1589,7 +1619,36 @@
                 "NetIncome": 1069.0,
                 "EPS": 0.720884752849147,
                 "Shares": 1482.9,
-                "GrossMarginRate": 0.48860736419978124
+                "GrossMarginRate": 0.48860736419978124,
+                "NorthAmericaRevenue": 4832.0,
+                "EMEARevenue": 2975.0,
+                "GreaterChinaRevenue": 1297.0,
+                "AsiaPacificLatinAmericaRevenue": 1596.0,
+                "OtherRegionalRevenue": 272.0
+            },
+            {
+                "Quarter": "Q127",
+                "NikeFootwearRevenue": 6942.0,
+                "FootwearRevenue": 6942.0,
+                "NikeApparelRevenue": 3384.0,
+                "ApparelRevenue": 3384.0,
+                "NikeEquipmentRevenue": 611.0,
+                "EquipmentRevenue": 611.0,
+                "OtherRevenue": 0.0,
+                "NorthAmericaRevenue": 5127.0,
+                "EMEARevenue": 3167.0,
+                "GreaterChinaRevenue": 1180.0,
+                "AsiaPacificLatinAmericaRevenue": 1463.0,
+                "GlobalBrandDivisionsRevenue": 6.0,
+                "NikeRevenue": 10943.0,
+                "ConverseRevenue": 263.0,
+                "CorporateRevenue": -2.0,
+                "Revenue": 11206.0,
+                "WholesaleRevenue": 6804.0,
+                "TotalWholesaleRevenue": 6804.0,
+                "DirectToConsumerRevenue": 6804.0,
+                "TotalDirectToConsumerRevenue": 6804.0,
+                "OtherRegionalRevenue": 269.0
             }
         ]
     }
