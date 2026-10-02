@@ -1,0 +1,104 @@
+{
+    "Title": "Q1 27 Earnings Themes",
+    "Summary": "Revenue pressure came mainly from Sportswear, Jordan, and China, while Running, Global Football, Training, and Basketball showed healthier demand signals.",
+    "Stats": [
+        {
+            "Label": "China Revenue",
+            "Value": "-26%",
+            "Tone": "negative"
+        },
+        {
+            "Label": "Jordan Brand",
+            "Value": "13% of business, down mid-teens",
+            "Tone": "negative"
+        },
+        {
+            "Label": "Caitlin 1 Launch",
+            "Value": "5K doors, sold out in 2 hours",
+            "Tone": "positive"
+        },
+        {
+            "Label": "Max Cushioning",
+            "Value": "Share tripled over the past year",
+            "Tone": "positive"
+        }
+    ],
+    "Themes": [
+        {
+            "Name": "Sportswear",
+            "Tone": "negative",
+            "Headline": "Large drag from lifestyle franchises",
+            "Details": [
+                "Down low double digits and accounted for roughly half of Q1 27 revenue.",
+                "Dunk revenue was reduced by 50% in Q1 27.",
+                "AF1 is still driving stable full-price business.",
+                "P-6000 and V5 Runner grew strong double digits.",
+                "Studio Fleece was the best-performing apparel collection across Nike in Q1 27.",
+                "Nike is breaking Sportswear into smaller areas of focus."
+            ]
+        },
+        {
+            "Name": "Jordan",
+            "Tone": "negative",
+            "Headline": "Scarcity reset is weighing on volume",
+            "Details": [
+                "Jordan Brand is 13% of the business and declined mid-teens.",
+                "Nike is reducing the volume and frequency of specific Jordan 1 Retro launches.",
+                "Management is leaning back into scarcity."
+            ]
+        },
+        {
+            "Name": "China",
+            "Tone": "negative",
+            "Headline": "Distribution cleanup and retail reset",
+            "Details": [
+                "Revenue declined 26%.",
+                "Nike is eliminating distribution to reduce discounting.",
+                "The focus is shifting toward more inspirational brick-and-mortar retail experiences.",
+                "Shanghai House of Innovation has delivered 10 consecutive months of growth since the shift."
+            ]
+        },
+        {
+            "Name": "Running",
+            "Tone": "positive",
+            "Headline": "Clear momentum in performance running",
+            "Details": [
+                "Running was up double digits with consistent share gains.",
+                "Max cushioning worked, with Vomero showing strength.",
+                "Nike tripled share of the max cushioning category over the past year.",
+                "Next phase is three racing silos and one Pegasus silo.",
+                "Pegasus Plus 2 arrived in August.",
+                "Alphafly 4 was unveiled in September.",
+                "Swooshfly and Nike Apex were introduced at the end of September."
+            ]
+        },
+        {
+            "Name": "Global Football",
+            "Tone": "positive",
+            "Headline": "World Cup drove demand",
+            "Details": [
+                "World Cup team kit sales doubled compared with 2022.",
+                "Haaland's PE added another athlete-led product signal."
+            ]
+        },
+        {
+            "Name": "Training",
+            "Tone": "positive",
+            "Headline": "New franchises gaining traction",
+            "Details": [
+                "Nike Mind has become one of the top-selling franchises.",
+                "Nike Pro and Metcon remain strong.",
+                "Nike hybrid footwear has been introduced.",
+                "Hyperslide adds a recovery angle."
+            ]
+        },
+        {
+            "Name": "Basketball",
+            "Tone": "positive",
+            "Headline": "Signature demand remained strong",
+            "Details": [
+                "Caitlin 1 distribution was about 2x an average Nike basketball signature shoe and sold out."
+            ]
+        }
+    ]
+}

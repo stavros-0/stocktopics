@@ -79,6 +79,15 @@ header {
     display: none;
 }
 
+.dashboard-error {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    color: #FFD6D6;
+    background: #2A1111;
+    border: 1px solid #7A2E2E;
+    border-radius: 8px;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
@@ -151,4 +160,99 @@ canvas {
 .roadmap-status--released {
     color: var(--text-main);
     background: #444;
+}
+
+.section-heading {
+    margin-bottom: 18px;
+}
+
+.theme-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.theme-stat {
+    padding: 14px;
+    background: #151515;
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+.theme-stat__label {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    margin-bottom: 8px;
+}
+
+.theme-stat__value {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.theme-stat--positive .theme-stat__value {
+    color: var(--rh-green);
+}
+
+.theme-stat--negative .theme-stat__value {
+    color: #FF6B6B;
+}
+
+.theme-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.theme-columns h3 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+}
+
+.theme-card-list {
+    display: grid;
+    gap: 12px;
+}
+
+.theme-card {
+    padding: 16px;
+    background: #151515;
+    border: 1px solid #333;
+    border-left: 4px solid #555;
+    border-radius: 8px;
+}
+
+.theme-card--positive {
+    border-left-color: var(--rh-green);
+}
+
+.theme-card--negative {
+    border-left-color: #FF6B6B;
+}
+
+.theme-card h4 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+}
+
+.theme-card p {
+    margin: 0 0 10px;
+}
+
+.theme-card ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-dim);
+}
+
+.theme-card li {
+    margin: 6px 0;
+}
+
+@media (max-width: 760px) {
+    .theme-columns {
+        grid-template-columns: 1fr;
+    }
 }

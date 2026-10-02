@@ -22,6 +22,7 @@
         </div>
         <div class="view-tabs" aria-label="View" data-company-only="Nike">
             <button type="button" class="view-tab is-active" data-view="dashboard">Dashboard</button>
+            <button type="button" class="view-tab" data-view="earnings">Earnings Overview</button>
             <button type="button" class="view-tab" data-view="roadmap">Product Roadmap</button>
         </div>
     </header>
@@ -157,6 +158,36 @@
             <canvas id="revenueMixPercentage" width="600" height="400"></canvas>
         </div>
 
+        <div class="card" data-company-only="Nike">
+            <h2>Product Mix</h2>
+            <canvas id="nikeProductMix" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card" data-company-only="Nike">
+            <h2>Product Mix %</h2>
+            <canvas id="nikeProductMixPercentage" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card" data-company-only="Nike">
+            <h2>Channel Mix</h2>
+            <canvas id="nikeChannelMix" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card" data-company-only="Nike">
+            <h2>Channel Mix %</h2>
+            <canvas id="nikeChannelMixPercentage" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card" data-company-only="Nike">
+            <h2>Expense Mix</h2>
+            <canvas id="nikeExpenseMix" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card" data-company-only="Nike">
+            <h2>Expense Mix %</h2>
+            <canvas id="nikeExpenseMixPercentage" width="600" height="400"></canvas>
+        </div>
+
         <div class="card" data-company-only="Robinhood">
             <h2>Net Interest Breakdown</h2>
             <canvas id="netInterestBreakdown" width="600" height="400"></canvas>
@@ -221,6 +252,26 @@
             <canvas id="dilutedShares" width="600" height="400"></canvas>
         </div>
 </div>
+    </main>
+
+    <main class="earnings-view is-hidden" data-app-view="earnings">
+        <section class="full-card earnings-themes">
+            <div class="section-heading">
+                <h2>Q1 27 Earnings Themes</h2>
+                <p id="nikeThemesSummary"></p>
+            </div>
+            <div class="theme-stat-grid" id="nikeThemeStats"></div>
+            <div class="theme-columns">
+                <div>
+                    <h3>Pressure</h3>
+                    <div class="theme-card-list" id="nikePressureThemes"></div>
+                </div>
+                <div>
+                    <h3>Highlights</h3>
+                    <div class="theme-card-list" id="nikeHighlightThemes"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <main class="roadmap-view is-hidden" data-app-view="roadmap">

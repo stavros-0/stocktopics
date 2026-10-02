@@ -41,7 +41,8 @@ function withDarkChartDefaults(options = {}) {
 }
 
 function getChartContext(id) {
-    return document.getElementById(id).getContext('2d');
+    const canvas = document.getElementById(id);
+    return canvas ? canvas.getContext('2d') : null;
 }
 
 const periodChartIds = new Set([
@@ -58,6 +59,12 @@ const periodChartIds = new Set([
     'revenueMix',
     'starbucksRevenueBreakdown',
     'revenueMixPercentage',
+    'nikeProductMix',
+    'nikeProductMixPercentage',
+    'nikeChannelMix',
+    'nikeChannelMixPercentage',
+    'nikeExpenseMix',
+    'nikeExpenseMixPercentage',
     'netInterestBreakdown',
     'netInterestMixPercentage',
     'revenuePlatformAssets',
@@ -77,7 +84,24 @@ const chartInstances = {};
 let selectedCompany = 'Robinhood';
 let activeView = 'dashboard';
 
+function showDashboardError(error) {
+    let errorBox = document.getElementById('dashboardError');
+
+    if (!errorBox) {
+        errorBox = document.createElement('div');
+        errorBox.id = 'dashboardError';
+        errorBox.className = 'dashboard-error';
+        document.querySelector('header')?.after(errorBox);
+    }
+
+    errorBox.textContent = `Dashboard data could not load: ${error.message}`;
+}
+
 function createChart(context, config) {
+    if (!context) {
+        return null;
+    }
+
     const chartId = context.canvas.id;
 
     if (activeRenderChartId && chartId !== activeRenderChartId) {
@@ -125,11 +149,21 @@ async function getDashboardData() {
             monthly_metrics: await loadJson('./data/robinhood_metrics.json'),
             financials: await loadJson('./data/financials.json'),
             credit_card: await loadJson('./data/credit_card.json'),
-            nike_product_roadmap: await loadJson('./data/nike_product_roadmap.json')
+            nike_product_roadmap: await loadOptionalJson('./data/nike_product_roadmap.json', []),
+            nike_q1_27_themes: await loadOptionalJson('./data/nike_q1_27_themes.json', null)
         };
     }
 
     return cachedDashboardData;
+}
+
+async function loadOptionalJson(path, fallback) {
+    try {
+        return await loadJson(path);
+    } catch (error) {
+        console.warn(`Could not load optional dashboard data: ${path}`, error);
+        return fallback;
+    }
 }
 
 function yearFromQuarter(quarter) {
@@ -382,6 +416,108 @@ function renderProductRoadmap(rows) {
     });
 }
 
+function renderStackedMixChart(context, rows, keys, title, percentage = false) {
+    createChart(context, {
+        type: 'bar',
+        data: {
+            labels: rows.map(row => row.Quarter),
+            datasets: keys.map(([key, label], index) => ({
+                label,
+                data: rows.map(row => {
+                    if (!percentage) {
+                        return row[key] || 0;
+                    }
+
+                    const total = keys.reduce((sum, [mixKey]) => sum + (row[mixKey] || 0), 0);
+                    return total ? (row[key] || 0) / total * 100 : 0;
+                }),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: title },
+                    min: 0,
+                    ...(percentage ? { max: 100 } : {})
+                }
+            }
+        })
+    });
+}
+
+function renderNikeThemes(data) {
+    const summary = document.getElementById('nikeThemesSummary');
+    const statsContainer = document.getElementById('nikeThemeStats');
+    const pressureContainer = document.getElementById('nikePressureThemes');
+    const highlightContainer = document.getElementById('nikeHighlightThemes');
+
+    if (!summary || !statsContainer || !pressureContainer || !highlightContainer) {
+        return;
+    }
+
+    if (!data) {
+        summary.textContent = '';
+        statsContainer.replaceChildren();
+        pressureContainer.replaceChildren();
+        highlightContainer.replaceChildren();
+        return;
+    }
+
+    summary.textContent = data.Summary;
+    statsContainer.replaceChildren();
+    pressureContainer.replaceChildren();
+    highlightContainer.replaceChildren();
+
+    data.Stats.forEach(stat => {
+        const tile = document.createElement('div');
+        const label = document.createElement('div');
+        const value = document.createElement('div');
+
+        tile.className = `theme-stat theme-stat--${stat.Tone}`;
+        label.className = 'theme-stat__label';
+        value.className = 'theme-stat__value';
+        label.textContent = stat.Label;
+        value.textContent = stat.Value;
+        tile.append(label, value);
+        statsContainer.append(tile);
+    });
+
+    data.Themes.forEach(theme => {
+        const card = document.createElement('article');
+        const title = document.createElement('h4');
+        const headline = document.createElement('p');
+        const list = document.createElement('ul');
+
+        card.className = `theme-card theme-card--${theme.Tone}`;
+        title.textContent = theme.Name;
+        headline.textContent = theme.Headline;
+
+        theme.Details.forEach(detail => {
+            const item = document.createElement('li');
+            item.textContent = detail;
+            list.append(item);
+        });
+
+        card.append(title, headline, list);
+
+        if (theme.Tone === 'negative') {
+            pressureContainer.append(card);
+        } else {
+            highlightContainer.append(card);
+        }
+    });
+}
+
 async function loadChartData(chartId = null) {
     activeRenderChartId = chartId;
 
@@ -389,12 +525,13 @@ async function loadChartData(chartId = null) {
         clearDynamicCharts();
     }
 
-    const { monthly_metrics, financials, credit_card, nike_product_roadmap } = await getDashboardData();
+    const { monthly_metrics, financials, credit_card, nike_product_roadmap, nike_q1_27_themes } = await getDashboardData();
     const companyData = financials.find(company => company.Company === selectedCompany);
     const companyBaseFinancials = companyData.Financials;
     const isRobinhood = selectedCompany === 'Robinhood';
 
     renderProductRoadmap(nike_product_roadmap);
+    renderNikeThemes(nike_q1_27_themes);
 
     const ctxBanking = getChartContext('bankingChart');
     const ctxBankingAUM = getChartContext('bankingAUM');
@@ -424,6 +561,12 @@ async function loadChartData(chartId = null) {
     const revenue_mix = getChartContext('revenueMix');
     const starbucks_revenue_breakdown = getChartContext('starbucksRevenueBreakdown');
     const revenue_mix_percentage = getChartContext('revenueMixPercentage');
+    const nike_product_mix = getChartContext('nikeProductMix');
+    const nike_product_mix_percentage = getChartContext('nikeProductMixPercentage');
+    const nike_channel_mix = getChartContext('nikeChannelMix');
+    const nike_channel_mix_percentage = getChartContext('nikeChannelMixPercentage');
+    const nike_expense_mix = getChartContext('nikeExpenseMix');
+    const nike_expense_mix_percentage = getChartContext('nikeExpenseMixPercentage');
     const net_interest_breakdown = getChartContext('netInterestBreakdown');
     const net_interest_mix_percentage = getChartContext('netInterestMixPercentage');
     const revenue_platform_assets = getChartContext('revenuePlatformAssets');
@@ -1241,10 +1384,11 @@ async function loadChartData(chartId = null) {
         ]
         : selectedCompany === 'Nike'
             ? [
-                ['FootwearRevenue', 'Footwear'],
-                ['ApparelRevenue', 'Apparel'],
-                ['EquipmentRevenue', 'Equipment'],
-                ['OtherRevenue', 'Other']
+                ['NorthAmericaRevenue', 'North America'],
+                ['EMEARevenue', 'EMEA'],
+                ['GreaterChinaRevenue', 'Greater China'],
+                ['AsiaPacificLatinAmericaRevenue', 'Asia Pacific & Latin America'],
+                ['OtherRegionalRevenue', 'Other / Converse']
             ]
             : [
                 ['CompanyOperatedStoresRevenue', 'Company Operated Stores'],
@@ -1353,6 +1497,111 @@ async function loadChartData(chartId = null) {
             }
         })
     });
+
+    const nikeChannelMixKeys = [
+        ['WholesaleRevenue', 'Wholesale'],
+        ['DirectToConsumerRevenue', 'DTC']
+    ];
+    const nikeChannelMixFinancials = filteredFinancialRowsForChart('nikeChannelMix', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        nikeChannelMixKeys.some(([key]) => row[key] !== undefined && row[key] !== 0)
+    );
+
+    createChart(nike_channel_mix, {
+        type: 'bar',
+        data: {
+            labels: nikeChannelMixFinancials.map(row => row.Quarter),
+            datasets: nikeChannelMixKeys.map(([key, label], index) => ({
+                label,
+                data: nikeChannelMixFinancials.map(row => row[key] || 0),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Revenue ($M)' },
+                    min: 0
+                }
+            }
+        })
+    });
+
+    const nikeChannelMixPercentageFinancials = filteredFinancialRowsForChart('nikeChannelMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        nikeChannelMixKeys.some(([key]) => row[key] !== undefined && row[key] !== 0)
+    );
+
+    createChart(nike_channel_mix_percentage, {
+        type: 'bar',
+        data: {
+            labels: nikeChannelMixPercentageFinancials.map(row => row.Quarter),
+            datasets: nikeChannelMixKeys.map(([key, label], index) => ({
+                label,
+                data: nikeChannelMixPercentageFinancials.map(row => {
+                    const total = nikeChannelMixKeys.reduce((sum, [channelKey]) => sum + (row[channelKey] || 0), 0);
+                    return total ? (row[key] || 0) / total * 100 : 0;
+                }),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: chartColor(index)
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    title: { display: true, text: 'Quarters' }
+                },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Channel Mix (%)' },
+                    min: 0,
+                    max: 100
+                }
+            }
+        })
+    });
+
+    const nikeProductMixKeys = [
+        ['FootwearRevenue', 'Footwear'],
+        ['ApparelRevenue', 'Apparel'],
+        ['EquipmentRevenue', 'Equipment'],
+        ['OtherRevenue', 'Other']
+    ];
+    const nikeProductMixFinancials = filteredFinancialRowsForChart('nikeProductMix', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        nikeProductMixKeys.some(([key]) => row[key] !== undefined && row[key] !== 0)
+    );
+    const nikeProductMixPercentageFinancials = filteredFinancialRowsForChart('nikeProductMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        nikeProductMixKeys.some(([key]) => row[key] !== undefined && row[key] !== 0)
+    );
+
+    renderStackedMixChart(nike_product_mix, nikeProductMixFinancials, nikeProductMixKeys, 'Revenue ($M)');
+    renderStackedMixChart(nike_product_mix_percentage, nikeProductMixPercentageFinancials, nikeProductMixKeys, 'Product Mix (%)', true);
+
+    const nikeExpenseMixKeys = [
+        ['COGS', 'COGS'],
+        ['Marketing', 'Marketing'],
+        ['GeneralAndAdministrativeExpense', 'G&A']
+    ];
+    const nikeExpenseMixFinancials = filteredFinancialRowsForChart('nikeExpenseMix', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        nikeExpenseMixKeys.some(([key]) => row[key] !== undefined && row[key] !== 0)
+    );
+    const nikeExpenseMixPercentageFinancials = filteredFinancialRowsForChart('nikeExpenseMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        nikeExpenseMixKeys.some(([key]) => row[key] !== undefined && row[key] !== 0)
+    );
+
+    renderStackedMixChart(nike_expense_mix, nikeExpenseMixFinancials, nikeExpenseMixKeys, 'Expenses ($M)');
+    renderStackedMixChart(nike_expense_mix_percentage, nikeExpenseMixPercentageFinancials, nikeExpenseMixKeys, 'Expense Mix (%)', true);
 
     const netInterestKeys = [
         ['MarginInterestRevenue', 'Margin Interest'],
@@ -1797,4 +2046,4 @@ setupCompanyTabs();
 setupViewTabs();
 updateCompanyVisibility();
 updateViewVisibility();
-loadChartData();
+loadChartData().catch(showDashboardError);
