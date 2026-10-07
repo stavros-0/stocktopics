@@ -261,6 +261,14 @@
         "Category": "Basketball"
     },
     {
+        "Product": "Nike Air Max Bakin (2 colorways)",
+        "ReleaseDate": "10/05/26",
+        "ReleaseDateISO": "2026-10-05",
+        "Category": "Lifestyle",
+        "Notes": "Sold out."
+    },
+
+    {
         "Product": "Air Jordan 1 \"Royal Blue\"",
         "ReleaseDate": "10/10/26",
         "ReleaseDateISO": "2026-10-10",
