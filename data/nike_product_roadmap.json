@@ -261,11 +261,11 @@
         "Category": "Basketball"
     },
     {
-        "Product": "Nike Air Max Bakin (2 colorways)",
+        "Product": "Nike Air Max Bakin",
         "ReleaseDate": "10/05/26",
         "ReleaseDateISO": "2026-10-05",
         "Category": "Lifestyle",
-        "Notes": "Sold out."
+        "Notes": "Dropped in 2 colorways; both sold out."
     },
 
     {
@@ -273,6 +273,12 @@
         "ReleaseDate": "10/10/26",
         "ReleaseDateISO": "2026-10-10",
         "Category": "Basketball"
+    },
+    {
+        "Product": "Nike x ACG NOCTA",
+        "ReleaseDate": "10/14/26",
+        "ReleaseDateISO": "2026-10-14",
+        "Category": "ACG"
     },
     {
         "Product": "Nike Air Max Goadome Low \"Black\"",
