@@ -293,6 +293,13 @@
         "Category": "Running"
     },
     {
+        "Product": "Air Jordan 8 \"Knicks\"",
+        "ReleaseDate": "12/24/26",
+        "ReleaseDateISO": "2026-12-24",
+        "Category": "Basketball",
+        "Notes": "Style code IX8479-010."
+    },
+    {
         "Product": "Nike Apex",
         "ReleaseDate": "01/01/27",
         "ReleaseDateISO": "2027-01-01",
