@@ -1464,24 +1464,60 @@ async function loadChartData(chartId = null) {
     });
 
     const revenueMixPercentageFinancials = filteredFinancialRowsForChart('revenueMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear);
+    let selectedNikeRegionIndex = null;
 
     createChart(revenue_mix_percentage, {
         type: 'bar',
         data: {
             labels: revenueMixPercentageFinancials.map(row => row.Quarter),
-            datasets: revenueMixKeys.map(([key, label], index) => ({
-                label,
-                data: revenueMixPercentageFinancials.map(row => {
-                    const total = revenueMixKeys.reduce((sum, [mixKey]) => sum + (row[mixKey] || 0), 0);
-                    return total ? (row[key] || 0) / total * 100 : 0;
-                }),
-                borderColor: chartColors[index % chartColors.length],
-                backgroundColor: chartColor(index)
-            }))
+            datasets: [
+                ...revenueMixKeys.map(([key, label], index) => ({
+                    label,
+                    data: revenueMixPercentageFinancials.map(row => {
+                        const total = revenueMixKeys.reduce((sum, [mixKey]) => sum + (row[mixKey] || 0), 0);
+                        return total ? (row[key] || 0) / total * 100 : 0;
+                    }),
+                    borderColor: chartColors[index % chartColors.length],
+                    backgroundColor: chartColor(index)
+                })),
+                ...(selectedCompany === 'Nike' ? [{
+                    label: 'Region Trend',
+                    type: 'line',
+                    data: [],
+                    borderColor: '#FFFFFF',
+                    backgroundColor: '#FFFFFF',
+                    borderWidth: 3,
+                    pointRadius: 2,
+                    fill: false,
+                    tension: 0.25,
+                    yAxisID: 'yTrend',
+                    hidden: true
+                }] : [])
+            ]
         },
         options: withDarkChartDefaults({
             plugins: {
-                legend: { display: true }
+                legend: {
+                    display: true,
+                    ...(selectedCompany === 'Nike' ? {
+                        labels: { filter: item => item.datasetIndex < revenueMixKeys.length },
+                        onClick: (_event, item, legend) => {
+                            const chart = legend.chart;
+                            selectedNikeRegionIndex = selectedNikeRegionIndex === item.datasetIndex ? null : item.datasetIndex;
+
+                            revenueMixKeys.forEach((_, index) => {
+                                chart.setDatasetVisibility(index, selectedNikeRegionIndex === null || index === selectedNikeRegionIndex);
+                            });
+
+                            const trendIndex = revenueMixKeys.length;
+                            const trend = chart.data.datasets[trendIndex];
+                            trend.data = selectedNikeRegionIndex === null ? [] : chart.data.datasets[selectedNikeRegionIndex].data;
+                            trend.label = selectedNikeRegionIndex === null ? 'Region Trend' : `${revenueMixKeys[selectedNikeRegionIndex][1]} Trend`;
+                            chart.setDatasetVisibility(trendIndex, selectedNikeRegionIndex !== null);
+                            chart.update();
+                        }
+                    } : {})
+                }
             },
             scales: {
                 x: {
@@ -1493,7 +1529,15 @@ async function loadChartData(chartId = null) {
                     title: { display: true, text: 'Revenue Mix (%)' },
                     min: 0,
                     max: 100
-                }
+                },
+                ...(selectedCompany === 'Nike' ? {
+                    yTrend: {
+                        type: 'linear',
+                        display: false,
+                        min: 0,
+                        max: 100
+                    }
+                } : {})
             }
         })
     });
