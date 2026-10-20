@@ -308,10 +308,51 @@
         "Notes": "Style code HQ4309-500. Sold out on Nike US as of 10/16/26."
     },
     {
+        "Product": "Supreme x Martine Rose x Nike Dunk Low \"Mike Tyson\"",
+        "ReleaseDate": "10/15/26",
+        "ReleaseDateISO": "2026-10-15",
+        "Category": "Lifestyle",
+        "Notes": "Style code JA1868-001. Released through Supreme; Asia launch on Oct. 17. User-reported sellout in 24 seconds; resale asking price $184 for US size 9.5 as of 10/19/26."
+    },
+    {
+        "Product": "Air Jordan 5 \"Halloween\"",
+        "ReleaseDate": "10/17/26",
+        "ReleaseDateISO": "2026-10-17",
+        "Category": "Basketball",
+        "Notes": "Style code HQ7978-001. Did not sell out; available on Nike US as of 10/19/26."
+    },
+    {
+        "Product": "Air Jordan 12 \"Fireside\"",
+        "ReleaseDate": "10/24/26",
+        "ReleaseDateISO": "2026-10-24",
+        "Category": "Basketball",
+        "Notes": "Style code CT8013-105."
+    },
+    {
         "Product": "Nike Alphafly 4",
         "ReleaseDate": "10/29/26",
         "ReleaseDateISO": "2026-10-29",
         "Category": "Running"
+    },
+    {
+        "Product": "Nike Air Max 95 Big Bubble GORE-TEX \"Light Bone\"",
+        "ReleaseDate": "11/05/26",
+        "ReleaseDateISO": "2026-11-05",
+        "Category": "Lifestyle",
+        "Notes": "Expected release date; Nike has not confirmed it. Style code IO1877-001; reported retail price $230."
+    },
+    {
+        "Product": "Nike Air Max Foamdome \"Eggplant\"",
+        "ReleaseDate": "11/05/26",
+        "ReleaseDateISO": "2026-11-05",
+        "Category": "Lifestyle",
+        "Notes": "Reported release date; Nike has not confirmed it. Style code IX7255-506; reported retail price $265."
+    },
+    {
+        "Product": "Union LA x Nike Dunk Low Pack",
+        "ReleaseDate": "Fall 2026",
+        "Category": "Lifestyle",
+        "Notes": "Reported release window; exact date unconfirmed. Off Noir (IF7380-001) and Bamboo (IF7380-200). Standard Dunk Low, not Nike SB."
     },
     {
         "Product": "Carhartt WIP x Nike Air Max Goadome Low Pack",
@@ -349,6 +390,6 @@
         "Product": "Air Jordan 5 \"Black Cat\"",
         "ReleaseDate": "Fall 2027",
         "Category": "Basketball",
-        "Notes": "Reported release window; exact date unconfirmed."
+        "Notes": "Reported release window; September 18, 2027 appears on sneaker calendars, but Jordan Brand has not confirmed an exact date. Reported retail price $220."
     }
 ]
