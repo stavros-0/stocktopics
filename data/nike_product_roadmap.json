@@ -316,11 +316,32 @@
         "Notes": "Style code JA1868-001. Released through Supreme; Asia launch on Oct. 17. User-reported sellout in 24 seconds; resale asking price $184 for US size 9.5 as of 10/19/26."
     },
     {
+        "Product": "Lil Yachty x Nike Air Force 1 Mid \"Opti Yellow\"",
+        "ReleaseDate": "10/16/26",
+        "ReleaseDateISO": "2026-10-16",
+        "Category": "Lifestyle",
+        "Notes": "Online raffle opened on yachty.shop after a limited ComplexCon release. Style code JA6675-700; wider release unconfirmed."
+    },
+    {
+        "Product": "Lil Yachty x Nike Tech Fleece Collection",
+        "ReleaseDate": "10/16/26",
+        "ReleaseDateISO": "2026-10-16",
+        "Category": "Apparel",
+        "Notes": "Jacket and shorts launched through a yachty.shop raffle; Nike SNKRS lists an October 21 release in select regions. Style codes IV4375-010 and IV4376-010."
+    },
+    {
         "Product": "Air Jordan 5 \"Halloween\"",
         "ReleaseDate": "10/17/26",
         "ReleaseDateISO": "2026-10-17",
         "Category": "Basketball",
         "Notes": "Style code HQ7978-001. Did not sell out; available on Nike US as of 10/19/26."
+    },
+    {
+        "Product": "NIGO x j-hope x Nike Air Force 1 '01 \"Burnt Sunrise\"",
+        "ReleaseDate": "10/22/26",
+        "ReleaseDateISO": "2026-10-22",
+        "Category": "Lifestyle",
+        "Notes": "Global SNKRS and select-retailer launch; early release October 17 on humanmade.jp. Style code IO8766-800."
     },
     {
         "Product": "Air Jordan 12 \"Fireside\"",
@@ -360,6 +381,12 @@
         "ReleaseDate": "Holiday 2026",
         "Category": "Lifestyle",
         "Notes": "Reported release window; exact date unconfirmed. Light British Tan, Black, and Twilight Marsh colorways."
+    },
+    {
+        "Product": "Kyle Wilson x Nike SB Air Max 95",
+        "ReleaseDate": "Holiday 2026",
+        "Category": "Lifestyle",
+        "Notes": "Reported release window; exact date unconfirmed. Style code HF7545-003; reported retail price $190."
     },
     {
         "Product": "Air Jordan 8 \"Knicks\"",
