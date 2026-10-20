@@ -287,10 +287,37 @@
         "Category": "Lifestyle"
     },
     {
+        "Product": "Nike Mind 001 \"Work Blue / Light Lemon Twist\"",
+        "ReleaseDate": "10/15/26",
+        "ReleaseDateISO": "2026-10-15",
+        "Category": "Lifestyle",
+        "Notes": "Style code HQ4307-401. Sold out on Nike US as of 10/16/26."
+    },
+    {
+        "Product": "Nike Mind 001 \"Vast Grey / Purple Smoke\"",
+        "ReleaseDate": "10/15/26",
+        "ReleaseDateISO": "2026-10-15",
+        "Category": "Lifestyle",
+        "Notes": "Style code HQ4307-500. Sold out on Nike US as of 10/16/26."
+    },
+    {
+        "Product": "Women's Nike Mind 001 \"Palest Purple / Purple Pulse\"",
+        "ReleaseDate": "10/15/26",
+        "ReleaseDateISO": "2026-10-15",
+        "Category": "Lifestyle",
+        "Notes": "Style code HQ4309-500. Sold out on Nike US as of 10/16/26."
+    },
+    {
         "Product": "Nike Alphafly 4",
         "ReleaseDate": "10/29/26",
         "ReleaseDateISO": "2026-10-29",
         "Category": "Running"
+    },
+    {
+        "Product": "Carhartt WIP x Nike Air Max Goadome Low Pack",
+        "ReleaseDate": "Holiday 2026",
+        "Category": "Lifestyle",
+        "Notes": "Reported release window; exact date unconfirmed. Light British Tan, Black, and Twilight Marsh colorways."
     },
     {
         "Product": "Air Jordan 8 \"Knicks\"",
@@ -311,5 +338,17 @@
         "ReleaseDateISO": "2027-02-01",
         "Category": "Running",
         "Notes": "China launch Feb 2027; global spring 2027"
+    },
+    {
+        "Product": "Air Jordan 4 \"Fire Red\"",
+        "ReleaseDate": "Fall 2027",
+        "Category": "Basketball",
+        "Notes": "Reported retro release window; exact date unconfirmed."
+    },
+    {
+        "Product": "Air Jordan 5 \"Black Cat\"",
+        "ReleaseDate": "Fall 2027",
+        "Category": "Basketball",
+        "Notes": "Reported release window; exact date unconfirmed."
     }
 ]
