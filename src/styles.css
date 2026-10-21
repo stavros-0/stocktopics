@@ -644,6 +644,173 @@ body {
     color: var(--text-main);
 }
 
+.chain-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.chain-dashboard__section-title {
+    margin: 0 0 12px;
+    color: var(--text-main);
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.chain-stats .rothera-stat small {
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.65rem;
+}
+
+.chain-economics {
+    margin: 0 0 24px;
+    padding: 20px;
+    border: 1px solid #3A423A;
+    background: var(--card-bg);
+}
+
+.chain-economics h4 {
+    margin: 0 0 14px;
+    color: var(--text-main);
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.chain-economics__scroll {
+    overflow-x: auto;
+}
+
+.chain-economics table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+.chain-economics th:first-child {
+    text-align: left;
+}
+
+.chain-economics thead th {
+    padding: 10px 12px;
+    border-bottom: 1px solid #3A423A;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.67rem;
+    font-weight: 400;
+}
+
+.chain-economics tbody th,
+.chain-economics tbody td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #303A30;
+    color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.chain-economics tbody th {
+    text-align: left;
+}
+
+.chain-economics tbody th span,
+.chain-economics tbody th small {
+    display: block;
+}
+
+.chain-economics tbody th small {
+    margin-top: 4px;
+}
+
+.chain-economics tbody th small,
+.chain-economics > p {
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.64rem;
+    font-weight: 400;
+}
+
+.chain-economics > p {
+    margin: 14px 0 0;
+    line-height: 1.6;
+}
+
+.chain-dashboard__status {
+    margin: 0 0 16px;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
+
+.chain-dashboard__status:empty {
+    display: none;
+}
+
+.chain-dashboard__toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 16px;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.68rem;
+}
+
+.chain-dashboard__toolbar span {
+    margin-right: 6px;
+}
+
+.chain-dashboard__toolbar button {
+    padding: 6px 10px;
+    border: 1px solid #3A423A;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font: inherit;
+}
+
+.chain-dashboard__toolbar button:hover,
+.chain-dashboard__toolbar button:focus-visible,
+.chain-dashboard__toolbar button.is-active {
+    border-color: var(--rh-green);
+    color: var(--text-main);
+}
+
+.chain-dashboard__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.chain-dashboard__grid h3 {
+    margin: 0 0 20px;
+    color: var(--text-main);
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.chain-dashboard__grid .chart-container {
+    height: 250px;
+}
+
+.chain-dashboard__source {
+    margin: 16px 0 0;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.7rem;
+    line-height: 1.6;
+}
+
+.chain-dashboard__source a {
+    color: var(--text-main);
+}
+
 .full-width {
     grid-column: 1 / -1; 
 }
@@ -880,6 +1047,10 @@ p { color: var(--text-dim); font-size: 0.9rem; }
         grid-template-columns: 1fr;
     }
 
+    .chain-dashboard__grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 @media (max-width: 760px) {
@@ -917,6 +1088,10 @@ p { color: var(--text-dim); font-size: 0.9rem; }
 
     .rothera-stats {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .chain-stats {
+        grid-template-columns: 1fr;
     }
 
     .rothera-dashboard__heading {

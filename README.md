@@ -30,6 +30,10 @@ python3 scripts/update_rothera_history.py --csv /path/to/mkt_eod_YYYYMMDD.csv
 
 To backfill earlier dates, run `python3 scripts/update_rothera_history.py --start-date YYYY-MM-DD`. The dashboard currently shows the latest day; the history is available for future monthly, six-month, and YTD views.
 
+## Robinhood Chain
+
+The Robinhood Chain topic shows daily mainnet transactions, active addresses, total value secured, chain revenue, L1 costs, and estimated chain profit. It fetches the public [growthepie chain series](https://www.growthepie.com/chains/robinhood) in the browser, so no API key or scheduled data commit is needed. The economics section also shows 7-day, 30-day, and since-launch totals calculated over dates with all three USD series available. Charts offer 30-day, 90-day, and full-history views. Each daily summary card displays its own latest available UTC date because source metrics can update at different times. Active addresses are distinct addresses, not people; total value secured is not DeFi protocol TVL. Estimated chain profit subtracts L1 costs from chain revenue and does not represent Robinhood's retained share or company net income.
+
 ## Revenue Per Funded Customer vs Robinhood ARPU
 
 The dashboard's revenue per funded customer chart currently calculates quarterly revenue per ending funded customer:

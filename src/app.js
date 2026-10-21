@@ -97,6 +97,17 @@ let activeView = 'home';
 let robinhoodLayout = null;
 let cachedRotheraSnapshot = null;
 let activeRotheraFilter = 'All';
+const chainMetricPromises = new Map();
+let activeChainRange = 30;
+
+const chainMetrics = [
+    { key: 'txcount', chartId: 'chainTransactions', label: 'Transactions', color: '#A7C9A4', currency: false },
+    { key: 'daa', chartId: 'chainAddresses', label: 'Active addresses', color: '#92A8BF', currency: false },
+    { key: 'tvl', chartId: 'chainValueSecured', label: 'Value secured', color: '#C8B29B', currency: true },
+    { key: 'fees', chartId: 'chainRevenue', label: 'Chain revenue', color: '#A7C9A4', currency: true },
+    { key: 'rent_paid', chartId: 'chainL1Costs', label: 'L1 costs', color: '#92A8BF', currency: true },
+    { key: 'profit', chartId: 'chainProfit', label: 'Estimated chain profit', color: '#C8B29B', currency: true }
+];
 
 const rotheraProductNames = {
     NFLGAME: 'NFL games', NFLSPREAD: 'NFL spreads', NFLTOTAL: 'NFL totals', NFL: 'NFL season futures',
@@ -150,6 +161,7 @@ function setupRobinhoodSections() {
     const backButton = document.createElement('button');
     const sectionContainer = document.createElement('div');
     const rotheraSection = dashboard.querySelector('#robinhood-rothera');
+    const chainSection = dashboard.querySelector('#robinhood-chain');
 
     groupCards.className = 'robinhood-group-grid is-hidden';
     backButton.type = 'button';
@@ -211,11 +223,29 @@ function setupRobinhoodSections() {
 
     groupCards.append(document.querySelector('#robinhood-additional-topics').content.cloneNode(true));
     sectionContainer.append(rotheraSection);
+    sectionContainer.append(chainSection);
 
     groupCards.querySelector('[data-rothera-card]').addEventListener('click', () => {
         showRobinhoodGroup('robinhood-rothera');
         window.scrollTo(0, 0);
         loadRotheraDashboard().catch(showDashboardError);
+    });
+    groupCards.querySelector('[data-chain-card]').addEventListener('click', () => {
+        showRobinhoodGroup('robinhood-chain');
+        window.scrollTo(0, 0);
+        loadChainDashboard();
+    });
+
+    chainSection.querySelector('.chain-dashboard__toolbar').addEventListener('click', event => {
+        const button = event.target.closest('[data-chain-range]');
+        if (!button) return;
+        activeChainRange = button.dataset.chainRange === 'all' ? 'all' : Number(button.dataset.chainRange);
+        chainSection.querySelectorAll('[data-chain-range]').forEach(rangeButton => {
+            const selected = rangeButton === button;
+            rangeButton.classList.toggle('is-active', selected);
+            rangeButton.setAttribute('aria-pressed', String(selected));
+        });
+        loadChainDashboard();
     });
 
     rotheraSection.querySelector('.rothera-filters').addEventListener('click', event => {
@@ -240,11 +270,11 @@ function setupRobinhoodSections() {
     });
 
     dashboard.prepend(groupCards, backButton, sectionContainer);
-    robinhoodLayout = { dashboardGrid, originalCards, groupCards, backButton, sectionContainer, rotheraSection, groups, isGrouped: false };
+    robinhoodLayout = { dashboardGrid, originalCards, groupCards, backButton, sectionContainer, rotheraSection, chainSection, groups, isGrouped: false };
 }
 
 function showRobinhoodGroup(sectionId) {
-    const { groupCards, backButton, sectionContainer, rotheraSection, groups } = robinhoodLayout;
+    const { groupCards, backButton, sectionContainer, rotheraSection, chainSection, groups } = robinhoodLayout;
     const isDetail = Boolean(sectionId);
 
     groupCards.classList.toggle('is-hidden', isDetail);
@@ -254,6 +284,7 @@ function showRobinhoodGroup(sectionId) {
         sectionElement.classList.toggle('is-hidden', sectionElement.id !== sectionId);
     });
     rotheraSection.classList.toggle('is-hidden', rotheraSection.id !== sectionId);
+    chainSection.classList.toggle('is-hidden', chainSection.id !== sectionId);
 }
 
 function updateRobinhoodSections() {
@@ -405,6 +436,170 @@ async function loadRotheraDashboard() {
         })
     });
     renderRotheraProducts(snapshot);
+}
+
+function chainSeries(payload, metric) {
+    const daily = payload?.details?.timeseries?.daily;
+    const timeIndex = daily?.types?.indexOf('unix');
+    const valueIndex = daily?.types?.indexOf(metric.currency ? 'usd' : 'value');
+    if (!Number.isInteger(timeIndex) || timeIndex < 0 || !Number.isInteger(valueIndex) || valueIndex < 0 || !Array.isArray(daily?.data)) {
+        throw new Error(`Invalid ${metric.label.toLowerCase()} data`);
+    }
+    const points = daily.data
+        .map(row => ({ date: row[timeIndex], value: row[valueIndex] }))
+        .filter(point => Number.isFinite(point.date) && Number.isFinite(point.value));
+    if (!points.length) throw new Error(`No ${metric.label.toLowerCase()} data available`);
+    return points;
+}
+
+function formatChainValue(value, currency = false) {
+    return `${currency ? '$' : ''}${new Intl.NumberFormat('en-US', {
+        notation: 'compact', maximumFractionDigits: 2
+    }).format(value)}`;
+}
+
+function formatChainDate(timestamp) {
+    return new Date(timestamp).toLocaleDateString('en-US', {
+        timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric'
+    });
+}
+
+function loadChainMetric(metric) {
+    if (!chainMetricPromises.has(metric.key)) {
+        const request = (async () => {
+            const url = `https://api.growthepie.com/v1/metrics/chains/robinhood/${metric.key}.json`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`Network data request failed (${response.status})`);
+            return chainSeries(await response.json(), metric);
+        })().catch(error => {
+            chainMetricPromises.delete(metric.key);
+            throw error;
+        });
+        chainMetricPromises.set(metric.key, request);
+    }
+    return chainMetricPromises.get(metric.key);
+}
+
+async function loadChainData() {
+    const entries = await Promise.all(chainMetrics.map(async metric => [metric.key, await loadChainMetric(metric)]));
+    return Object.fromEntries(entries);
+}
+
+async function loadChainPreview() {
+    try {
+        const latest = (await loadChainMetric(chainMetrics[0])).at(-1);
+        document.querySelector('[data-chain-card-transactions]').textContent = formatChainValue(latest.value);
+        document.querySelector('[data-chain-card-date]').textContent = formatChainDate(latest.date);
+    } catch (error) {
+        document.querySelector('[data-chain-card-date]').textContent = 'Data unavailable';
+    }
+}
+
+function renderChainAggregates(data, dashboard) {
+    const revenue = new Map(data.fees.map(point => [point.date, point.value]));
+    const costs = new Map(data.rent_paid.map(point => [point.date, point.value]));
+    const matched = data.profit.filter(point => revenue.has(point.date) && costs.has(point.date));
+    const body = dashboard.querySelector('[data-chain-aggregates]');
+    const note = dashboard.querySelector('[data-chain-aggregate-note]');
+    body.replaceChildren();
+    if (!matched.length) {
+        note.textContent = 'No dates have all three economics series available.';
+        return;
+    }
+
+    const latestDate = matched.at(-1).date;
+    const dayMs = 24 * 60 * 60 * 1000;
+    const periods = [
+        { label: 'Last 7 days', days: 7 },
+        { label: 'Last 30 days', days: 30 },
+        { label: 'All available data', days: null }
+    ];
+    const dollar = value => new Intl.NumberFormat('en-US', {
+        style: 'currency', currency: 'USD', maximumFractionDigits: 0
+    }).format(value);
+
+    periods.forEach(period => {
+        const start = period.days ? latestDate - (period.days - 1) * dayMs : matched[0].date;
+        const points = matched.filter(point => point.date >= start && point.date <= latestDate);
+        const totals = points.reduce((sum, point) => ({
+            fees: sum.fees + revenue.get(point.date),
+            rent_paid: sum.rent_paid + costs.get(point.date),
+            profit: sum.profit + point.value
+        }), { fees: 0, rent_paid: 0, profit: 0 });
+        const row = document.createElement('tr');
+        const periodCell = document.createElement('th');
+        const periodLabel = document.createElement('span');
+        const periodDates = document.createElement('small');
+        periodCell.scope = 'row';
+        periodLabel.textContent = period.label;
+        periodDates.textContent = `${formatChainDate(start)} – ${formatChainDate(latestDate)} · ${points.length}${period.days ? `/${period.days}` : ''} days`;
+        periodCell.append(periodLabel, periodDates);
+        row.append(periodCell);
+        ['fees', 'rent_paid', 'profit'].forEach(key => {
+            const cell = document.createElement('td');
+            cell.textContent = dollar(totals[key]);
+            row.append(cell);
+        });
+        body.append(row);
+    });
+    note.textContent = 'Totals include only UTC dates with revenue, L1 cost, and profit values available. They exclude partner sharing and other Robinhood expenses.';
+}
+
+async function loadChainDashboard() {
+    const dashboard = robinhoodLayout.chainSection;
+    const status = dashboard.querySelector('[data-chain-status]');
+    status.textContent = 'Loading network data…';
+    try {
+        const data = await loadChainData();
+        if (dashboard.classList.contains('is-hidden')) return;
+
+        chainMetrics.forEach(metric => {
+            const points = data[metric.key];
+            const latest = points.at(-1);
+            const value = dashboard.querySelector(`[data-chain-stat="${metric.key}"]`);
+            value.textContent = formatChainValue(latest.value, metric.currency);
+            value.title = `${metric.currency ? '$' : ''}${latest.value.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+            dashboard.querySelector(`[data-chain-stat-date="${metric.key}"]`).textContent = formatChainDate(latest.date);
+
+            const visible = activeChainRange === 'all' ? points : points.slice(-activeChainRange);
+            createChart(getChartContext(metric.chartId), {
+                type: 'line',
+                data: {
+                    labels: visible.map(point => formatChainDate(point.date)),
+                    datasets: [{
+                        label: metric.label,
+                        data: visible.map(point => point.value),
+                        borderColor: metric.color,
+                        backgroundColor: metric.color,
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        tension: 0.15
+                    }]
+                },
+                options: withDarkChartDefaults({
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: context => `${metric.label}: ${metric.currency ? '$' : ''}${context.parsed.y.toLocaleString('en-US', { maximumFractionDigits: 0 })}` } }
+                    },
+                    scales: {
+                        x: { ticks: { maxTicksLimit: 7, maxRotation: 0 } },
+                        y: { ticks: { callback: value => formatChainValue(value, metric.currency) } }
+                    }
+                })
+            });
+        });
+        renderChainAggregates(data, dashboard);
+        const latestDate = data.txcount.at(-1).date;
+        const date = dashboard.querySelector('[data-chain-date]');
+        date.dateTime = new Date(latestDate).toISOString().slice(0, 10);
+        date.textContent = formatChainDate(latestDate);
+        status.textContent = '';
+    } catch (error) {
+        if (!dashboard.classList.contains('is-hidden')) status.textContent = `Network data could not load: ${error.message}`;
+    }
 }
 
 async function loadHomeCompanyCards() {
@@ -2472,6 +2667,7 @@ setupCompanyTabs();
 setupViewTabs();
 loadHomeCompanyCards();
 loadRotheraSnapshot().catch(showDashboardError);
+loadChainPreview();
 updateTopNavigation();
 updateCompanyVisibility();
 updateViewVisibility();

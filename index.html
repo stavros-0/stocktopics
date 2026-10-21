@@ -79,11 +79,12 @@
             <span class="robinhood-group-card__metric"><span>Daily contract volume</span><strong data-rothera-card-volume>—</strong><small data-rothera-card-date></small></span>
             <span class="robinhood-group-card__arrow" aria-hidden="true">↗</span>
         </button>
-        <article class="robinhood-group-card robinhood-group-card--static">
+        <button type="button" class="robinhood-group-card" data-chain-card>
             <span class="robinhood-group-card__number">07</span>
-            <h2 class="robinhood-group-card__title">Robinhood Chain</h2>
-            <span class="robinhood-group-card__metric">Onchain infrastructure</span>
-        </article>
+            <span class="robinhood-group-card__title">Robinhood Chain</span>
+            <span class="robinhood-group-card__metric"><span>Daily transactions</span><strong data-chain-card-transactions>—</strong><small data-chain-card-date></small></span>
+            <span class="robinhood-group-card__arrow" aria-hidden="true">↗</span>
+        </button>
     </template>
     <section class="robinhood-section rothera-dashboard is-hidden" id="robinhood-rothera" aria-labelledby="rothera-title">
         <div class="rothera-dashboard__heading">
@@ -119,6 +120,53 @@
             </div>
         </div>
         <p class="rothera-dashboard__source">Snapshot from Rothera’s <a href="https://publicfiles.rotheramarkets.com/" target="_blank" rel="noopener noreferrer">public end-of-day clearing files</a>. Topics are grouped from product codes.</p>
+    </section>
+    <section class="robinhood-section chain-dashboard is-hidden" id="robinhood-chain" aria-labelledby="chain-title">
+        <div class="rothera-dashboard__heading">
+            <div>
+                <h2 id="chain-title">Robinhood Chain</h2>
+                <p>Public mainnet · Ethereum Layer 2 · Chain ID 4663</p>
+            </div>
+            <span>Transactions through <time data-chain-date>Loading</time> (UTC)</span>
+        </div>
+        <p class="chain-dashboard__status" data-chain-status role="status">Loading network data…</p>
+        <h3 class="chain-dashboard__section-title">Network activity</h3>
+        <div class="chain-stats">
+            <div class="rothera-stat"><span>Daily transactions</span><strong data-chain-stat="txcount">—</strong><small data-chain-stat-date="txcount"></small></div>
+            <div class="rothera-stat"><span>Daily active addresses</span><strong data-chain-stat="daa">—</strong><small data-chain-stat-date="daa"></small></div>
+            <div class="rothera-stat"><span>Total value secured</span><strong data-chain-stat="tvl">—</strong><small data-chain-stat-date="tvl"></small></div>
+        </div>
+        <h3 class="chain-dashboard__section-title">Chain economics</h3>
+        <div class="chain-stats">
+            <div class="rothera-stat"><span>Daily chain revenue</span><strong data-chain-stat="fees">—</strong><small data-chain-stat-date="fees"></small></div>
+            <div class="rothera-stat"><span>Daily L1 costs</span><strong data-chain-stat="rent_paid">—</strong><small data-chain-stat-date="rent_paid"></small></div>
+            <div class="rothera-stat"><span>Daily estimated chain profit</span><strong data-chain-stat="profit">—</strong><small data-chain-stat-date="profit"></small></div>
+        </div>
+        <div class="chain-economics">
+            <h4>Aggregate chain economics</h4>
+            <div class="chain-economics__scroll">
+                <table>
+                    <thead><tr><th scope="col">Period</th><th scope="col">Revenue</th><th scope="col">L1 costs</th><th scope="col">Estimated profit</th></tr></thead>
+                    <tbody data-chain-aggregates></tbody>
+                </table>
+            </div>
+            <p data-chain-aggregate-note></p>
+        </div>
+        <div class="chain-dashboard__toolbar" aria-label="Chart date range">
+            <span>History</span>
+            <button type="button" class="is-active" data-chain-range="30" aria-pressed="true">30 days</button>
+            <button type="button" data-chain-range="90" aria-pressed="false">90 days</button>
+            <button type="button" data-chain-range="all" aria-pressed="false">All</button>
+        </div>
+        <div class="chain-dashboard__grid">
+            <div class="card"><h3>Daily transactions</h3><div class="chart-container"><canvas id="chainTransactions" aria-label="Robinhood Chain daily transactions" role="img"></canvas></div></div>
+            <div class="card"><h3>Daily active addresses</h3><div class="chart-container"><canvas id="chainAddresses" aria-label="Robinhood Chain daily active addresses" role="img"></canvas></div></div>
+            <div class="card full-width"><h3>Total value secured</h3><div class="chart-container"><canvas id="chainValueSecured" aria-label="Robinhood Chain total value secured in US dollars" role="img"></canvas></div></div>
+            <div class="card"><h3>Daily chain revenue</h3><div class="chart-container"><canvas id="chainRevenue" aria-label="Robinhood Chain daily revenue in US dollars" role="img"></canvas></div></div>
+            <div class="card"><h3>Daily estimated chain profit</h3><div class="chart-container"><canvas id="chainProfit" aria-label="Robinhood Chain daily estimated profit in US dollars" role="img"></canvas></div></div>
+            <div class="card full-width"><h3>Daily L1 costs</h3><div class="chart-container"><canvas id="chainL1Costs" aria-label="Robinhood Chain daily L1 costs in US dollars" role="img"></canvas></div></div>
+        </div>
+        <p class="chain-dashboard__source">Data: <a href="https://www.growthepie.com/chains/robinhood" target="_blank" rel="noopener noreferrer">growthepie</a>. Active addresses count distinct addresses, not people. Total value secured differs from DeFi protocol TVL. Chain revenue is user fees; L1 costs are the chain’s payments to Ethereum; estimated chain profit is revenue minus those L1 costs. These are network estimates, not Robinhood’s reported earnings or its share after partner payments and other expenses. Explore transactions at <a href="https://robinhoodchain.blockscout.com/" target="_blank" rel="noopener noreferrer">Blockscout</a>.</p>
     </section>
     <div class="grid">
         <div class="card" data-company-only="Robinhood">
