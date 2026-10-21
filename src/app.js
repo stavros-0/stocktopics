@@ -65,6 +65,7 @@ const periodChartIds = new Set([
     'nikeChannelMixPercentage',
     'nikeExpenseMix',
     'nikeExpenseMixPercentage',
+    'nikeRevenueVsExpenses',
     'netInterestBreakdown',
     'netInterestMixPercentage',
     'revenuePlatformAssets',
@@ -82,7 +83,41 @@ let cachedDashboardData = null;
 let dynamicCharts = [];
 const chartInstances = {};
 let selectedCompany = 'Robinhood';
-let activeView = 'dashboard';
+let activeView = 'home';
+
+async function loadHomeCompanyCards() {
+    try {
+        const companies = await loadJson('./data/financials.json');
+
+        companies.forEach(({ Company: company, Financials: financials }) => {
+            const revenueRows = financials.filter(row => typeof row.Revenue === 'number');
+            const latestRow = revenueRows.at(-1);
+            const revenueElement = document.querySelector(`[data-home-revenue="${company}"]`);
+            const quarterElement = document.querySelector(`[data-home-quarter="${company}"]`);
+            const sparkline = document.querySelector(`[data-home-sparkline="${company}"]`);
+
+            if (!latestRow || !revenueElement || !quarterElement || !sparkline) {
+                return;
+            }
+
+            revenueElement.textContent = `$${(latestRow.Revenue / 1000).toFixed(2)}B`;
+            quarterElement.textContent = `Q${latestRow.Quarter.slice(1, 2)} 20${latestRow.Quarter.slice(2)}`;
+
+            const values = revenueRows.slice(-8).map(row => row.Revenue);
+            const minimum = Math.min(...values);
+            const range = Math.max(...values) - minimum || 1;
+            const points = values.map((value, index) => {
+                const horizontal = values.length === 1 ? 140 : 4 + index * 272 / (values.length - 1);
+                const vertical = 62 - (value - minimum) / range * 56;
+                return `${horizontal},${vertical}`;
+            });
+
+            sparkline.setAttribute('points', points.join(' '));
+        });
+    } catch (error) {
+        console.warn('Could not load home company financials', error);
+    }
+}
 
 function showDashboardError(error) {
     let errorBox = document.getElementById('dashboardError');
@@ -91,7 +126,7 @@ function showDashboardError(error) {
         errorBox = document.createElement('div');
         errorBox.id = 'dashboardError';
         errorBox.className = 'dashboard-error';
-        document.querySelector('header')?.after(errorBox);
+        document.querySelector('[data-dashboard-controls]')?.after(errorBox);
     }
 
     errorBox.textContent = `Dashboard data could not load: ${error.message}`;
@@ -316,23 +351,17 @@ function setupChartPeriodControls() {
 }
 
 function updateCompanyVisibility() {
-    const companySubtitles = {
-        Robinhood: 'Focus: Banking & International Expansion',
-        Starbucks: 'Focus: Revenue, margins, and operating trends',
-        Nike: 'Focus: Product mix, margins, and earnings trends'
-    };
-
-    document.querySelector('header h1').textContent = `${selectedCompany} Analytics`;
-    document.querySelector('header p').textContent = companySubtitles[selectedCompany] || 'Focus: Revenue, margins, and operating trends';
+    document.querySelector('[data-current-company]').textContent = selectedCompany;
 
     document.querySelectorAll('[data-company-only]').forEach(element => {
-        element.classList.toggle('is-hidden', element.dataset.companyOnly !== selectedCompany);
+        element.classList.toggle('is-hidden', activeView === 'home' || element.dataset.companyOnly !== selectedCompany);
     });
 }
 
 function updateViewVisibility() {
-    const visibleView = selectedCompany === 'Nike' ? activeView : 'dashboard';
+    const visibleView = activeView === 'home' ? 'home' : selectedCompany === 'Nike' ? activeView : 'dashboard';
 
+    document.querySelector('[data-dashboard-controls]').classList.toggle('is-hidden', activeView === 'home');
     document.querySelectorAll('[data-app-view]').forEach(view => {
         view.classList.toggle('is-hidden', view.dataset.appView !== visibleView);
     });
@@ -344,21 +373,45 @@ function updateViewTabs() {
     });
 }
 
+function updateTopNavigation() {
+    document.querySelectorAll('.site-nav [data-home], .site-nav [data-open-company]').forEach(button => {
+        const isActive = button.hasAttribute('data-home')
+            ? activeView === 'home'
+            : activeView !== 'home' && button.dataset.openCompany === selectedCompany;
+
+        button.classList.toggle('is-active', isActive);
+        if (isActive) {
+            button.setAttribute('aria-current', 'page');
+        } else {
+            button.removeAttribute('aria-current');
+        }
+    });
+}
+
 function setupCompanyTabs() {
-    document.querySelectorAll('[data-company]').forEach(button => {
+    function showHome() {
+        activeView = 'home';
+        updateTopNavigation();
+        updateCompanyVisibility();
+        updateViewVisibility();
+    }
+
+    document.querySelector('[data-home]').addEventListener('click', () => {
+        showHome();
+        window.scrollTo(0, 0);
+    });
+
+    document.querySelectorAll('[data-open-company]').forEach(button => {
         button.addEventListener('click', () => {
-            selectedCompany = button.dataset.company;
-            if (selectedCompany !== 'Nike') {
-                activeView = 'dashboard';
-            }
-            document.querySelectorAll('[data-company]').forEach(companyButton => {
-                companyButton.classList.toggle('is-active', companyButton === button);
-            });
+            selectedCompany = button.dataset.openCompany;
+            activeView = 'dashboard';
+            updateTopNavigation();
             updateViewTabs();
             updateCompanyVisibility();
             updateViewVisibility();
             setupChartPeriodControls();
-            loadChartData();
+            window.scrollTo(0, 0);
+            loadChartData().catch(showDashboardError);
         });
     });
 }
@@ -567,6 +620,7 @@ async function loadChartData(chartId = null) {
     const nike_channel_mix_percentage = getChartContext('nikeChannelMixPercentage');
     const nike_expense_mix = getChartContext('nikeExpenseMix');
     const nike_expense_mix_percentage = getChartContext('nikeExpenseMixPercentage');
+    const nike_revenue_vs_expenses = getChartContext('nikeRevenueVsExpenses');
     const net_interest_breakdown = getChartContext('netInterestBreakdown');
     const net_interest_mix_percentage = getChartContext('netInterestMixPercentage');
     const revenue_platform_assets = getChartContext('revenuePlatformAssets');
@@ -1647,6 +1701,45 @@ async function loadChartData(chartId = null) {
     renderStackedMixChart(nike_expense_mix, nikeExpenseMixFinancials, nikeExpenseMixKeys, 'Expenses ($M)');
     renderStackedMixChart(nike_expense_mix_percentage, nikeExpenseMixPercentageFinancials, nikeExpenseMixKeys, 'Expense Mix (%)', true);
 
+    const nikeRevenueVsExpensesFinancials = filteredFinancialRowsForChart('nikeRevenueVsExpenses', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        row.Revenue !== undefined && row.COGS !== undefined && row.OperatingExpenses !== undefined
+    );
+
+    createChart(nike_revenue_vs_expenses, {
+        type: 'line',
+        data: {
+            labels: nikeRevenueVsExpensesFinancials.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Revenue ($M)',
+                    data: nikeRevenueVsExpensesFinancials.map(row => row.Revenue),
+                    borderColor: '#00C805',
+                    backgroundColor: '#00C805',
+                    borderWidth: 3,
+                    pointRadius: 2,
+                    fill: false,
+                    tension: 0.3
+                },
+                {
+                    label: 'Total Expenses (COGS + OpEx) ($M)',
+                    data: nikeRevenueVsExpensesFinancials.map(row => row.COGS + row.OperatingExpenses),
+                    borderColor: '#E45756',
+                    backgroundColor: '#E45756',
+                    borderWidth: 3,
+                    pointRadius: 2,
+                    fill: false,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: withDarkChartDefaults({
+            scales: {
+                x: { title: { display: true, text: 'Quarters' } },
+                y: { title: { display: true, text: 'USD millions' }, min: 0 }
+            }
+        })
+    });
+
     const netInterestKeys = [
         ['MarginInterestRevenue', 'Margin Interest'],
         ['InterestOnCashRevenue', 'Cash Interest'],
@@ -2088,6 +2181,7 @@ async function loadChartData(chartId = null) {
 setupChartPeriodControls();
 setupCompanyTabs();
 setupViewTabs();
+loadHomeCompanyCards();
+updateTopNavigation();
 updateCompanyVisibility();
 updateViewVisibility();
-loadChartData().catch(showDashboardError);

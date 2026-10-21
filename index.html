@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robinhood Metric Dashboard</title>
+    <title>Stock Topics | Company Analytics</title>
     <link rel="stylesheet" href="./src/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="./src/app.js"></script>
@@ -12,22 +12,63 @@
 <body>
 
 <div class="container">
-    <header>
-        <h1>Robinhood Analytics</h1>
-        <p>Focus: Banking & International Expansion</p>
-        <div class="company-tabs" aria-label="Company">
-            <button type="button" class="company-tab is-active" data-company="Robinhood">Robinhood</button>
-            <button type="button" class="company-tab" data-company="Starbucks">Starbucks</button>
-            <button type="button" class="company-tab" data-company="Nike">Nike</button>
+    <nav class="site-nav" aria-label="Main navigation">
+        <span class="site-nav__brand">Stock Topics</span>
+        <div class="site-nav__links">
+            <button type="button" data-home>Home</button>
+            <button type="button" data-open-company="Robinhood">Robinhood</button>
+            <button type="button" data-open-company="Starbucks">Starbucks</button>
+            <button type="button" data-open-company="Nike">Nike</button>
         </div>
-        <div class="view-tabs" aria-label="View" data-company-only="Nike">
+    </nav>
+    <div class="dashboard-controls is-hidden" data-dashboard-controls>
+        <h1 data-current-company>Robinhood</h1>
+        <div class="view-tabs" aria-label="Nike views" data-company-only="Nike">
             <button type="button" class="view-tab is-active" data-view="dashboard">Dashboard</button>
             <button type="button" class="view-tab" data-view="earnings">Earnings Overview</button>
             <button type="button" class="view-tab" data-view="roadmap">Product Roadmap</button>
         </div>
-    </header>
+    </div>
 
-    <main class="dashboard-view" data-app-view="dashboard">
+    <main class="home-view" data-app-view="home">
+        <section class="home-companies" aria-labelledby="home-companies-title">
+            <div class="home-section-heading">
+                <h1 id="home-companies-title">Companies</h1>
+            </div>
+            <div class="home-company-grid">
+                <button type="button" class="home-company-card home-company-card--robinhood" data-open-company="Robinhood">
+                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/robinhood.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">01 / 03</span></span>
+                    <span class="home-company-card__name">Robinhood</span>
+                    <span class="home-company-card__metric"><span>Latest quarterly revenue</span><strong data-home-revenue="Robinhood">—</strong><small data-home-quarter="Robinhood"></small></span>
+                    <svg class="home-company-card__sparkline" viewBox="0 0 280 68" preserveAspectRatio="none" aria-hidden="true"><polyline data-home-sparkline="Robinhood" /></svg>
+                    <span class="home-company-card__tag">Fintech &amp; brokerage</span>
+                </button>
+                <button type="button" class="home-company-card home-company-card--starbucks" data-open-company="Starbucks">
+                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/starbucks.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">02 / 03</span></span>
+                    <span class="home-company-card__name">Starbucks</span>
+                    <span class="home-company-card__metric"><span>Latest quarterly revenue</span><strong data-home-revenue="Starbucks">—</strong><small data-home-quarter="Starbucks"></small></span>
+                    <svg class="home-company-card__sparkline" viewBox="0 0 280 68" preserveAspectRatio="none" aria-hidden="true"><polyline data-home-sparkline="Starbucks" /></svg>
+                    <span class="home-company-card__tag">Consumer &amp; retail</span>
+                </button>
+                <button type="button" class="home-company-card home-company-card--nike" data-open-company="Nike">
+                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/nike.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">03 / 03</span></span>
+                    <span class="home-company-card__name">Nike</span>
+                    <span class="home-company-card__metric"><span>Latest quarterly revenue</span><strong data-home-revenue="Nike">—</strong><small data-home-quarter="Nike"></small></span>
+                    <svg class="home-company-card__sparkline" viewBox="0 0 280 68" preserveAspectRatio="none" aria-hidden="true"><polyline data-home-sparkline="Nike" /></svg>
+                    <span class="home-company-card__tag">Sportswear &amp; lifestyle</span>
+                </button>
+            </div>
+        </section>
+        <section class="home-about" id="home-about" aria-labelledby="home-about-title">
+            <span class="home-eyebrow">About</span>
+            <h2 id="home-about-title">A personal project in progress.</h2>
+            <p>Stock Topics tracks quarterly releases for companies I follow. The data is added manually, explored for relationships, and presented in different ways.</p>
+            <p>More LibreOffice spreadsheets have yet to be translated into the site.</p>
+            <p class="home-about__note">The charts are for research and exploration, not investment advice.</p>
+        </section>
+    </main>
+
+    <main class="dashboard-view is-hidden" data-app-view="dashboard">
     <div class="grid">
         <div class="card" data-company-only="Robinhood">
             <h2>Robinhood Strategies</h2>
@@ -191,6 +232,11 @@
         <div class="card" data-company-only="Nike">
             <h2>Expense Mix %</h2>
             <canvas id="nikeExpenseMixPercentage" width="600" height="400"></canvas>
+        </div>
+
+        <div class="card" data-company-only="Nike">
+            <h2>Revenue vs Total Expenses (COGS + OpEx)</h2>
+            <canvas id="nikeRevenueVsExpenses" width="600" height="400"></canvas>
         </div>
 
         <div class="card" data-company-only="Robinhood">

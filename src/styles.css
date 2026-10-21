@@ -1,13 +1,13 @@
 :root {
-    --rh-green: #00C805;
-    --bg-dark: #0E0E0E;
-    --card-bg: #1A1A1A;
-    --text-main: #FFFFFF;
-    --text-dim: #8E8E8E;
+    --rh-green: #A7C9A4;
+    --bg-dark: #101310;
+    --card-bg: #171B17;
+    --text-main: #ECEDE6;
+    --text-dim: #A3AAA0;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
     margin: 0;
@@ -19,57 +19,298 @@ body {
     margin: 0 auto;
 }
 
-header {
-    margin-bottom: 30px;
+.site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 0 17px;
+    border-bottom: 1px solid #3A423A;
+}
+
+.site-nav__brand {
+    color: var(--text-main);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.site-nav__links {
+    display: flex;
+    gap: 24px;
+}
+
+.site-nav__links button {
+    padding: 6px 0;
+    border: 0;
+    background: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.9rem;
+}
+
+.site-nav__links button:hover,
+.site-nav__links button:focus-visible,
+.site-nav__links button.is-active {
+    color: var(--text-main);
+}
+
+.home-view {
+    padding-bottom: 50px;
+}
+
+.home-eyebrow {
+    color: var(--rh-green);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.home-companies {
+    margin-top: 52px;
+}
+
+.home-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.home-section-heading h1 {
+    margin: 0;
+    color: var(--text-main);
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.1rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+}
+
+.home-company-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    padding: 1px;
+    background: #3A423A;
+}
+
+.home-company-card {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    min-height: 330px;
+    padding: 28px;
+    border: 0;
+    border-radius: 0;
+    background: var(--card-bg);
+    color: var(--text-main);
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+}
+
+.home-company-card:hover,
+.home-company-card:focus-visible {
+    background: #222B22;
+}
+
+.home-company-card:focus-visible {
+    outline: 2px solid var(--rh-green);
+    outline-offset: -2px;
+}
+
+.home-company-card__top {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 27px;
+}
+
+.home-company-card__mark {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+}
+
+.home-company-card__mark img {
+    display: block;
+    filter: invert(1);
+}
+
+.home-company-card__index {
+    color: #A3AAA0;
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+}
+
+.home-company-card__name {
+    margin-bottom: 7px;
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+}
+
+.home-company-card__metric {
+    display: grid;
+    gap: 3px;
+    margin-top: 28px;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.68rem;
+}
+
+.home-company-card__metric strong {
+    color: var(--text-main);
+    font-size: 1.45rem;
+    font-weight: 500;
+    letter-spacing: -0.05em;
+}
+
+.home-company-card__metric small {
+    color: var(--text-dim);
+    font-size: 0.65rem;
+}
+
+.home-company-card__sparkline {
+    width: 100%;
+    height: 68px;
+    margin-top: 14px;
+    overflow: visible;
+}
+
+.home-company-card__sparkline polyline {
+    fill: none;
+    stroke: #A7C9A4;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.home-company-card--starbucks .home-company-card__sparkline polyline {
+    stroke: #B5C5B0;
+}
+
+.home-company-card--nike .home-company-card__sparkline polyline {
+    stroke: #CAB6A0;
+}
+
+.home-company-card__tag {
+    margin-top: auto;
+    padding-top: 20px;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.64rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.home-about {
+    max-width: 760px;
+    margin-top: 76px;
+    padding-top: 40px;
+    border-top: 1px solid #3A423A;
+}
+
+.home-about h2 {
+    margin: 12px 0;
+    color: var(--text-main);
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+}
+
+.home-about p {
+    color: var(--text-dim);
+    line-height: 1.65;
+}
+
+.home-about .home-about__note {
+    margin-top: 22px;
+    color: #777;
+    font-size: 0.8rem;
+}
+
+.dashboard-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    margin: 28px 0;
+}
+
+.dashboard-controls.is-hidden {
+    display: none;
+}
+
+.dashboard-controls h1 {
+    margin: 0;
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: -0.025em;
 }
 
 .period-toggle {
     display: inline-flex;
-    gap: 4px;
-    padding: 4px;
-    margin-bottom: 12px;
-    background: #151515;
-    border: 1px solid #333;
-    border-radius: 8px;
+    gap: 20px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #3A423A;
 }
 
 .period-toggle__button {
     color: var(--text-dim);
     background: transparent;
     border: 0;
-    border-radius: 6px;
-    padding: 8px 12px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    padding: 0 0 8px;
     cursor: pointer;
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.72rem;
 }
 
 .period-toggle__button.is-active {
-    color: var(--bg-dark);
-    background: var(--rh-green);
+    color: var(--text-main);
+    border-bottom-color: var(--rh-green);
 }
 
-.company-tabs,
+.period-toggle__button:hover,
+.period-toggle__button:focus-visible {
+    color: var(--text-main);
+}
+
 .view-tabs {
     display: inline-flex;
     gap: 6px;
-    margin-top: 8px;
-    margin-right: 8px;
+    margin-left: auto;
     padding: 4px;
-    background: #151515;
-    border: 1px solid #333;
-    border-radius: 8px;
+    background: var(--card-bg);
+    border: 1px solid #3A423A;
+    border-radius: 2px;
 }
 
-.company-tab,
 .view-tab {
     color: var(--text-dim);
     background: transparent;
     border: 0;
-    border-radius: 6px;
+    border-radius: 0;
     padding: 8px 14px;
     cursor: pointer;
 }
 
-.company-tab.is-active,
 .view-tab.is-active {
     color: var(--bg-dark);
     background: var(--rh-green);
@@ -101,18 +342,18 @@ header {
 .card {
     background-color: var(--card-bg);
     padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #333;
+    border-radius: 2px;
+    border: 1px solid #3A423A;
 }
 .full-card {
     background-color: var(--card-bg);
     padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #333;
+    border-radius: 2px;
+    border: 1px solid #3A423A;
     grid-column: 1 / -1;
 }
 
-h2 { font-size: 1.2rem; margin-top: 0; color: var(--rh-green); }
+h2 { font-size: 1.2rem; margin-top: 0; color: #C5D9BF; }
 p { color: var(--text-dim); font-size: 0.9rem; }
 
 canvas {
@@ -177,7 +418,7 @@ canvas {
     padding: 14px;
     background: #151515;
     border: 1px solid #333;
-    border-radius: 8px;
+    border-radius: 2px;
 }
 
 .theme-stat__label {
@@ -221,7 +462,7 @@ canvas {
     background: #151515;
     border: 1px solid #333;
     border-left: 4px solid #555;
-    border-radius: 8px;
+    border-radius: 2px;
 }
 
 .theme-card--positive {
@@ -251,8 +492,52 @@ canvas {
     margin: 6px 0;
 }
 
+@media (max-width: 960px) {
+    .home-company-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 760px) {
+    .home-section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .home-company-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-company-card {
+        min-height: 210px;
+    }
+
     .theme-columns {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 14px;
+    }
+
+    .site-nav,
+    .site-nav__links {
+        flex-wrap: wrap;
+    }
+
+    .site-nav__links {
+        gap: 8px 16px;
+    }
+
+    .view-tabs {
+        flex-wrap: wrap;
+        margin-left: 0;
+    }
+
+    .home-companies {
+        margin-top: 32px;
     }
 }

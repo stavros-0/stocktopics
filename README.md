@@ -1,6 +1,6 @@
-# Robinhood Analytics Dashboard
+# Stock Topics
 
-Static Chart.js dashboard for Robinhood operating, financial, customer, platform asset, revenue, and credit card metrics.
+Homepage and static Chart.js dashboards for Robinhood, Starbucks, and Nike. Choose a company from the homepage or top navigation to explore its metrics.
 
 ## Local Use
 
