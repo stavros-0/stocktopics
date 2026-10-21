@@ -7,6 +7,7 @@
 }
 
 html {
+    overflow-y: scroll;
     scrollbar-gutter: stable;
 }
 
@@ -33,12 +34,20 @@ body {
 }
 
 .site-nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     color: var(--text-main);
     font-family: "Menlo", "Consolas", monospace;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+}
+
+.site-nav__brand img {
+    display: block;
+    object-fit: contain;
 }
 
 .site-nav__links {
@@ -259,6 +268,18 @@ body {
     display: none;
 }
 
+.dashboard-controls__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dashboard-controls__title img {
+    display: block;
+    object-fit: contain;
+    filter: invert(1);
+}
+
 .dashboard-controls h1 {
     margin: 0;
     font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
@@ -390,8 +411,10 @@ body {
 .robinhood-group-card__title {
     grid-column: 1 / -1;
     align-self: end;
+    margin: 0;
     font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
     font-size: 1.4rem;
+    font-weight: 400;
 }
 
 .robinhood-group-card__metric {
@@ -435,6 +458,14 @@ body {
     font-size: 1.1rem;
 }
 
+.robinhood-group-card--static {
+    cursor: default;
+}
+
+.robinhood-group-card--static:hover {
+    background: var(--card-bg);
+}
+
 .robinhood-detail-back {
     margin-bottom: 24px;
     padding: 0;
@@ -461,6 +492,156 @@ body {
     font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
     font-size: 1.6rem;
     font-weight: 400;
+}
+
+.rothera-dashboard__heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.rothera-dashboard__heading h2 {
+    margin: 0 0 6px;
+}
+
+.rothera-dashboard__heading p,
+.rothera-dashboard__heading > span,
+.rothera-dashboard__source {
+    margin: 0;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.7rem;
+}
+
+.rothera-stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.rothera-stat {
+    display: grid;
+    align-content: space-between;
+    gap: 20px;
+    min-height: 95px;
+    padding: 18px;
+    border: 1px solid #3A423A;
+    background: var(--card-bg);
+}
+
+.rothera-stat span {
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.68rem;
+}
+
+.rothera-stat strong {
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+}
+
+.rothera-dashboard__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.rothera-dashboard__grid h3 {
+    margin: 0 0 20px;
+    color: var(--text-main);
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.rothera-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.rothera-filters button {
+    padding: 6px 9px;
+    border: 1px solid #3A423A;
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.65rem;
+}
+
+.rothera-filters button:hover,
+.rothera-filters button:focus-visible,
+.rothera-filters button.is-active {
+    border-color: var(--rh-green);
+    color: var(--text-main);
+}
+
+.rothera-products {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rothera-products__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2px 10px;
+}
+
+.rothera-products__name {
+    grid-column: 1;
+    color: var(--text-main);
+    font-size: 0.8rem;
+}
+
+.rothera-products__item small {
+    grid-column: 1;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.6rem;
+}
+
+.rothera-products__item strong {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.rothera-products__track {
+    grid-column: 1 / -1;
+    height: 3px;
+    margin-top: 5px;
+    background: #303A30;
+}
+
+.rothera-products__track span {
+    display: block;
+    height: 100%;
+    background: var(--rh-green);
+}
+
+.rothera-products__empty {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
+
+.rothera-dashboard__source {
+    margin-top: 16px;
+}
+
+.rothera-dashboard__source a {
+    color: var(--text-main);
 }
 
 .full-width {
@@ -687,9 +868,18 @@ p { color: var(--text-dim); font-size: 0.9rem; }
         grid-column: span 1;
     }
 
-    .robinhood-group-card:last-child {
+    .robinhood-group-card:nth-child(5) {
         grid-column: span 2;
     }
+
+    .rothera-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .rothera-dashboard__grid {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 @media (max-width: 760px) {
@@ -721,8 +911,17 @@ p { color: var(--text-dim); font-size: 0.9rem; }
         grid-template-columns: 1fr;
     }
 
-    .robinhood-group-card:last-child {
+    .robinhood-group-card:nth-child(5) {
         grid-column: span 1;
+    }
+
+    .rothera-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .rothera-dashboard__heading {
+        align-items: start;
+        flex-direction: column;
     }
 
     .site-nav,

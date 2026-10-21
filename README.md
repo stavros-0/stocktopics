@@ -16,6 +16,20 @@ Then open:
 http://localhost:8000
 ```
 
+## Rothera Daily Data
+
+`data/rothera_history.json` starts with the October 20, 2026 clearing file. `data/rothera_snapshot.json` is the latest day shown on the site. Volume is a contract count, not a dollar value; topics are inferred from product-code prefixes.
+
+The GitHub Pages workflow in `.github/workflows/static.yml` checks for new [Rothera clearing files](https://publicfiles.rotheramarkets.com/) at 10:17 AM New York time each day, updates both JSON files, commits any changes, and deploys the site. It also runs from the Actions tab or on pushes to `main`. A missing daily file is retried on the next run.
+
+To add a downloaded file manually:
+
+```bash
+python3 scripts/update_rothera_history.py --csv /path/to/mkt_eod_YYYYMMDD.csv
+```
+
+To backfill earlier dates, run `python3 scripts/update_rothera_history.py --start-date YYYY-MM-DD`. The dashboard currently shows the latest day; the history is available for future monthly, six-month, and YTD views.
+
 ## Revenue Per Funded Customer vs Robinhood ARPU
 
 The dashboard's revenue per funded customer chart currently calculates quarterly revenue per ending funded customer:

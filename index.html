@@ -13,7 +13,7 @@
 
 <div class="container">
     <nav class="site-nav" aria-label="Main navigation">
-        <span class="site-nav__brand">Stock Topics</span>
+        <span class="site-nav__brand"><img src="./src/assets/stock_topics_white.png" alt="" width="30" height="30">Stock Topics</span>
         <div class="site-nav__links">
             <button type="button" data-home>Home</button>
             <button type="button" data-open-company="Robinhood">Robinhood</button>
@@ -22,7 +22,10 @@
         </div>
     </nav>
     <div class="dashboard-controls is-hidden" data-dashboard-controls>
-        <h1 data-current-company>Robinhood</h1>
+        <div class="dashboard-controls__title">
+            <img src="./src/assets/robinhood.svg" alt="" width="32" height="32" data-company-logo>
+            <h1 data-current-company>Robinhood</h1>
+        </div>
         <div class="view-tabs" aria-label="Nike views" data-company-only="Nike">
             <button type="button" class="view-tab is-active" data-view="dashboard">Dashboard</button>
             <button type="button" class="view-tab" data-view="earnings">Earnings Overview</button>
@@ -69,6 +72,54 @@
     </main>
 
     <main class="dashboard-view is-hidden" data-app-view="dashboard">
+    <template id="robinhood-additional-topics">
+        <button type="button" class="robinhood-group-card" data-rothera-card>
+            <span class="robinhood-group-card__number">06</span>
+            <span class="robinhood-group-card__title">Rothera</span>
+            <span class="robinhood-group-card__metric"><span>Daily contract volume</span><strong data-rothera-card-volume>—</strong><small data-rothera-card-date></small></span>
+            <span class="robinhood-group-card__arrow" aria-hidden="true">↗</span>
+        </button>
+        <article class="robinhood-group-card robinhood-group-card--static">
+            <span class="robinhood-group-card__number">07</span>
+            <h2 class="robinhood-group-card__title">Robinhood Chain</h2>
+            <span class="robinhood-group-card__metric">Onchain infrastructure</span>
+        </article>
+    </template>
+    <section class="robinhood-section rothera-dashboard is-hidden" id="robinhood-rothera" aria-labelledby="rothera-title">
+        <div class="rothera-dashboard__heading">
+            <div>
+                <h2 id="rothera-title">Rothera</h2>
+                <p>Daily exchange volume · <time data-rothera-date>Loading</time></p>
+            </div>
+            <span>Contracts traded, not dollar value</span>
+        </div>
+        <div class="rothera-stats">
+            <div class="rothera-stat"><span>Total volume</span><strong data-rothera-stat="total">—</strong></div>
+            <div class="rothera-stat"><span>Sports</span><strong data-rothera-stat="Sports">—</strong></div>
+            <div class="rothera-stat"><span>Politics</span><strong data-rothera-stat="Politics">—</strong></div>
+            <div class="rothera-stat"><span>Economy &amp; finance</span><strong data-rothera-stat="Economy & finance">—</strong></div>
+            <div class="rothera-stat"><span>Crypto</span><strong data-rothera-stat="Crypto">—</strong></div>
+        </div>
+        <div class="rothera-dashboard__grid">
+            <div class="card">
+                <h3>Volume by topic</h3>
+                <div class="chart-container"><canvas id="rotheraCategoryVolume" aria-label="Rothera contract volume by topic" role="img"></canvas></div>
+            </div>
+            <div class="card">
+                <h3>Leading product families</h3>
+                <div class="rothera-filters" aria-label="Filter product families by topic">
+                    <button type="button" class="is-active" data-rothera-filter="All" aria-pressed="true">All</button>
+                    <button type="button" data-rothera-filter="Sports" aria-pressed="false">Sports</button>
+                    <button type="button" data-rothera-filter="Politics" aria-pressed="false">Politics</button>
+                    <button type="button" data-rothera-filter="Economy & finance" aria-pressed="false">Economy</button>
+                    <button type="button" data-rothera-filter="Crypto" aria-pressed="false">Crypto</button>
+                    <button type="button" data-rothera-filter="Other" aria-pressed="false">Other</button>
+                </div>
+                <ol class="rothera-products" data-rothera-products></ol>
+            </div>
+        </div>
+        <p class="rothera-dashboard__source">Snapshot from Rothera’s <a href="https://publicfiles.rotheramarkets.com/" target="_blank" rel="noopener noreferrer">public end-of-day clearing files</a>. Topics are grouped from product codes.</p>
+    </section>
     <div class="grid">
         <div class="card" data-company-only="Robinhood">
             <h2>Robinhood Strategies</h2>

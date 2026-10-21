@@ -95,6 +95,18 @@ const chartInstances = {};
 let selectedCompany = 'Robinhood';
 let activeView = 'home';
 let robinhoodLayout = null;
+let cachedRotheraSnapshot = null;
+let activeRotheraFilter = 'All';
+
+const rotheraProductNames = {
+    NFLGAME: 'NFL games', NFLSPREAD: 'NFL spreads', NFLTOTAL: 'NFL totals', NFL: 'NFL season futures',
+    MLBGAME: 'MLB games', MLBSPREAD: 'MLB spreads', MLBTOTAL: 'MLB totals',
+    NBAGAME: 'NBA games', NBASPREAD: 'NBA spreads', NBATOTAL: 'NBA totals', NBA: 'NBA season futures',
+    NHLGAME: 'NHL games', NHLSPREAD: 'NHL spreads', NHLTOTAL: 'NHL totals',
+    SENRACE: 'Senate races', GOVRACE: 'Governor races', HOURACE: 'House races',
+    CNTRLHOU: 'House control', CNTRLSEN: 'Senate control', CNTRLCONG: 'Congress control',
+    ECUSFED: 'Fed rate decision', ECUNEMP: 'Unemployment claims', ECPCE: 'PCE inflation'
+};
 
 const robinhoodSections = [
     {
@@ -137,6 +149,7 @@ function setupRobinhoodSections() {
     const groupCards = document.createElement('div');
     const backButton = document.createElement('button');
     const sectionContainer = document.createElement('div');
+    const rotheraSection = dashboard.querySelector('#robinhood-rothera');
 
     groupCards.className = 'robinhood-group-grid is-hidden';
     backButton.type = 'button';
@@ -196,6 +209,30 @@ function setupRobinhoodSections() {
         return { sectionElement, grid, cards: section.chartIds.map(chartId => cardsByChartId.get(chartId)), metricValue, metricQuarter, sparklineLine };
     });
 
+    groupCards.append(document.querySelector('#robinhood-additional-topics').content.cloneNode(true));
+    sectionContainer.append(rotheraSection);
+
+    groupCards.querySelector('[data-rothera-card]').addEventListener('click', () => {
+        showRobinhoodGroup('robinhood-rothera');
+        window.scrollTo(0, 0);
+        loadRotheraDashboard().catch(showDashboardError);
+    });
+
+    rotheraSection.querySelector('.rothera-filters').addEventListener('click', event => {
+        const button = event.target.closest('[data-rothera-filter]');
+        if (!button || !cachedRotheraSnapshot) {
+            return;
+        }
+
+        activeRotheraFilter = button.dataset.rotheraFilter;
+        rotheraSection.querySelectorAll('[data-rothera-filter]').forEach(filterButton => {
+            const isActive = filterButton === button;
+            filterButton.classList.toggle('is-active', isActive);
+            filterButton.setAttribute('aria-pressed', String(isActive));
+        });
+        renderRotheraProducts(cachedRotheraSnapshot);
+    });
+
     backButton.addEventListener('click', () => {
         clearDynamicCharts();
         showRobinhoodGroup(null);
@@ -203,11 +240,11 @@ function setupRobinhoodSections() {
     });
 
     dashboard.prepend(groupCards, backButton, sectionContainer);
-    robinhoodLayout = { dashboardGrid, originalCards, groupCards, backButton, sectionContainer, groups, isGrouped: false };
+    robinhoodLayout = { dashboardGrid, originalCards, groupCards, backButton, sectionContainer, rotheraSection, groups, isGrouped: false };
 }
 
 function showRobinhoodGroup(sectionId) {
-    const { groupCards, backButton, sectionContainer, groups } = robinhoodLayout;
+    const { groupCards, backButton, sectionContainer, rotheraSection, groups } = robinhoodLayout;
     const isDetail = Boolean(sectionId);
 
     groupCards.classList.toggle('is-hidden', isDetail);
@@ -216,6 +253,7 @@ function showRobinhoodGroup(sectionId) {
     groups.forEach(({ sectionElement }) => {
         sectionElement.classList.toggle('is-hidden', sectionElement.id !== sectionId);
     });
+    rotheraSection.classList.toggle('is-hidden', rotheraSection.id !== sectionId);
 }
 
 function updateRobinhoodSections() {
@@ -270,6 +308,103 @@ function loadRobinhoodGroupPreviews(financials) {
         metricQuarter.textContent = `Q${latestRow.Quarter.slice(1, 2)} 20${latestRow.Quarter.slice(2)}`;
         sparklineLine.setAttribute('points', sparklinePoints(rows.slice(-8).map(row => row[field])));
     });
+}
+
+function formatRotheraVolume(volume) {
+    return new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(volume);
+}
+
+async function loadRotheraSnapshot() {
+    if (!cachedRotheraSnapshot) {
+        cachedRotheraSnapshot = await loadJson('./data/rothera_snapshot.json');
+    }
+
+    document.querySelector('[data-rothera-card-volume]').textContent = formatRotheraVolume(cachedRotheraSnapshot.totalVolume);
+    document.querySelector('[data-rothera-card-date]').textContent = cachedRotheraSnapshot.date;
+    return cachedRotheraSnapshot;
+}
+
+function renderRotheraProducts(snapshot) {
+    const list = robinhoodLayout.rotheraSection.querySelector('[data-rothera-products]');
+    const products = snapshot.products.filter(product =>
+        product.volume > 0 && (activeRotheraFilter === 'All' || product.category === activeRotheraFilter)
+    ).slice(0, 8);
+
+    list.replaceChildren();
+    if (!products.length) {
+        const empty = document.createElement('li');
+        empty.className = 'rothera-products__empty';
+        empty.textContent = 'No volume in this topic on this date.';
+        list.append(empty);
+        return;
+    }
+
+    const highestVolume = products[0].volume;
+    products.forEach((product, index) => {
+        const item = document.createElement('li');
+        const name = document.createElement('span');
+        const code = document.createElement('small');
+        const volume = document.createElement('strong');
+        const track = document.createElement('span');
+        const bar = document.createElement('span');
+
+        item.className = 'rothera-products__item';
+        name.className = 'rothera-products__name';
+        name.textContent = `${String(index + 1).padStart(2, '0')}  ${rotheraProductNames[product.code] || product.code}`;
+        code.textContent = product.code;
+        volume.textContent = formatRotheraVolume(product.volume);
+        volume.title = `${product.volume.toLocaleString()} contracts`;
+        track.className = 'rothera-products__track';
+        bar.style.width = `${product.volume / highestVolume * 100}%`;
+        track.append(bar);
+        item.append(name, code, volume, track);
+        list.append(item);
+    });
+}
+
+async function loadRotheraDashboard() {
+    const snapshot = await loadRotheraSnapshot();
+    if (robinhoodLayout.rotheraSection.classList.contains('is-hidden')) {
+        return;
+    }
+
+    const dashboard = robinhoodLayout.rotheraSection;
+    const date = dashboard.querySelector('[data-rothera-date]');
+    date.dateTime = snapshot.date;
+    date.textContent = new Date(`${snapshot.date}T00:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    dashboard.querySelector('[data-rothera-stat="total"]').textContent = formatRotheraVolume(snapshot.totalVolume);
+    snapshot.categories.forEach(category => {
+        const stat = [...dashboard.querySelectorAll('[data-rothera-stat]')].find(element => element.dataset.rotheraStat === category.name);
+        if (stat) {
+            stat.textContent = formatRotheraVolume(category.volume);
+            stat.title = `${category.volume.toLocaleString()} contracts`;
+        }
+    });
+
+    const categories = snapshot.categories.filter(category => category.volume > 0);
+    createChart(getChartContext('rotheraCategoryVolume'), {
+        type: 'bar',
+        data: {
+            labels: categories.map(category => category.name),
+            datasets: [{
+                label: 'Contracts',
+                data: categories.map(category => category.volume),
+                backgroundColor: ['#A7C9A4', '#C8B29B', '#92A8BF', '#B79AB0', '#A3AAA0']
+            }]
+        },
+        options: withDarkChartDefaults({
+            indexAxis: 'y',
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: context => `${context.parsed.x.toLocaleString()} contracts` } }
+            },
+            scales: {
+                x: { ticks: { callback: value => formatRotheraVolume(value) } },
+                y: { grid: { display: false } }
+            }
+        })
+    });
+    renderRotheraProducts(snapshot);
 }
 
 async function loadHomeCompanyCards() {
@@ -574,6 +709,11 @@ function setupChartPeriodControls() {
 
 function updateCompanyVisibility() {
     document.querySelector('[data-current-company]').textContent = selectedCompany;
+    document.querySelector('[data-company-logo]').src = {
+        Robinhood: './src/assets/robinhood.svg',
+        Starbucks: './src/assets/starbucks.svg',
+        Nike: './src/assets/nike.svg'
+    }[selectedCompany];
     updateRobinhoodSections();
 
     document.querySelectorAll('[data-company-only]').forEach(element => {
@@ -2331,6 +2471,7 @@ setupChartPeriodControls();
 setupCompanyTabs();
 setupViewTabs();
 loadHomeCompanyCards();
+loadRotheraSnapshot().catch(showDashboardError);
 updateTopNavigation();
 updateCompanyVisibility();
 updateViewVisibility();
