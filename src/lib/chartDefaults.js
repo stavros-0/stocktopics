@@ -1,9 +1,18 @@
 export const darkChartDefaults = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
         legend: {
+            position: 'bottom',
+            align: 'start',
             labels: {
-                color: '#FFFFFF'
+                color: '#A3AAA0',
+                font: { family: 'Menlo, Consolas, monospace', size: 10 },
+                usePointStyle: true,
+                pointStyle: 'circle',
+                boxWidth: 8,
+                boxHeight: 8,
+                padding: 16
             }
         }
     },

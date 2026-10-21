@@ -45,6 +45,17 @@ function getChartContext(id) {
     return canvas ? canvas.getContext('2d') : null;
 }
 
+function setupChartContainers() {
+    document.querySelectorAll('.dashboard-view .card > canvas').forEach(canvas => {
+        const container = document.createElement('div');
+        container.className = 'chart-container';
+        canvas.removeAttribute('width');
+        canvas.removeAttribute('height');
+        canvas.before(container);
+        container.append(canvas);
+    });
+}
+
 const periodChartIds = new Set([
     'equityAssets',
     'cryptoAssets',
@@ -69,7 +80,6 @@ const periodChartIds = new Set([
     'netInterestBreakdown',
     'netInterestMixPercentage',
     'revenuePlatformAssets',
-    'revenuePerCustomer',
     'platformAssetsPerCustomer',
     'goldSubscribers',
     'goldShare',
@@ -84,10 +94,189 @@ let dynamicCharts = [];
 const chartInstances = {};
 let selectedCompany = 'Robinhood';
 let activeView = 'home';
+let robinhoodLayout = null;
+
+const robinhoodSections = [
+    {
+        id: 'robinhood-overview',
+        title: 'Overview',
+        preview: { field: 'Revenue', label: 'Revenue', divisor: 1000, decimals: 2, suffix: 'B', prefix: '$' },
+        chartIds: ['revenueChart', 'fundedCustomers', 'platformAssets', 'netDeposits', 'velocityChart', 'goldSubscribers', 'goldShare', 'growthChart']
+    },
+    {
+        id: 'robinhood-assets',
+        title: 'Customers & assets',
+        preview: { field: 'TotalCustomers', label: 'Funded customers', divisor: 1000, decimals: 1, suffix: 'M', prefix: '' },
+        chartIds: ['aucBreakdown', 'revenuePlatformAssets', 'cryptoRevenueAssets', 'equityAssets', 'cryptoAssets', 'optionsAssets', 'platformAssetsPerCustomer']
+    },
+    {
+        id: 'robinhood-trading',
+        title: 'Transaction Volumes',
+        preview: { field: 'CryptoRevenue', label: 'Crypto revenue', divisor: 1, decimals: 0, suffix: 'M', prefix: '$' },
+        chartIds: ['equities', 'crypto', 'options']
+    },
+    {
+        id: 'robinhood-breakdowns',
+        title: 'Breakdowns & mix',
+        preview: { field: 'TransactionRevenue', label: 'Transaction revenue', divisor: 1, decimals: 0, suffix: 'M', prefix: '$' },
+        chartIds: ['revenueMix', 'revenueMixPercentage', 'transactionRevenueBreakdown', 'transactionRevenueMixPercentage', 'expenseMix', 'expenseMixPercentage', 'netInterestBreakdown', 'netInterestMixPercentage']
+    },
+    {
+        id: 'robinhood-banking',
+        title: 'Banking & credit',
+        preview: { field: 'CashSweepRevenue', label: 'Cash sweep revenue', divisor: 1, decimals: 0, suffix: 'M', prefix: '$' },
+        chartIds: ['bankingChart', 'bankingAUM', 'margin', 'cashSweep', 'creditCardProvisions', 'creditCardBalanceSheet', 'creditCardBalanceSheetPercentage', 'creditCardFICO']
+    }
+];
+
+function setupRobinhoodSections() {
+    const dashboard = document.querySelector('[data-app-view="dashboard"]');
+    const dashboardGrid = dashboard.querySelector('.grid');
+    const originalCards = [...dashboardGrid.children];
+    const cardsByChartId = new Map(originalCards.map(card => [card.querySelector('canvas')?.id, card]));
+    const groupCards = document.createElement('div');
+    const backButton = document.createElement('button');
+    const sectionContainer = document.createElement('div');
+
+    groupCards.className = 'robinhood-group-grid is-hidden';
+    backButton.type = 'button';
+    backButton.className = 'robinhood-detail-back is-hidden';
+    backButton.textContent = '← All Robinhood topics';
+    sectionContainer.className = 'robinhood-sections is-hidden';
+
+    const groups = robinhoodSections.map((section, index) => {
+        const button = document.createElement('button');
+        const number = document.createElement('span');
+        const title = document.createElement('span');
+        const metric = document.createElement('span');
+        const metricLabel = document.createElement('span');
+        const metricValue = document.createElement('strong');
+        const metricQuarter = document.createElement('small');
+        const sparkline = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const sparklineLine = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        const arrow = document.createElement('span');
+        const sectionElement = document.createElement('section');
+        const heading = document.createElement('h2');
+        const grid = document.createElement('div');
+
+        button.type = 'button';
+        button.className = 'robinhood-group-card';
+        number.className = 'robinhood-group-card__number';
+        number.textContent = String(index + 1).padStart(2, '0');
+        title.className = 'robinhood-group-card__title';
+        title.textContent = section.title;
+        metric.className = 'robinhood-group-card__metric';
+        metricLabel.textContent = section.preview.label;
+        metricValue.textContent = '—';
+        metric.append(metricLabel, metricValue, metricQuarter);
+        sparkline.classList.add('robinhood-group-card__sparkline');
+        sparkline.setAttribute('viewBox', '0 0 280 68');
+        sparkline.setAttribute('preserveAspectRatio', 'none');
+        sparkline.setAttribute('aria-hidden', 'true');
+        sparkline.append(sparklineLine);
+        arrow.className = 'robinhood-group-card__arrow';
+        arrow.textContent = '↗';
+        arrow.setAttribute('aria-hidden', 'true');
+        button.append(number, title, metric, sparkline, arrow);
+        groupCards.append(button);
+
+        sectionElement.id = section.id;
+        sectionElement.className = 'robinhood-section is-hidden';
+        heading.textContent = section.title;
+        grid.className = 'grid';
+        sectionElement.append(heading, grid);
+        sectionContainer.append(sectionElement);
+
+        button.addEventListener('click', () => {
+            showRobinhoodGroup(section.id);
+            window.scrollTo(0, 0);
+            loadChartData().catch(showDashboardError);
+        });
+
+        return { sectionElement, grid, cards: section.chartIds.map(chartId => cardsByChartId.get(chartId)), metricValue, metricQuarter, sparklineLine };
+    });
+
+    backButton.addEventListener('click', () => {
+        clearDynamicCharts();
+        showRobinhoodGroup(null);
+        window.scrollTo(0, 0);
+    });
+
+    dashboard.prepend(groupCards, backButton, sectionContainer);
+    robinhoodLayout = { dashboardGrid, originalCards, groupCards, backButton, sectionContainer, groups, isGrouped: false };
+}
+
+function showRobinhoodGroup(sectionId) {
+    const { groupCards, backButton, sectionContainer, groups } = robinhoodLayout;
+    const isDetail = Boolean(sectionId);
+
+    groupCards.classList.toggle('is-hidden', isDetail);
+    backButton.classList.toggle('is-hidden', !isDetail);
+    sectionContainer.classList.toggle('is-hidden', !isDetail);
+    groups.forEach(({ sectionElement }) => {
+        sectionElement.classList.toggle('is-hidden', sectionElement.id !== sectionId);
+    });
+}
+
+function updateRobinhoodSections() {
+    const isRobinhood = selectedCompany === 'Robinhood';
+    const { dashboardGrid, originalCards, groupCards, backButton, sectionContainer, groups } = robinhoodLayout;
+
+    if (robinhoodLayout.isGrouped === isRobinhood) {
+        if (isRobinhood) {
+            clearDynamicCharts();
+            showRobinhoodGroup(null);
+        }
+        return;
+    }
+
+    clearDynamicCharts();
+    if (isRobinhood) {
+        groups.forEach(({ grid, cards }) => grid.append(...cards));
+    } else {
+        dashboardGrid.replaceChildren(...originalCards);
+    }
+
+    dashboardGrid.classList.toggle('is-hidden', isRobinhood);
+    groupCards.classList.toggle('is-hidden', !isRobinhood);
+    backButton.classList.add('is-hidden');
+    sectionContainer.classList.add('is-hidden');
+    robinhoodLayout.isGrouped = isRobinhood;
+}
+
+function sparklinePoints(values) {
+    const minimum = Math.min(...values);
+    const range = Math.max(...values) - minimum || 1;
+
+    return values.map((value, index) => {
+        const horizontal = values.length === 1 ? 140 : 4 + index * 272 / (values.length - 1);
+        const vertical = 62 - (value - minimum) / range * 56;
+        return `${horizontal},${vertical}`;
+    }).join(' ');
+}
+
+function loadRobinhoodGroupPreviews(financials) {
+    robinhoodSections.forEach((section, index) => {
+        const rows = financials.filter(row => typeof row[section.preview.field] === 'number');
+        const latestRow = rows.at(-1);
+
+        if (!latestRow) {
+            return;
+        }
+
+        const { metricValue, metricQuarter, sparklineLine } = robinhoodLayout.groups[index];
+        const { field, divisor, decimals, suffix, prefix } = section.preview;
+        metricValue.textContent = `${prefix}${(latestRow[field] / divisor).toFixed(decimals)}${suffix}`;
+        metricQuarter.textContent = `Q${latestRow.Quarter.slice(1, 2)} 20${latestRow.Quarter.slice(2)}`;
+        sparklineLine.setAttribute('points', sparklinePoints(rows.slice(-8).map(row => row[field])));
+    });
+}
 
 async function loadHomeCompanyCards() {
     try {
         const companies = await loadJson('./data/financials.json');
+
+        loadRobinhoodGroupPreviews(companies.find(company => company.Company === 'Robinhood').Financials);
 
         companies.forEach(({ Company: company, Financials: financials }) => {
             const revenueRows = financials.filter(row => typeof row.Revenue === 'number');
@@ -103,16 +292,7 @@ async function loadHomeCompanyCards() {
             revenueElement.textContent = `$${(latestRow.Revenue / 1000).toFixed(2)}B`;
             quarterElement.textContent = `Q${latestRow.Quarter.slice(1, 2)} 20${latestRow.Quarter.slice(2)}`;
 
-            const values = revenueRows.slice(-8).map(row => row.Revenue);
-            const minimum = Math.min(...values);
-            const range = Math.max(...values) - minimum || 1;
-            const points = values.map((value, index) => {
-                const horizontal = values.length === 1 ? 140 : 4 + index * 272 / (values.length - 1);
-                const vertical = 62 - (value - minimum) / range * 56;
-                return `${horizontal},${vertical}`;
-            });
-
-            sparkline.setAttribute('points', points.join(' '));
+            sparkline.setAttribute('points', sparklinePoints(revenueRows.slice(-8).map(row => row.Revenue)));
         });
     } catch (error) {
         console.warn('Could not load home company financials', error);
@@ -130,6 +310,44 @@ function showDashboardError(error) {
     }
 
     errorBox.textContent = `Dashboard data could not load: ${error.message}`;
+}
+
+function renderNetInterestLegend(chart) {
+    const card = chart.canvas.closest('.card');
+    let legend = card.querySelector('.net-interest-legend');
+
+    if (!legend) {
+        legend = document.createElement('details');
+        legend.className = 'net-interest-legend';
+        card.append(legend);
+    }
+
+    const summary = document.createElement('summary');
+    const items = document.createElement('div');
+    summary.textContent = 'Legend';
+    items.className = 'net-interest-legend__items';
+    legend.replaceChildren(summary, items);
+    chart.data.datasets.forEach((dataset, index) => {
+        const button = document.createElement('button');
+        const swatch = document.createElement('span');
+        const label = document.createElement('span');
+
+        button.type = 'button';
+        button.className = 'net-interest-legend__item';
+        button.setAttribute('aria-pressed', String(chart.isDatasetVisible(index)));
+        swatch.className = 'net-interest-legend__swatch';
+        swatch.style.backgroundColor = dataset.borderColor;
+        swatch.setAttribute('aria-hidden', 'true');
+        label.textContent = dataset.label;
+        button.append(swatch, label);
+        button.addEventListener('click', () => {
+            const visible = !chart.isDatasetVisible(index);
+            chart.setDatasetVisibility(index, visible);
+            chart.update();
+            button.setAttribute('aria-pressed', String(visible));
+        });
+        items.append(button);
+    });
 }
 
 function createChart(context, config) {
@@ -156,12 +374,16 @@ function createChart(context, config) {
     const chart = new Chart(context, config);
     chartInstances[chartId] = chart;
     dynamicCharts.push(chart);
+    if (chartId === 'netInterestBreakdown' || chartId === 'netInterestMixPercentage') {
+        renderNetInterestLegend(chart);
+    }
     return chart;
 }
 
 function clearDynamicCharts() {
     dynamicCharts.forEach(chart => chart.destroy());
     dynamicCharts = [];
+    document.querySelectorAll('.net-interest-legend').forEach(legend => legend.remove());
     Object.keys(chartInstances).forEach(chartId => {
         delete chartInstances[chartId];
     });
@@ -332,7 +554,7 @@ function setupChartPeriodControls() {
             <button type="button" class="period-toggle__button is-active" data-chart-period="quarterly">Quarterly</button>
             <button type="button" class="period-toggle__button" data-chart-period="annual">Annual</button>
         `;
-        canvas.before(toggle);
+        canvas.closest('.chart-container').before(toggle);
 
         toggle.addEventListener('click', event => {
             const button = event.target.closest('[data-chart-period]');
@@ -352,6 +574,7 @@ function setupChartPeriodControls() {
 
 function updateCompanyVisibility() {
     document.querySelector('[data-current-company]').textContent = selectedCompany;
+    updateRobinhoodSections();
 
     document.querySelectorAll('[data-company-only]').forEach(element => {
         element.classList.toggle('is-hidden', activeView === 'home' || element.dataset.companyOnly !== selectedCompany);
@@ -411,7 +634,9 @@ function setupCompanyTabs() {
             updateViewVisibility();
             setupChartPeriodControls();
             window.scrollTo(0, 0);
-            loadChartData().catch(showDashboardError);
+            if (selectedCompany !== 'Robinhood') {
+                loadChartData().catch(showDashboardError);
+            }
         });
     });
 }
@@ -624,7 +849,6 @@ async function loadChartData(chartId = null) {
     const net_interest_breakdown = getChartContext('netInterestBreakdown');
     const net_interest_mix_percentage = getChartContext('netInterestMixPercentage');
     const revenue_platform_assets = getChartContext('revenuePlatformAssets');
-    const revenue_per_customer = getChartContext('revenuePerCustomer');
     const platform_assets_per_customer = getChartContext('platformAssetsPerCustomer');
     const credit_card_provisions = getChartContext('creditCardProvisions');
     const credit_card_bs = getChartContext('creditCardBalanceSheet');
@@ -1768,7 +1992,7 @@ async function loadChartData(chartId = null) {
         },
         options: withDarkChartDefaults({
             plugins: {
-                legend: { display: true }
+                legend: { display: false }
             },
             scales: {
                 x: {
@@ -1805,7 +2029,7 @@ async function loadChartData(chartId = null) {
         },
         options: withDarkChartDefaults({
             plugins: {
-                legend: { display: true }
+                legend: { display: false }
             },
             scales: {
                 x: {
@@ -1918,83 +2142,6 @@ async function loadChartData(chartId = null) {
                     type: 'linear',
                     position: 'right',
                     title: { display: true, text: 'Crypto Assets ($B)' },
-                    min: 0,
-                    grid: { drawOnChartArea: false }
-                }
-            }
-        })
-    });
-
-    const revenuePerCustomerFinancials = filteredFinancialRowsForChart('revenuePerCustomer', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
-        row.Revenue !== undefined &&
-        row.TotalPlatform !== undefined &&
-        row.TotalCustomers !== undefined
-    );
-    const financialsWithMarketing = revenuePerCustomerFinancials.filter(row =>
-        row.Marketing !== undefined
-    );
-    const financialsWithOperatingExpenses = revenuePerCustomerFinancials.filter(row =>
-        row.OperatingExpenses !== undefined
-    );
-
-    createChart(revenue_per_customer, {
-        type: 'line',
-        data: {
-            labels: revenuePerCustomerFinancials.map(row => row.Quarter),
-            datasets: [
-                greenLineDataset(
-                    'Revenue per Funded Customer ($)',
-                    revenuePerCustomerFinancials.map(row => row.Revenue / row.TotalCustomers * 1000)
-                ),
-                {
-                    label: 'Marketing Spend per Funded Customer ($)',
-                    data: financialsWithMarketing.map(row => row.Marketing / row.TotalCustomers * 1000),
-                    borderColor: 'rgba(255, 159, 64, 0.9)',
-                    backgroundColor: 'rgba(255, 159, 64, 0.1)',
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: 'Operating Expenses Ex. Credit Losses per Funded Customer ($)',
-                    data: financialsWithOperatingExpenses.map(row =>
-                        (row.OperatingExpenses - (row.ProvisionForCreditLosses || 0)) / row.TotalCustomers * 1000
-                    ),
-                    borderColor: 'rgba(214, 39, 40, 0.9)',
-                    backgroundColor: 'rgba(214, 39, 40, 0.1)',
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: 'Provision for Credit Losses per Funded Customer ($)',
-                    data: financialsWithOperatingExpenses.map(row =>
-                        (row.ProvisionForCreditLosses || 0) / row.TotalCustomers * 1000
-                    ),
-                    borderColor: 'rgba(148, 103, 189, 0.9)',
-                    backgroundColor: 'rgba(148, 103, 189, 0.1)',
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: 'Platform Assets per Funded Customer ($)',
-                    data: revenuePerCustomerFinancials.map(row => row.TotalPlatform / row.TotalCustomers * 1000000),
-                    borderColor: 'rgba(31, 119, 180, 0.9)',
-                    backgroundColor: 'rgba(31, 119, 180, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                    yAxisID: 'yAssetsPerCustomer'
-                }
-            ]
-        },
-        options: withDarkChartDefaults({
-            scales: {
-                y: {
-                    title: { display: true, text: 'Revenue per Customer ($)' },
-                    min: 0
-                },
-                yAssetsPerCustomer: {
-                    type: 'linear',
-                    position: 'right',
-                    title: { display: true, text: 'Assets per Customer ($)' },
                     min: 0,
                     grid: { drawOnChartArea: false }
                 }
@@ -2178,6 +2325,8 @@ async function loadChartData(chartId = null) {
     activeRenderChartId = null;
 }
 
+setupChartContainers();
+setupRobinhoodSections();
 setupChartPeriodControls();
 setupCompanyTabs();
 setupViewTabs();

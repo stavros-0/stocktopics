@@ -6,6 +6,10 @@
     --text-dim: #A3AAA0;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 body {
     font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
     background-color: var(--bg-dark);
@@ -335,6 +339,130 @@ body {
     gap: 20px;
 }
 
+.robinhood-group-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.robinhood-group-grid.is-hidden,
+.robinhood-detail-back.is-hidden,
+.grid.is-hidden {
+    display: none;
+}
+
+.robinhood-group-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18px;
+    grid-column: span 2;
+    gap: 10px;
+    box-sizing: border-box;
+    min-height: 210px;
+    padding: 20px;
+    border: 1px solid #3A423A;
+    background: var(--card-bg);
+    color: var(--text-main);
+    cursor: pointer;
+    text-align: left;
+}
+
+.robinhood-group-card:nth-child(n+4) {
+    grid-column: span 3;
+}
+
+.robinhood-group-card:hover,
+.robinhood-group-card:focus-visible {
+    background: #222B22;
+}
+
+.robinhood-group-card:focus-visible {
+    outline: 2px solid var(--rh-green);
+    outline-offset: -2px;
+}
+
+.robinhood-group-card__number {
+    grid-column: 1;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.68rem;
+}
+
+.robinhood-group-card__title {
+    grid-column: 1 / -1;
+    align-self: end;
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.4rem;
+}
+
+.robinhood-group-card__metric {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 2px;
+    color: var(--text-dim);
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.64rem;
+}
+
+.robinhood-group-card__metric strong {
+    color: var(--text-main);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.robinhood-group-card__metric small {
+    font-size: 0.62rem;
+}
+
+.robinhood-group-card__sparkline {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 34px;
+}
+
+.robinhood-group-card__sparkline polyline {
+    fill: none;
+    stroke: var(--rh-green);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.robinhood-group-card__arrow {
+    grid-column: 2;
+    grid-row: 1;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+}
+
+.robinhood-detail-back {
+    margin-bottom: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.85rem;
+}
+
+.robinhood-detail-back:hover,
+.robinhood-detail-back:focus-visible {
+    color: var(--text-main);
+}
+
+.robinhood-section {
+    margin-bottom: 48px;
+}
+
+.robinhood-section h2 {
+    margin-bottom: 18px;
+    color: var(--text-main);
+    font-family: "Iowan Old Style", "Baskerville", Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
 .full-width {
     grid-column: 1 / -1; 
 }
@@ -356,8 +484,62 @@ body {
 h2 { font-size: 1.2rem; margin-top: 0; color: #C5D9BF; }
 p { color: var(--text-dim); font-size: 0.9rem; }
 
-canvas {
-    max-height: 1000px;
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+}
+
+.net-interest-legend {
+    margin-top: 14px;
+}
+
+.net-interest-legend summary {
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.68rem;
+}
+
+.net-interest-legend summary:hover,
+.net-interest-legend summary:focus-visible {
+    color: var(--text-main);
+}
+
+.net-interest-legend__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    padding-top: 12px;
+}
+
+.net-interest-legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 0;
+    border: 0;
+    background: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-family: "Menlo", "Consolas", monospace;
+    font-size: 0.65rem;
+}
+
+.net-interest-legend__item:hover,
+.net-interest-legend__item:focus-visible {
+    color: var(--text-main);
+}
+
+.net-interest-legend__item[aria-pressed="false"] {
+    opacity: 0.45;
+}
+
+.net-interest-legend__swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex: none;
 }
 
 .roadmap-table-wrap {
@@ -496,6 +678,18 @@ canvas {
     .home-company-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .robinhood-group-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .robinhood-group-card:nth-child(n) {
+        grid-column: span 1;
+    }
+
+    .robinhood-group-card:last-child {
+        grid-column: span 2;
+    }
 }
 
 @media (max-width: 760px) {
@@ -521,6 +715,14 @@ canvas {
 @media (max-width: 500px) {
     body {
         padding: 14px;
+    }
+
+    .robinhood-group-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .robinhood-group-card:last-child {
+        grid-column: span 1;
     }
 
     .site-nav,
