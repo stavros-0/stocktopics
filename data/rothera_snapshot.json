@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-25",
+  "date": "2026-10-26",
   "source": "Rothera clearing/outbound/mkt_eod",
-  "totalVolume": 81210215,
+  "totalVolume": 59610490,
   "categories": [
     {
       "name": "Sports",
-      "volume": 79339179
+      "volume": 56976733
     },
     {
       "name": "Politics",
-      "volume": 1688853
+      "volume": 2395168
     },
     {
       "name": "Economy & finance",
-      "volume": 182183
+      "volume": 238198
     },
     {
       "name": "Crypto",
@@ -21,397 +21,402 @@
     },
     {
       "name": "Other",
-      "volume": 0
+      "volume": 391
     }
   ],
   "products": [
     {
       "code": "NFLGAME",
       "category": "Sports",
-      "volume": 37715287
+      "volume": 29836388
     },
     {
       "code": "NBAGAME",
       "category": "Sports",
-      "volume": 12873466
+      "volume": 10225561
     },
     {
       "code": "NFLSPREAD",
       "category": "Sports",
-      "volume": 11059725
-    },
-    {
-      "code": "MLBGAME",
-      "category": "Sports",
-      "volume": 5907992
+      "volume": 6861657
     },
     {
       "code": "NFLTOTAL",
       "category": "Sports",
-      "volume": 5675877
+      "volume": 3834561
     },
     {
       "code": "NBASPREAD",
       "category": "Sports",
-      "volume": 1461039
+      "volume": 1903271
     },
     {
       "code": "NBATOTAL",
       "category": "Sports",
-      "volume": 1155560
+      "volume": 1111993
     },
     {
       "code": "SENRACE",
       "category": "Politics",
-      "volume": 831011
-    },
-    {
-      "code": "NHLGAME",
-      "category": "Sports",
-      "volume": 781156
-    },
-    {
-      "code": "NHLTOTAL",
-      "category": "Sports",
-      "volume": 441747
-    },
-    {
-      "code": "MLBTOTAL",
-      "category": "Sports",
-      "volume": 431161
-    },
-    {
-      "code": "NFL",
-      "category": "Sports",
-      "volume": 427438
+      "volume": 858804
     },
     {
       "code": "GOVRACE",
       "category": "Politics",
-      "volume": 427403
+      "volume": 754031
     },
     {
-      "code": "MLBSPREAD",
+      "code": "NFL",
       "category": "Sports",
-      "volume": 355944
+      "volume": 673176
     },
     {
-      "code": "NCAAF",
+      "code": "NHLGAME",
       "category": "Sports",
-      "volume": 218641
+      "volume": 641112
     },
     {
-      "code": "ECUSFED",
-      "category": "Economy & finance",
-      "volume": 182080
+      "code": "MLBGAME",
+      "category": "Sports",
+      "volume": 505623
     },
     {
       "code": "CNTRLHOU",
       "category": "Politics",
-      "volume": 143526
+      "volume": 484404
     },
     {
-      "code": "CNTRLSEN",
-      "category": "Politics",
-      "volume": 132489
+      "code": "NHLTOTAL",
+      "category": "Sports",
+      "volume": 342129
+    },
+    {
+      "code": "ECUSFED",
+      "category": "Economy & finance",
+      "volume": 227061
     },
     {
       "code": "NBA",
       "category": "Sports",
-      "volume": 88732
-    },
-    {
-      "code": "NFLAFC",
-      "category": "Sports",
-      "volume": 74757
-    },
-    {
-      "code": "HOURACE",
-      "category": "Politics",
-      "volume": 62659
-    },
-    {
-      "code": "NHLQUAL",
-      "category": "Sports",
-      "volume": 59667
+      "volume": 210436
     },
     {
       "code": "NHLSPREAD",
       "category": "Sports",
-      "volume": 57856
+      "volume": 143551
     },
     {
-      "code": "USPRESNOM",
+      "code": "CNTRLSEN",
       "category": "Politics",
-      "volume": 48007
-    },
-    {
-      "code": "NCAAFHEISMAN",
-      "category": "Sports",
-      "volume": 44314
-    },
-    {
-      "code": "CNTRLCONG",
-      "category": "Politics",
-      "volume": 38207
+      "volume": 129408
     },
     {
       "code": "NFLNFC",
       "category": "Sports",
-      "volume": 37377
+      "volume": 97901
     },
     {
-      "code": "NCAAFB12",
-      "category": "Sports",
-      "volume": 35884
-    },
-    {
-      "code": "NFLMVP",
-      "category": "Sports",
-      "volume": 35649
-    },
-    {
-      "code": "NHLPACIFIC",
-      "category": "Sports",
-      "volume": 33600
-    },
-    {
-      "code": "NFLNFCEAST",
-      "category": "Sports",
-      "volume": 33223
-    },
-    {
-      "code": "NFLAFCNORTH",
-      "category": "Sports",
-      "volume": 32660
-    },
-    {
-      "code": "NCAAFACC",
-      "category": "Sports",
-      "volume": 28686
-    },
-    {
-      "code": "NCAAFQUAL",
-      "category": "Sports",
-      "volume": 20596
-    },
-    {
-      "code": "NCAAFB10",
-      "category": "Sports",
-      "volume": 20502
-    },
-    {
-      "code": "NCAAFSEC",
-      "category": "Sports",
-      "volume": 19773
-    },
-    {
-      "code": "NHLATLANTIC",
-      "category": "Sports",
-      "volume": 19538
-    },
-    {
-      "code": "NBASOUTHWEST",
-      "category": "Sports",
-      "volume": 18938
-    },
-    {
-      "code": "NHL",
-      "category": "Sports",
-      "volume": 17722
-    },
-    {
-      "code": "MARMAD",
-      "category": "Sports",
-      "volume": 17289
-    },
-    {
-      "code": "NFLNFCSOUTH",
-      "category": "Sports",
-      "volume": 17280
-    },
-    {
-      "code": "NFLAFCWEST",
-      "category": "Sports",
-      "volume": 15370
-    },
-    {
-      "code": "EPL",
-      "category": "Sports",
-      "volume": 14855
-    },
-    {
-      "code": "NBASOUTHEAST",
-      "category": "Sports",
-      "volume": 11963
-    },
-    {
-      "code": "NFLAFCSOUTH",
-      "category": "Sports",
-      "volume": 11693
-    },
-    {
-      "code": "NFLNFCWEST",
-      "category": "Sports",
-      "volume": 8249
-    },
-    {
-      "code": "NFLNFCNORTH",
-      "category": "Sports",
-      "volume": 7457
-    },
-    {
-      "code": "NFLQUAL",
-      "category": "Sports",
-      "volume": 7448
-    },
-    {
-      "code": "NBAEAST",
-      "category": "Sports",
-      "volume": 6771
-    },
-    {
-      "code": "NBAWEST",
-      "category": "Sports",
-      "volume": 6678
-    },
-    {
-      "code": "NBAMVP",
-      "category": "Sports",
-      "volume": 5679
-    },
-    {
-      "code": "UCL",
-      "category": "Sports",
-      "volume": 3894
-    },
-    {
-      "code": "NBAQUAL",
-      "category": "Sports",
-      "volume": 3411
-    },
-    {
-      "code": "NCAAFPAC12",
-      "category": "Sports",
-      "volume": 2719
-    },
-    {
-      "code": "USPRESIDENT",
+      "code": "CNTRLCONG",
       "category": "Politics",
-      "volume": 2674
+      "volume": 93621
     },
     {
-      "code": "NFLAFCEAST",
+      "code": "NCAAF",
       "category": "Sports",
-      "volume": 2631
+      "volume": 66163
     },
     {
-      "code": "USPRESPARTY",
+      "code": "MLBSPREAD",
+      "category": "Sports",
+      "volume": 64669
+    },
+    {
+      "code": "NFLAFC",
+      "category": "Sports",
+      "volume": 55520
+    },
+    {
+      "code": "MLBTOTAL",
+      "category": "Sports",
+      "volume": 55410
+    },
+    {
+      "code": "HOURACE",
       "category": "Politics",
-      "volume": 2467
-    },
-    {
-      "code": "NHLMVP",
-      "category": "Sports",
-      "volume": 2277
-    },
-    {
-      "code": "NBAPACIFIC",
-      "category": "Sports",
-      "volume": 2276
-    },
-    {
-      "code": "NCAAFMWC",
-      "category": "Sports",
-      "volume": 1884
-    },
-    {
-      "code": "NHLEAST",
-      "category": "Sports",
-      "volume": 1170
-    },
-    {
-      "code": "NBACUP",
-      "category": "Sports",
-      "volume": 1100
-    },
-    {
-      "code": "NBACENTRAL",
-      "category": "Sports",
-      "volume": 764
+      "volume": 50816
     },
     {
       "code": "NBANORTHWEST",
       "category": "Sports",
-      "volume": 666
+      "volume": 28525
     },
     {
-      "code": "VPPARTYNOM",
+      "code": "NHLQUAL",
+      "category": "Sports",
+      "volume": 27363
+    },
+    {
+      "code": "NFLMVP",
+      "category": "Sports",
+      "volume": 23013
+    },
+    {
+      "code": "NCAAFB12",
+      "category": "Sports",
+      "volume": 18212
+    },
+    {
+      "code": "NBAWEST",
+      "category": "Sports",
+      "volume": 17784
+    },
+    {
+      "code": "NHLPACIFIC",
+      "category": "Sports",
+      "volume": 16425
+    },
+    {
+      "code": "NCAAFB10",
+      "category": "Sports",
+      "volume": 15159
+    },
+    {
+      "code": "MARMAD",
+      "category": "Sports",
+      "volume": 14702
+    },
+    {
+      "code": "NCAAFHEISMAN",
+      "category": "Sports",
+      "volume": 13994
+    },
+    {
+      "code": "UCL",
+      "category": "Sports",
+      "volume": 13960
+    },
+    {
+      "code": "NFLQUAL",
+      "category": "Sports",
+      "volume": 13118
+    },
+    {
+      "code": "USPRESNOM",
       "category": "Politics",
-      "volume": 410
+      "volume": 12771
     },
     {
-      "code": "NBAATLANTIC",
+      "code": "NBAMVP",
       "category": "Sports",
-      "volume": 320
+      "volume": 12597
     },
     {
-      "code": "NHLWEST",
+      "code": "NBAEAST",
       "category": "Sports",
-      "volume": 275
-    },
-    {
-      "code": "NCAAFMAC",
-      "category": "Sports",
-      "volume": 173
-    },
-    {
-      "code": "NCAAFUSA",
-      "category": "Sports",
-      "volume": 170
-    },
-    {
-      "code": "NCAAFSBELT",
-      "category": "Sports",
-      "volume": 109
-    },
-    {
-      "code": "ECPCE",
-      "category": "Economy & finance",
-      "volume": 103
-    },
-    {
-      "code": "NCAAFAAC",
-      "category": "Sports",
-      "volume": 37
-    },
-    {
-      "code": "NHLMETRO",
-      "category": "Sports",
-      "volume": 34
-    },
-    {
-      "code": "NHLCENTRAL",
-      "category": "Sports",
-      "volume": 21
-    },
-    {
-      "code": "NBACUPQUAL",
-      "category": "Sports",
-      "volume": 9
-    },
-    {
-      "code": "ATP",
-      "category": "Other",
-      "volume": 0
+      "volume": 11352
     },
     {
       "code": "ECUNEMP",
       "category": "Economy & finance",
-      "volume": 0
+      "volume": 11107
+    },
+    {
+      "code": "NBASOUTHWEST",
+      "category": "Sports",
+      "volume": 11107
+    },
+    {
+      "code": "NFLNFCWEST",
+      "category": "Sports",
+      "volume": 11049
+    },
+    {
+      "code": "NFLNFCSOUTH",
+      "category": "Sports",
+      "volume": 10826
+    },
+    {
+      "code": "NFLNFCNORTH",
+      "category": "Sports",
+      "volume": 10719
+    },
+    {
+      "code": "NFLAFCNORTH",
+      "category": "Sports",
+      "volume": 10147
+    },
+    {
+      "code": "NFLNFCEAST",
+      "category": "Sports",
+      "volume": 9954
+    },
+    {
+      "code": "NCAAFSEC",
+      "category": "Sports",
+      "volume": 9934
+    },
+    {
+      "code": "USPRESIDENT",
+      "category": "Politics",
+      "volume": 9765
+    },
+    {
+      "code": "EPL",
+      "category": "Sports",
+      "volume": 7288
+    },
+    {
+      "code": "NHL",
+      "category": "Sports",
+      "volume": 5593
+    },
+    {
+      "code": "NHLWEST",
+      "category": "Sports",
+      "volume": 5573
+    },
+    {
+      "code": "NBAPACIFIC",
+      "category": "Sports",
+      "volume": 5224
+    },
+    {
+      "code": "NFLAFCSOUTH",
+      "category": "Sports",
+      "volume": 4956
+    },
+    {
+      "code": "NBACUP",
+      "category": "Sports",
+      "volume": 3672
+    },
+    {
+      "code": "NFLAFCWEST",
+      "category": "Sports",
+      "volume": 3570
+    },
+    {
+      "code": "NCAAFQUAL",
+      "category": "Sports",
+      "volume": 2404
+    },
+    {
+      "code": "NFLAFCEAST",
+      "category": "Sports",
+      "volume": 1622
+    },
+    {
+      "code": "NBASOUTHEAST",
+      "category": "Sports",
+      "volume": 1094
+    },
+    {
+      "code": "NBAQUAL",
+      "category": "Sports",
+      "volume": 1056
+    },
+    {
+      "code": "NHLATLANTIC",
+      "category": "Sports",
+      "volume": 1050
+    },
+    {
+      "code": "USPRESPARTY",
+      "category": "Politics",
+      "volume": 923
+    },
+    {
+      "code": "NBAATLANTIC",
+      "category": "Sports",
+      "volume": 819
+    },
+    {
+      "code": "WMARMAD",
+      "category": "Sports",
+      "volume": 667
+    },
+    {
+      "code": "NHLCENTRAL",
+      "category": "Sports",
+      "volume": 629
+    },
+    {
+      "code": "NCAAFACC",
+      "category": "Sports",
+      "volume": 628
+    },
+    {
+      "code": "VPPARTYNOM",
+      "category": "Politics",
+      "volume": 625
+    },
+    {
+      "code": "NCAAFSBELT",
+      "category": "Sports",
+      "volume": 460
+    },
+    {
+      "code": "NCAAFMWC",
+      "category": "Sports",
+      "volume": 449
+    },
+    {
+      "code": "ATP",
+      "category": "Other",
+      "volume": 391
+    },
+    {
+      "code": "NBACENTRAL",
+      "category": "Sports",
+      "volume": 376
+    },
+    {
+      "code": "NHLMVP",
+      "category": "Sports",
+      "volume": 261
+    },
+    {
+      "code": "NCAAFPAC12",
+      "category": "Sports",
+      "volume": 123
+    },
+    {
+      "code": "NCAAFAAC",
+      "category": "Sports",
+      "volume": 52
+    },
+    {
+      "code": "NHLEAST",
+      "category": "Sports",
+      "volume": 52
+    },
+    {
+      "code": "NHLMETRO",
+      "category": "Sports",
+      "volume": 33
+    },
+    {
+      "code": "ECPCE",
+      "category": "Economy & finance",
+      "volume": 30
+    },
+    {
+      "code": "NCAAFUSA",
+      "category": "Sports",
+      "volume": 16
     },
     {
       "code": "MARMADQUAL",
+      "category": "Sports",
+      "volume": 5
+    },
+    {
+      "code": "NBACUPQUAL",
+      "category": "Sports",
+      "volume": 0
+    },
+    {
+      "code": "NCAAFMAC",
       "category": "Sports",
       "volume": 0
     },
@@ -442,11 +447,6 @@
     },
     {
       "code": "NCAAMBSECREG",
-      "category": "Sports",
-      "volume": 0
-    },
-    {
-      "code": "WMARMAD",
       "category": "Sports",
       "volume": 0
     }
