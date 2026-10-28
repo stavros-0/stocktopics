@@ -267,7 +267,6 @@
         "Category": "Lifestyle",
         "Notes": "Dropped in 2 colorways; both sold out."
     },
-
     {
         "Product": "Air Jordan 1 \"Royal Blue\"",
         "ReleaseDate": "10/10/26",
@@ -286,7 +285,6 @@
         "ReleaseDateISO": "2026-10-15",
         "Category": "Lifestyle"
     },
-
     {
         "Product": "Nike Mind 001 \"Work Blue / Light Lemon Twist\"",
         "ReleaseDate": "10/15/26",
@@ -419,5 +417,421 @@
         "ReleaseDate": "Fall 2027",
         "Category": "Basketball",
         "Notes": "Reported release window; September 18, 2027 appears on sneaker calendars, but Jordan Brand has not confirmed an exact date. Reported retail price $220."
+    },
+    {
+        "Product": "Nike Air Force 1 Low \"Pony Hair Team Red\"",
+        "ReleaseDate": "10/21/26",
+        "ReleaseDateISO": "2026-10-21",
+        "Category": "Lifestyle",
+        "Notes": "US release-calendar listing; reported retail $140."
+    },
+    {
+        "Product": "Nike Air Force 1 Low \"What The LA\"",
+        "ReleaseDate": "10/22/26",
+        "ReleaseDateISO": "2026-10-22",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Provisional date in October 19–25 release calendar; reported retail $130."
+    },
+    {
+        "Product": "Nike Air Force 1 Low \"Nightmare\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Lifestyle",
+        "Notes": "Listed in weekly release calendar; reported retail $140."
+    },
+    {
+        "Product": "Nike Air Force 1 Low \"NYC Rat\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Lifestyle",
+        "Notes": "US calendar listing; reported retail $140."
+    },
+    {
+        "Product": "Nike Dunk Low Premium \"Halloween\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Lifestyle",
+        "Notes": "Calendar listing; reported retail $130."
+    },
+    {
+        "Product": "Nike Ja 4 \"Zombie\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $140."
+    },
+    {
+        "Product": "Nike Ja 4 \"Phantom\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $130."
+    },
+    {
+        "Product": "Nike Kobe A.D. Protro \"Purple Stardust\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $155."
+    },
+    {
+        "Product": "Nike Sabrina 4 \"Count Ionescu\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $145."
+    },
+    {
+        "Product": "Nike A'Two \"Potion No. 22\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $155."
+    },
+    {
+        "Product": "Nike Giannis Freak 8 \"Trick Question\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $130."
+    },
+    {
+        "Product": "Nike LeBron Witness X \"Halloween\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $115."
+    },
+    {
+        "Product": "Nike Air Griffey Max 1 \"Cincinnati Reds\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Lifestyle",
+        "Notes": "Calendar listing; reported retail $180."
+    },
+    {
+        "Product": "Nike S.T. Charge \"Halloween\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $145."
+    },
+    {
+        "Product": "Nike GT Cut 4 \"Victor Wembanyama Halloween\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Basketball",
+        "Notes": "Status: Reported. Reported player edition; price $210."
+    },
+    {
+        "Product": "NikeSKIMS Rift Satin \"Shadow Brown\"",
+        "ReleaseDate": "10/22/26",
+        "ReleaseDateISO": "2026-10-22",
+        "Category": "Lifestyle",
+        "Notes": "NikeSKIMS release-calendar listing; retail $160."
+    },
+    {
+        "Product": "NikeSKIMS Rift Satin \"University Red\"",
+        "ReleaseDate": "10/22/26",
+        "ReleaseDateISO": "2026-10-22",
+        "Category": "Lifestyle",
+        "Notes": "NikeSKIMS release-calendar listing; retail $160."
+    },
+    {
+        "Product": "Air Jordan 41 \"Ruby\"",
+        "ReleaseDate": "10/25/26",
+        "ReleaseDateISO": "2026-10-25",
+        "Category": "Basketball",
+        "Notes": "Calendar listing; reported retail $205."
+    },
+    {
+        "Product": "Air Jordan 1 Low SE \"Black\"",
+        "ReleaseDate": "10/24/26",
+        "ReleaseDateISO": "2026-10-24",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Provisional calendar listing; reported retail $130."
+    },
+    {
+        "Product": "APB x Air Jordan 11 Low \"Made for Locals\"",
+        "ReleaseDate": "10/23/26",
+        "ReleaseDateISO": "2026-10-23",
+        "Category": "Lifestyle",
+        "Notes": "US boutique release, APB/Whitaker Group; reported retail $200."
+    },
+    {
+        "Product": "Nike x Victor Solomon \"Blue Trophies\" Air Force 1 Low",
+        "ReleaseDate": "10/21/26",
+        "ReleaseDateISO": "2026-10-21",
+        "Category": "Lifestyle",
+        "Notes": "Kith launch; $250 retail. Separate from Victor Victor Nike collaboration."
+    },
+    {
+        "Product": "Nike x Victor Solomon \"Blue Trophies\" Air Max 90",
+        "ReleaseDate": "10/21/26",
+        "ReleaseDateISO": "2026-10-21",
+        "Category": "Lifestyle",
+        "Notes": "Kith launch; $250 retail."
+    },
+    {
+        "Product": "Nike x Victor Solomon \"Blue Trophies\" Air Foamposite One",
+        "ReleaseDate": "10/21/26",
+        "ReleaseDateISO": "2026-10-21",
+        "Category": "Lifestyle",
+        "Notes": "Kith launch; $350 retail; reported sold out on Kith."
+    },
+    {
+        "Product": "Nike x Steven Paul Judd N7 Air Force 1",
+        "ReleaseDate": "11/07/26",
+        "ReleaseDateISO": "2026-11-07",
+        "Category": "Lifestyle",
+        "Notes": "Nike N7 collection; officially announced Oct. 20. Price not verified."
+    },
+    {
+        "Product": "Nike x Steven Paul Judd N7 G.T. Cut 4",
+        "ReleaseDate": "11/07/26",
+        "ReleaseDateISO": "2026-11-07",
+        "Category": "Basketball",
+        "Notes": "Nike N7 collection; reported retail $210."
+    },
+    {
+        "Product": "Jalen Brunson x Nike Kobe 3 Low Protro \"Arancia\"",
+        "ReleaseDate": "12/11/26",
+        "ReleaseDateISO": "2026-12-11",
+        "Category": "Basketball",
+        "Notes": "Status: Reported. Earlier October NYC pop-up/SNKRS and select Foot Locker access; wider Dec. 11 date reported, $190 retail."
+    },
+    {
+        "Product": "Nike x Kids of Immigrants Tiempo Maestro \"Sundial\"",
+        "ReleaseDate": "11/04/26",
+        "ReleaseDateISO": "2026-11-04",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Expected Nov. 4 US release, $260–275 reported; date not confirmed."
+    },
+    {
+        "Product": "Nike x One Block Down Air Max 95 Lux \"Black\"",
+        "ReleaseDate": "11/06/26",
+        "ReleaseDateISO": "2026-11-06",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Latest reported release date Nov. 6; earlier reports Nov. 4–5. US $200–210 reported. Not confirmed by Nike."
+    },
+    {
+        "Product": "Nike x Supreme Air Force 1 Low \"Snow Camo\"",
+        "ReleaseDate": "10/29/26",
+        "ReleaseDateISO": "2026-10-29",
+        "Category": "Lifestyle",
+        "Notes": "Status: Confirmed. Supreme stores/website/app launch; reported price $124. New Oct. 27 details."
+    },
+    {
+        "Product": "Nike x Supreme Air Force 1 Low \"Olive Camo\"",
+        "ReleaseDate": "Fall 2026",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Reported FW26 colorway, $124 reported; new October imagery."
+    },
+    {
+        "Product": "Nike x Supreme Air Force 1 Low \"Woodland Camo\"",
+        "ReleaseDate": "TBD",
+        "Category": "Lifestyle",
+        "Notes": "Status: Rumored. Surfaced in October reports; date and retail availability not confirmed."
+    },
+    {
+        "Product": "Nike x Union LA Dunk Low \"Off Noir\"",
+        "ReleaseDate": "10/30/26",
+        "ReleaseDateISO": "2026-10-30",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Natural Selection pack; UNION worldwide including Japan; reported $135."
+    },
+    {
+        "Product": "Nike x Union LA Dunk Low \"Palomino\"",
+        "ReleaseDate": "10/30/26",
+        "ReleaseDateISO": "2026-10-30",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Natural Selection pack; UNION worldwide including Japan; reported $135."
+    },
+    {
+        "Product": "Nike x Union LA Dunk Low \"Bamboo\"",
+        "ReleaseDate": "10/30/26",
+        "ReleaseDateISO": "2026-10-30",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Reported Oct. 30 UNION launch; Nov. 6 SNKRS; $135. Also in original JSON as part of undated pack."
+    },
+    {
+        "Product": "Nike x Corteiz Shox R419 \"Metallic Silver\"",
+        "ReleaseDate": "10/31/26",
+        "ReleaseDateISO": "2026-10-31",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. UK launch date reported, not confirmed; reported £180."
+    },
+    {
+        "Product": "Nike x Corteiz Shox R419 \"Game Royal\"",
+        "ReleaseDate": "10/31/26",
+        "ReleaseDateISO": "2026-10-31",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. UK launch date reported, not confirmed; reported £180."
+    },
+    {
+        "Product": "Nike x Corteiz Shox R419 \"Black Widow\"",
+        "ReleaseDate": "10/31/26",
+        "ReleaseDateISO": "2026-10-31",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. UK launch date reported, not confirmed; reported £180."
+    },
+    {
+        "Product": "Nike x Victor Victor Air Force 1 ’01 \"Court Purple\"",
+        "ReleaseDate": "Holiday 2026",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Reported Tokyo drop Oct. 24; later Victor Victor online release not confirmed. Reported $150."
+    },
+    {
+        "Product": "Nike SB x Nocturnal Air Force 1 Low",
+        "ReleaseDate": "10/17/26",
+        "ReleaseDateISO": "2026-10-17",
+        "Category": "Lifestyle",
+        "Notes": "Philadelphia-exclusive branded edition Oct. 17; wider unbranded gray/green Nike SNKRS colorway Oct. 27 at $120."
+    },
+    {
+        "Product": "Nike SB Air Force 1 Low \"Grey/Green\"",
+        "ReleaseDate": "10/27/26",
+        "ReleaseDateISO": "2026-10-27",
+        "Category": "Lifestyle",
+        "Notes": "General SNKRS release without Nocturnal embroidery; reported $120. Distinct from boutique edition."
+    },
+    {
+        "Product": "Nike Air Force 1 Low NCAA \"Oregon\"",
+        "ReleaseDate": "10/29/26",
+        "ReleaseDateISO": "2026-10-29",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. University pack, green; date disputed between Oct. 26 and 29, $125 reported."
+    },
+    {
+        "Product": "Nike Air Force 1 Low NCAA \"Kentucky\"",
+        "ReleaseDate": "10/29/26",
+        "ReleaseDateISO": "2026-10-29",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. University pack, blue; date disputed between Oct. 26 and 29, $125 reported."
+    },
+    {
+        "Product": "Nike Air Force 1 Low NCAA \"Georgia\"",
+        "ReleaseDate": "10/29/26",
+        "ReleaseDateISO": "2026-10-29",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. University pack, red; date disputed between Oct. 26 and 29, $125 reported."
+    },
+    {
+        "Product": "Nike Air Force 1 Low NCAA \"Texas\"",
+        "ReleaseDate": "10/29/26",
+        "ReleaseDateISO": "2026-10-29",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. University pack, orange; date disputed between Oct. 26 and 29, $125 reported."
+    },
+    {
+        "Product": "Nike Book 2 \"Full Moon\"",
+        "ReleaseDate": "12/10/26",
+        "ReleaseDateISO": "2026-12-10",
+        "Category": "Basketball",
+        "Notes": "Status: Reported. Reported date; gray lunar graphics and icy blue outsole. Retail unverified."
+    },
+    {
+        "Product": "Air Jordan 4 \"Light Army\"",
+        "ReleaseDate": "10/31/26",
+        "ReleaseDateISO": "2026-10-31",
+        "Category": "Basketball",
+        "Notes": "Status: Confirmed. Europe-only release reported via regional SNKRS/retailer listings; €210/£190."
+    },
+    {
+        "Product": "Air Jordan 3 \"Santa\" GS",
+        "ReleaseDate": "11/21/26",
+        "ReleaseDateISO": "2026-11-21",
+        "Category": "Basketball",
+        "Notes": "Status: Reported. Reported grade-school release; retail $155–165."
+    },
+    {
+        "Product": "Air Jordan 11 \"Magic Ball\"",
+        "ReleaseDate": "11/11/26",
+        "ReleaseDateISO": "2026-11-11",
+        "Category": "Basketball",
+        "Notes": "Status: Confirmed. Reported $235; official imagery and November launch details in Oct. 26 coverage."
+    },
+    {
+        "Product": "Nike Air Max \"Batman\" Pack (90, 95, Plus)",
+        "ReleaseDate": "Holiday 2026",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Reported black/yellow-themed coordinated pack; not an officially licensed Batman collaboration."
+    },
+    {
+        "Product": "Nike Free Metcon 5 \"College Navy\"",
+        "ReleaseDate": "10/19/26",
+        "ReleaseDateISO": "2026-10-19",
+        "Category": "Training",
+        "Notes": "Release-calendar listing; reported retail $120."
+    },
+    {
+        "Product": "Nike Free Metcon 7 (Women’s)",
+        "ReleaseDate": "10/22/26",
+        "ReleaseDateISO": "2026-10-22",
+        "Category": "Training",
+        "Notes": "Status: Reported. Provisional release date; reported retail $125."
+    },
+    {
+        "Product": "Nike Air Max 90 GS \"Cargo Khaki\"",
+        "ReleaseDate": "10/20/26",
+        "ReleaseDateISO": "2026-10-20",
+        "Category": "Lifestyle",
+        "Notes": "Status: Reported. Provisional release-calendar listing; reported retail $120."
+    },
+    {
+        "Product": "Nike Kobe 3 Low Protro \"Total Orange/Blue Void\"",
+        "ReleaseDate": "10/20/26",
+        "ReleaseDateISO": "2026-10-20",
+        "Category": "Basketball",
+        "Notes": "Status: Reported. Provisional colorway calendar listing; reported $200. Existing unqualified Kobe 3 Low Protro is a separate generic entry."
+    },
+    {
+        "Product": "Jordan Triangle \"Paolo\"",
+        "ReleaseDate": "10/20/26",
+        "ReleaseDateISO": "2026-10-20",
+        "Category": "Basketball",
+        "Notes": "October weekly calendar listing; retail $150."
+    },
+    {
+        "Product": "Nike Ja Morant \"12 Time\" (Preschool)",
+        "ReleaseDate": "10/21/26",
+        "ReleaseDateISO": "2026-10-21",
+        "Category": "Basketball",
+        "Notes": "Status: Reported. Provisional preschool calendar listing; price not available."
+    },
+    {
+        "Product": "Nike Air Max 90 SP \"Black\"",
+        "ReleaseDate": "10/21/26",
+        "ReleaseDateISO": "2026-10-21",
+        "Category": "Lifestyle",
+        "Notes": "Nike Malaysia release calendar."
+    },
+    {
+        "Product": "Nike Air Max 95 Big Bubble \"Cacao Wow/Black\"",
+        "ReleaseDate": "10/21/26",
+        "ReleaseDateISO": "2026-10-21",
+        "Category": "Lifestyle",
+        "Notes": "Nike Malaysia release calendar."
+    },
+    {
+        "Product": "Nike SB Dunk Low Pro \"Filbert/Black\"",
+        "ReleaseDate": "10/20/26",
+        "ReleaseDateISO": "2026-10-20",
+        "Category": "Lifestyle",
+        "Notes": "Nike Malaysia release calendar."
+    },
+    {
+        "Product": "Nike Air Max Ecstasy Plus \"Metallic Silver\"",
+        "ReleaseDate": "10/20/26",
+        "ReleaseDateISO": "2026-10-20",
+        "Category": "Lifestyle",
+        "Notes": "Nike Malaysia release calendar."
+    },
+    {
+        "Product": "Nike Air Max Ecstasy Plus \"Black\"",
+        "ReleaseDate": "10/20/26",
+        "ReleaseDateISO": "2026-10-20",
+        "Category": "Lifestyle",
+        "Notes": "Nike Malaysia release calendar."
     }
 ]
