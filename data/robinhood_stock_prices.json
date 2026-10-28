@@ -1,0 +1,23 @@
+[
+    {"Month": "7/21", "StockLow": 33.25, "StockHigh": 40.25},
+    {"Month": "8/21", "StockLow": 35.30, "StockHigh": 85.00},
+    {"Month": "9/21", "StockLow": 39.23, "StockHigh": 47.84},
+    {"Month": "10/21", "StockLow": 33.99, "StockHigh": 43.36},
+    {"Month": "11/21", "StockLow": 25.75, "StockHigh": 38.17},
+    {"Month": "12/21", "StockLow": 16.68, "StockHigh": 26.39},
+    {"Month": "1/22", "StockLow": 9.94, "StockHigh": 18.94},
+    {"Month": "2/22", "StockLow": 9.93, "StockHigh": 15.33},
+    {"Month": "3/22", "StockLow": 10.20, "StockHigh": 16.49},
+    {"Month": "4/22", "StockLow": 9.00, "StockHigh": 13.95},
+    {"Month": "5/22", "StockLow": 7.71, "StockHigh": 10.97},
+    {"Month": "6/22", "StockLow": 6.81, "StockHigh": 10.01},
+    {"Month": "7/22", "StockLow": 7.78, "StockHigh": 9.50},
+    {"Month": "8/22", "StockLow": 8.71, "StockHigh": 11.59},
+    {"Month": "9/22", "StockLow": 8.99, "StockHigh": 11.62},
+    {"Month": "10/22", "StockLow": 9.54, "StockHigh": 12.36},
+    {"Month": "11/22", "StockLow": 8.29, "StockHigh": 12.76},
+    {"Month": "6/26", "StockLow": 78.93, "StockHigh": 112.50},
+    {"Month": "7/26", "StockLow": 83.68, "StockHigh": 120.05},
+    {"Month": "8/26", "StockLow": 85.30, "StockHigh": 112.45},
+    {"Month": "9/26", "StockLow": 101.71, "StockHigh": 126.74}
+]

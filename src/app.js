@@ -768,6 +768,7 @@ async function getDashboardData() {
     if (!cachedDashboardData) {
         cachedDashboardData = {
             monthly_metrics: await loadJson('./data/robinhood_metrics.json'),
+            stock_prices: await loadJson('./data/robinhood_stock_prices.json'),
             financials: await loadJson('./data/financials.json'),
             credit_card: await loadJson('./data/credit_card.json'),
             nike_product_roadmap: await loadOptionalJson('./data/nike_product_roadmap.json', []),
@@ -796,16 +797,17 @@ function quarterFromMonth(month) {
     return `Q${Math.ceil(monthNumber / 3)}${String(yearSuffix).padStart(2, '0')}`;
 }
 
-function quarterlyAverageStockPrice(rows) {
-    const groups = rows.reduce((quarterlyRows, row) => {
+function averageStockPriceByPeriod(rows, period) {
+    const groups = rows.reduce((periodRows, row) => {
         if (row.StockLow === undefined || row.StockHigh === undefined) {
-            return quarterlyRows;
+            return periodRows;
         }
 
         const quarter = quarterFromMonth(row.Month);
-        quarterlyRows[quarter] = quarterlyRows[quarter] || [];
-        quarterlyRows[quarter].push((row.StockLow + row.StockHigh) / 2);
-        return quarterlyRows;
+        const key = period === 'annual' ? yearFromQuarter(quarter) : quarter;
+        periodRows[key] = periodRows[key] || [];
+        periodRows[key].push((row.StockLow + row.StockHigh) / 2);
+        return periodRows;
     }, {});
 
     return Object.entries(groups).reduce((prices, [quarter, values]) => {
@@ -1172,7 +1174,7 @@ async function loadChartData(chartId = null) {
         clearDynamicCharts();
     }
 
-    const { monthly_metrics, financials, credit_card, nike_product_roadmap, nike_q1_27_themes } = await getDashboardData();
+    const { monthly_metrics, stock_prices, financials, credit_card, nike_product_roadmap, nike_q1_27_themes } = await getDashboardData();
     const companyData = financials.find(company => company.Company === selectedCompany);
     const companyBaseFinancials = companyData.Financials;
     const isRobinhood = selectedCompany === 'Robinhood';
@@ -1903,7 +1905,10 @@ async function loadChartData(chartId = null) {
         ['EventContractsRevenue', 'Event Contracts'],
         ['OtherTransactionRevenue', 'Other']
     ];
-    const quarterlyStockPrices = quarterlyAverageStockPrice(monthly_metrics);
+    const stockPrices = averageStockPriceByPeriod(
+        [...stock_prices, ...monthly_metrics],
+        getChartPeriod('transactionRevenueBreakdown')
+    );
 
     createChart(transaction_revenue_breakdown, {
         type: 'bar',
@@ -1920,7 +1925,7 @@ async function loadChartData(chartId = null) {
                 {
                     label: 'HOOD Stock Price',
                     type: 'line',
-                    data: transactionRevenueFinancials.map(row => quarterlyStockPrices[row.Quarter] ?? null),
+                    data: transactionRevenueFinancials.map(row => stockPrices[row.Quarter] ?? null),
                     borderColor: '#FFFFFF',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     borderWidth: 3,
@@ -1966,6 +1971,10 @@ async function loadChartData(chartId = null) {
             row.OtherTransactionRevenue !== undefined
         )
     );
+    const stockPricesForMix = averageStockPriceByPeriod(
+        [...stock_prices, ...monthly_metrics],
+        getChartPeriod('transactionRevenueMixPercentage')
+    );
 
     createChart(transaction_revenue_mix_percentage, {
         type: 'bar',
@@ -1985,7 +1994,7 @@ async function loadChartData(chartId = null) {
                 {
                     label: 'HOOD Stock Price',
                     type: 'line',
-                    data: transactionRevenueMixFinancials.map(row => quarterlyStockPrices[row.Quarter] ?? null),
+                    data: transactionRevenueMixFinancials.map(row => stockPricesForMix[row.Quarter] ?? null),
                     borderColor: '#FFFFFF',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                     borderWidth: 3,
