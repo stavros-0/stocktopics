@@ -562,16 +562,16 @@
     },
     {
         "Month": "4/26",
-        "Equities": 248.5,
-        "Options": 224.8,
+        "Equities": 249.0,
+        "Options": 225.0,
         "Crypto": 11.9,
         "Margin": 18.0,
         "CashSweep": 27.6,
         "PlatformAssets": 345.4,
         "NetDeposits": 6.0,
         "FundedCustomers": 27.6,
-        "StockLow": 69.93,
-        "StockHigh": 91.28,
+        "StockLow": 65.57,
+        "StockHigh": 93.32,
         "EventContracts": 3.2,
         "SecuritiesLending": 32
     },
@@ -583,7 +583,7 @@
         "Margin": 19.5,
         "CashSweep": 28.8,
         "PlatformAssets": 377,
-        "NetDeposits": 5.6,
+        "NetDeposits": 5.8,
         "FundedCustomers": 27.7,
         "StockLow": 73.06,
         "StockHigh": 94.4,
@@ -597,9 +597,11 @@
         "Crypto": 16.3,
         "Margin": 21.6,
         "CashSweep": 29.7,
-        "PlatformAssets": 368.7,
+        "PlatformAssets": 369.0,
         "NetDeposits": 10.1,
-        "FundedCustomers": 28.4
+        "FundedCustomers": 28.4,
+        "EventContracts": 6.4,
+        "SecuritiesLending": 41
     },
     {
         "Month": "7/26",
@@ -610,7 +612,9 @@
         "CashSweep": 29.2,
         "PlatformAssets": 355,
         "NetDeposits": 5.6,
-        "FundedCustomers": 28.5
+        "FundedCustomers": 28.5,
+        "EventContracts": 6.1,
+        "SecuritiesLending": 40
     },
     {
         "Month": "8/26",
@@ -621,6 +625,21 @@
         "CashSweep": 31.2,
         "PlatformAssets": 383.7,
         "NetDeposits": 4,
-        "FundedCustomers": 28.6
+        "FundedCustomers": 28.6,
+        "EventContracts": 4.7,
+        "SecuritiesLending": 36
+    },
+    {
+        "Month": "9/26",
+        "Equities": 323.6,
+        "Options": 287.9,
+        "Crypto": 21.4,
+        "Margin": 22.1,
+        "CashSweep": 32.3,
+        "PlatformAssets": 395.9,
+        "NetDeposits": 6.1,
+        "FundedCustomers": 28.7,
+        "EventContracts": 5.6,
+        "SecuritiesLending": 32
     }
 ]

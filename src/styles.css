@@ -436,6 +436,25 @@ body {
     font-size: 0.62rem;
 }
 
+.robinhood-group-card__metric--breakdown {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.robinhood-group-card__breakdown-item {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+}
+
+.robinhood-group-card__metric--breakdown strong {
+    font-size: 0.95rem;
+}
+
+.robinhood-group-card__metric--breakdown small {
+    grid-column: 1 / -1;
+}
+
 .robinhood-group-card__sparkline {
     grid-column: 1 / -1;
     width: 100%;

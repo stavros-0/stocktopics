@@ -135,7 +135,7 @@ const robinhoodSections = [
     {
         id: 'robinhood-trading',
         title: 'Transaction Volumes',
-        preview: { field: 'CryptoRevenue', label: 'Crypto revenue', divisor: 1, decimals: 0, suffix: 'M', prefix: '$' },
+        preview: { kind: 'transactionVolumes' },
         chartIds: ['equities', 'crypto', 'options']
     },
     {
@@ -171,6 +171,7 @@ function setupRobinhoodSections() {
 
     const groups = robinhoodSections.map((section, index) => {
         const button = document.createElement('button');
+        const isTransactionVolumes = section.preview.kind === 'transactionVolumes';
         const number = document.createElement('span');
         const title = document.createElement('span');
         const metric = document.createElement('span');
@@ -191,9 +192,26 @@ function setupRobinhoodSections() {
         title.className = 'robinhood-group-card__title';
         title.textContent = section.title;
         metric.className = 'robinhood-group-card__metric';
-        metricLabel.textContent = section.preview.label;
-        metricValue.textContent = '—';
-        metric.append(metricLabel, metricValue, metricQuarter);
+        const breakdownValues = {};
+        if (isTransactionVolumes) {
+            metric.classList.add('robinhood-group-card__metric--breakdown');
+            [['Equities', 'equities'], ['Crypto', 'crypto'], ['Options', 'options']].forEach(([label, key]) => {
+                const item = document.createElement('span');
+                const itemLabel = document.createElement('span');
+                const itemValue = document.createElement('strong');
+                item.className = 'robinhood-group-card__breakdown-item';
+                itemLabel.textContent = label;
+                itemValue.textContent = '—';
+                item.append(itemLabel, itemValue);
+                metric.append(item);
+                breakdownValues[key] = itemValue;
+            });
+            metric.append(metricQuarter);
+        } else {
+            metricLabel.textContent = section.preview.label;
+            metricValue.textContent = '—';
+            metric.append(metricLabel, metricValue, metricQuarter);
+        }
         sparkline.classList.add('robinhood-group-card__sparkline');
         sparkline.setAttribute('viewBox', '0 0 280 68');
         sparkline.setAttribute('preserveAspectRatio', 'none');
@@ -202,7 +220,9 @@ function setupRobinhoodSections() {
         arrow.className = 'robinhood-group-card__arrow';
         arrow.textContent = '↗';
         arrow.setAttribute('aria-hidden', 'true');
-        button.append(number, title, metric, sparkline, arrow);
+        button.append(number, title, metric);
+        if (!isTransactionVolumes) button.append(sparkline);
+        button.append(arrow);
         groupCards.append(button);
 
         sectionElement.id = section.id;
@@ -218,7 +238,7 @@ function setupRobinhoodSections() {
             loadChartData().catch(showDashboardError);
         });
 
-        return { sectionElement, grid, cards: section.chartIds.map(chartId => cardsByChartId.get(chartId)), metricValue, metricQuarter, sparklineLine };
+        return { sectionElement, grid, cards: section.chartIds.map(chartId => cardsByChartId.get(chartId)), metricValue, metricQuarter, sparklineLine, breakdownValues };
     });
 
     groupCards.append(document.querySelector('#robinhood-additional-topics').content.cloneNode(true));
@@ -324,8 +344,22 @@ function sparklinePoints(values) {
     }).join(' ');
 }
 
+function loadTransactionVolumePreview(monthlyMetrics) {
+    const latest = monthlyMetrics.at(-1);
+    if (!latest) return;
+    const index = robinhoodSections.findIndex(section => section.preview.kind === 'transactionVolumes');
+    const { breakdownValues, metricQuarter } = robinhoodLayout.groups[index];
+    breakdownValues.equities.textContent = `$${latest.Equities.toFixed(1)}B`;
+    breakdownValues.crypto.textContent = `$${latest.Crypto.toFixed(1)}B`;
+    breakdownValues.options.textContent = `${latest.Options.toFixed(1)}M`;
+    const [month, year] = latest.Month.split('/').map(Number);
+    metricQuarter.textContent = new Date(2000 + year, month - 1, 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+
 function loadRobinhoodGroupPreviews(financials) {
     robinhoodSections.forEach((section, index) => {
+        if (section.preview.kind === 'transactionVolumes') return;
+
         const rows = financials.filter(row => typeof row[section.preview.field] === 'number');
         const latestRow = rows.at(-1);
 
@@ -2666,6 +2700,7 @@ setupChartPeriodControls();
 setupCompanyTabs();
 setupViewTabs();
 loadHomeCompanyCards();
+loadJson('./data/robinhood_metrics.json').then(loadTransactionVolumePreview).catch(showDashboardError);
 loadRotheraSnapshot().catch(showDashboardError);
 loadChainPreview();
 updateTopNavigation();
