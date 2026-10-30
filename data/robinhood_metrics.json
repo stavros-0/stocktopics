@@ -382,6 +382,7 @@
     },
     {
         "Month": "4/25",
+        "StrategiesAUM": 100,
         "Equities": 157.8,
         "Options": 167.5,
         "Crypto": 8.6,
@@ -457,6 +458,7 @@
     },
     {
         "Month": "9/25",
+        "StrategiesAUM": 1000,
         "Equities": 238.8,
         "Options": 218.8,
         "Crypto": 23.5,
@@ -502,6 +504,7 @@
     },
     {
         "Month": "12/25",
+        "BankingAUM": 100,
         "Equities": 188.6,
         "Options": 199.4,
         "Crypto": 21.2,
@@ -517,6 +520,8 @@
     },
     {
         "Month": "1/26",
+        "BankingAUM": 300,
+        "BankingMembers": 20,
         "Equities": 227.3,
         "Options": 200.0,
         "Crypto": 22.9,
@@ -532,6 +537,9 @@
     },
     {
         "Month": "2/26",
+        "GoldSubscribers": 4200,
+        "BankingAUM": 400,
+        "StrategiesAUM": 1300,
         "Equities": 194.4,
         "Options": 180.3,
         "Crypto": 25.0,
@@ -547,6 +555,10 @@
     },
     {
         "Month": "3/26",
+        "BankingAUM": 1000,
+        "BankingMembersEarlier": 65,
+        "BankingMembers": 100,
+        "StrategiesAUM": 1600,
         "Equities": 216.1,
         "Options": 205.9,
         "Crypto": 17.8,
@@ -562,6 +574,10 @@
     },
     {
         "Month": "4/26",
+        "GoldSubscribers": 4300,
+        "BankingAUMEarlier": 1500,
+        "BankingAUM": 2000,
+        "BankingMembers": 125,
         "Equities": 249.0,
         "Options": 225.0,
         "Crypto": 11.9,
@@ -592,6 +608,8 @@
     },
     {
         "Month": "6/26",
+        "BankingAUM": 2500,
+        "BankingMembers": 170,
         "Equities": 392.0,
         "Options": 318,
         "Crypto": 16.3,
@@ -605,6 +623,8 @@
     },
     {
         "Month": "7/26",
+        "BankingAUM": 3100,
+        "StrategiesAUM": 1900,
         "Equities": 332.8,
         "Options": 324.2,
         "Crypto": 10.9,
@@ -618,6 +638,7 @@
     },
     {
         "Month": "8/26",
+        "BankingAUM": 4000,
         "Equities": 335.4,
         "Options": 292.5,
         "Crypto": 17.5,
@@ -631,6 +652,10 @@
     },
     {
         "Month": "9/26",
+        "GoldSubscribers": 5200,
+        "BankingAUM": 5000,
+        "BankingMembers": 350,
+        "StrategiesAUM": 2000,
         "Equities": 323.6,
         "Options": 287.9,
         "Crypto": 21.4,
