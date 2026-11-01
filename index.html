@@ -19,6 +19,7 @@
             <button type="button" data-open-company="Robinhood">Robinhood</button>
             <button type="button" data-open-company="Starbucks">Starbucks</button>
             <button type="button" data-open-company="Nike">Nike</button>
+            <button type="button" data-open-company="Meta">Meta</button>
         </div>
     </nav>
     <div class="dashboard-controls is-hidden" data-dashboard-controls>
@@ -40,25 +41,32 @@
             </div>
             <div class="home-company-grid">
                 <button type="button" class="home-company-card home-company-card--robinhood" data-open-company="Robinhood">
-                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/robinhood.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">01 / 03</span></span>
+                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/robinhood.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">01 / 04</span></span>
                     <span class="home-company-card__name">Robinhood</span>
                     <span class="home-company-card__metric"><span>Latest quarterly revenue</span><strong data-home-revenue="Robinhood">—</strong><small data-home-quarter="Robinhood"></small></span>
                     <svg class="home-company-card__sparkline" viewBox="0 0 280 68" preserveAspectRatio="none" aria-hidden="true"><polyline data-home-sparkline="Robinhood" /></svg>
                     <span class="home-company-card__tag">Fintech &amp; brokerage</span>
                 </button>
                 <button type="button" class="home-company-card home-company-card--starbucks" data-open-company="Starbucks">
-                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/starbucks.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">02 / 03</span></span>
+                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/starbucks.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">02 / 04</span></span>
                     <span class="home-company-card__name">Starbucks</span>
                     <span class="home-company-card__metric"><span>Latest quarterly revenue</span><strong data-home-revenue="Starbucks">—</strong><small data-home-quarter="Starbucks"></small></span>
                     <svg class="home-company-card__sparkline" viewBox="0 0 280 68" preserveAspectRatio="none" aria-hidden="true"><polyline data-home-sparkline="Starbucks" /></svg>
                     <span class="home-company-card__tag">Consumer &amp; retail</span>
                 </button>
                 <button type="button" class="home-company-card home-company-card--nike" data-open-company="Nike">
-                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/nike.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">03 / 03</span></span>
+                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/nike.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">03 / 04</span></span>
                     <span class="home-company-card__name">Nike</span>
                     <span class="home-company-card__metric"><span>Latest quarterly revenue</span><strong data-home-revenue="Nike">—</strong><small data-home-quarter="Nike"></small></span>
                     <svg class="home-company-card__sparkline" viewBox="0 0 280 68" preserveAspectRatio="none" aria-hidden="true"><polyline data-home-sparkline="Nike" /></svg>
                     <span class="home-company-card__tag">Sportswear &amp; lifestyle</span>
+                </button>
+                <button type="button" class="home-company-card home-company-card--meta" data-open-company="Meta">
+                    <span class="home-company-card__top"><span class="home-company-card__mark"><img src="./src/assets/meta.svg" alt="" width="34" height="34"></span><span class="home-company-card__index" aria-hidden="true">04 / 04</span></span>
+                    <span class="home-company-card__name">Meta</span>
+                    <span class="home-company-card__metric"><span>Latest quarterly revenue</span><strong data-home-revenue="Meta">—</strong><small data-home-quarter="Meta"></small></span>
+                    <svg class="home-company-card__sparkline" viewBox="0 0 280 68" preserveAspectRatio="none" aria-hidden="true"><polyline data-home-sparkline="Meta" /></svg>
+                    <span class="home-company-card__tag">Social platforms &amp; technology</span>
                 </button>
             </div>
         </section>
@@ -69,6 +77,30 @@
             <p>More LibreOffice spreadsheets have yet to be translated into the site.</p>
             <p class="home-about__note">The charts are for research and exploration, not investment advice.</p>
         </section>
+    </main>
+
+    <main class="meta-view is-hidden" data-app-view="meta">
+        <div class="view-tabs meta-tabs" aria-label="Meta views">
+            <button type="button" class="view-tab is-active" data-meta-tab="financials" aria-pressed="true">Financials</button>
+            <button type="button" class="view-tab" data-meta-tab="cash" aria-pressed="false">Cash</button>
+        </div>
+        <p class="meta-status" data-meta-status role="status"></p>
+        <section class="meta-panel" data-meta-panel="financials" aria-label="Meta financials">
+            <p class="meta-panel__intro">Quarterly results, 2023–2026 · revenue and net income in USD millions, shares in millions, EPS in USD</p>
+            <div class="meta-chart-grid">
+                <div class="card"><h2>Revenue and net income</h2><div class="chart-container"><canvas id="metaRevenueIncome" aria-label="Meta quarterly revenue and net income" role="img"></canvas></div></div>
+                <div class="card"><h2>Revenue, shares and EPS</h2><div class="chart-container"><canvas id="metaRevenueSharesEps" aria-label="Meta quarterly revenue and shares bars with earnings per share line" role="img"></canvas></div></div>
+            </div>
+        </section>
+        <section class="meta-panel is-hidden" data-meta-panel="cash" aria-label="Meta cash">
+            <p class="meta-panel__intro">Quarterly cash results, 2020–2026 · USD millions. Construction in progress and depreciation data begin where the workbook provides them.</p>
+            <div class="meta-chart-grid">
+                <div class="card"><h2>Cash and marketable securities</h2><div class="chart-container"><canvas id="metaCashHoldings" aria-label="Meta cash and marketable securities by quarter" role="img"></canvas></div></div>
+                <div class="card"><h2>Operating cash flow, capital expenditure and free cash flow</h2><div class="chart-container"><canvas id="metaCashFlow" aria-label="Meta quarterly operating cash flow, capital expenditure and free cash flow" role="img"></canvas></div></div>
+                <div class="card"><h2>Construction in progress and depreciation</h2><div class="chart-container"><canvas id="metaConstruction" aria-label="Meta construction in progress and depreciation and amortization" role="img"></canvas></div></div>
+            </div>
+        </section>
+        <p class="meta-source">Sources: Meta quarterly earnings releases for 2023–2024 (<a href="https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-Fourth-Quarter-and-Full-Year-2023-Results-Initiates-Quarterly-Dividend/default.aspx" target="_blank" rel="noopener noreferrer">2023</a>, <a href="https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-Fourth-Quarter-and-Full-Year-2024-Results/" target="_blank" rel="noopener noreferrer">2024</a>), and META.ods Financials and Cash sheets for the remaining data. Cash, marketable securities and construction in progress are quarter-end balances. Cash flow, capital expenditure, free cash flow and depreciation are quarterly amounts. Capital expenditure includes property, plant and equipment and principal payments on finance leases.</p>
     </main>
 
     <main class="dashboard-view is-hidden" data-app-view="dashboard">

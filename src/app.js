@@ -90,6 +90,7 @@ const periodChartIds = new Set([
 const chartPeriods = {};
 let activeRenderChartId = null;
 let cachedDashboardData = null;
+let metaDataPromise = null;
 let dynamicCharts = [];
 const chartInstances = {};
 let selectedCompany = 'Robinhood';
@@ -658,9 +659,133 @@ async function loadHomeCompanyCards() {
 
             sparkline.setAttribute('points', sparklinePoints(revenueRows.slice(-8).map(row => row.Revenue)));
         });
+
+        const meta = await getMetaData();
+        const latestMeta = meta.financials.at(-1);
+        document.querySelector('[data-home-revenue="Meta"]').textContent = `$${(latestMeta.Revenue / 1000).toFixed(2)}B`;
+        document.querySelector('[data-home-quarter="Meta"]').textContent = latestMeta.Quarter;
+        document.querySelector('[data-home-sparkline="Meta"]').setAttribute('points', sparklinePoints(meta.financials.map(row => row.Revenue)));
     } catch (error) {
         console.warn('Could not load home company financials', error);
     }
+}
+
+function getMetaData() {
+    if (!metaDataPromise) metaDataPromise = loadJson('./data/meta.json').catch(error => {
+        metaDataPromise = null;
+        throw error;
+    });
+    return metaDataPromise;
+}
+
+function renderMetaChart(id, config) {
+    clearChart(id);
+    createChart(getChartContext(id), config);
+}
+
+function metaChartOptions(scales) {
+    return withDarkChartDefaults({
+        plugins: { legend: { display: true } },
+        scales: {
+            x: { ticks: { maxTicksLimit: 9, maxRotation: 0 } },
+            ...scales
+        }
+    });
+}
+
+function renderMetaFinancials(rows) {
+    const labels = rows.map(row => row.Quarter);
+    renderMetaChart('metaRevenueIncome', {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Revenue ($M)', data: rows.map(row => row.Revenue), backgroundColor: '#92A8BF' },
+            { label: 'Net income ($M)', data: rows.map(row => row.NetIncome), backgroundColor: '#A7C9A4' }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' } } })
+    });
+
+    renderMetaChart('metaRevenueSharesEps', {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Revenue ($M)', data: rows.map(row => row.Revenue), backgroundColor: '#92A8BF', yAxisID: 'yRevenue', order: 2 },
+            { label: 'Shares (M)', data: rows.map(row => row.Shares), backgroundColor: '#C8B29B', yAxisID: 'yShares', order: 2 },
+            { label: 'EPS ($)', type: 'line', data: rows.map(row => row.EPS), borderColor: '#A7C9A4', backgroundColor: '#A7C9A4', borderWidth: 3, pointRadius: 4, tension: 0.2, yAxisID: 'yEps', order: 1 }
+        ] },
+        options: metaChartOptions({
+            y: { display: false },
+            yRevenue: { type: 'linear', position: 'left', title: { display: true, text: 'Revenue ($M)' } },
+            yShares: { type: 'linear', position: 'right', title: { display: true, text: 'Shares (M)' }, grid: { drawOnChartArea: false } },
+            yEps: { type: 'linear', position: 'right', title: { display: true, text: 'EPS ($)' }, grid: { drawOnChartArea: false } }
+        })
+    });
+}
+
+function renderMetaCash(rows) {
+    const labels = rows.map(row => row.Quarter);
+    renderMetaChart('metaCashHoldings', {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Cash and equivalents', data: rows.map(row => row.CashAndEquivalents), backgroundColor: '#92A8BF', stack: 'cash' },
+            { label: 'Marketable securities', data: rows.map(row => row.MarketableSecurities), backgroundColor: '#A7C9A4', stack: 'cash' }
+        ] },
+        options: metaChartOptions({ x: { stacked: true, ticks: { maxTicksLimit: 9, maxRotation: 0 } }, y: { stacked: true, title: { display: true, text: 'USD millions' } } })
+    });
+
+    renderMetaChart('metaCashFlow', {
+        type: 'line',
+        data: { labels, datasets: [
+            { label: 'Operating cash flow', data: rows.map(row => row.OperatingCashFlow), borderColor: '#92A8BF', backgroundColor: '#92A8BF', pointRadius: 2, tension: 0.2 },
+            { label: 'Capital expenditure (PPE + finance leases)', data: rows.map(row => row.CapEx), borderColor: '#C8B29B', backgroundColor: '#C8B29B', pointRadius: 2, tension: 0.2 },
+            { label: 'Free cash flow', data: rows.map(row => row.FreeCashFlow), borderColor: '#A7C9A4', backgroundColor: '#A7C9A4', pointRadius: 2, tension: 0.2 }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' }, beginAtZero: false } })
+    });
+
+    const firstConstructionQuarter = rows.findIndex(row => row.ConstructionInProgress !== null || row.DepreciationAndAmortization !== null);
+    const constructionRows = rows.slice(firstConstructionQuarter);
+    renderMetaChart('metaConstruction', {
+        type: 'line',
+        data: { labels: constructionRows.map(row => row.Quarter), datasets: [
+            { label: 'Construction in progress', data: constructionRows.map(row => row.ConstructionInProgress), borderColor: '#C8B29B', backgroundColor: '#C8B29B', pointRadius: 3, tension: 0.2, yAxisID: 'yConstruction' },
+            { label: 'Depreciation and amortization', data: constructionRows.map(row => row.DepreciationAndAmortization), borderColor: '#A7C9A4', backgroundColor: '#A7C9A4', pointRadius: 3, tension: 0.2, yAxisID: 'yDepreciation' }
+        ] },
+        options: metaChartOptions({
+            y: { display: false },
+            yConstruction: { type: 'linear', position: 'left', title: { display: true, text: 'Construction ($M)' } },
+            yDepreciation: { type: 'linear', position: 'right', title: { display: true, text: 'D&A ($M)' }, grid: { drawOnChartArea: false } }
+        })
+    });
+}
+
+async function loadMetaDashboard() {
+    const status = document.querySelector('[data-meta-status]');
+    try {
+        const data = await getMetaData();
+        if (selectedCompany !== 'Meta' || activeView === 'home') return;
+        status.textContent = '';
+        activeRenderChartId = null;
+        const activePanel = document.querySelector('[data-meta-panel]:not(.is-hidden)');
+        if (activePanel.dataset.metaPanel === 'cash') renderMetaCash(data.cash);
+        else renderMetaFinancials(data.financials);
+    } catch (error) {
+        status.textContent = `Meta data could not load: ${error.message}`;
+    }
+}
+
+function setupMetaTabs() {
+    document.querySelectorAll('[data-meta-tab]').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('[data-meta-tab]').forEach(tab => {
+                const active = tab === button;
+                tab.classList.toggle('is-active', active);
+                tab.setAttribute('aria-pressed', String(active));
+            });
+            document.querySelectorAll('[data-meta-panel]').forEach(panel => {
+                panel.classList.toggle('is-hidden', panel.dataset.metaPanel !== button.dataset.metaTab);
+            });
+            loadMetaDashboard();
+        });
+    });
 }
 
 function showDashboardError(error) {
@@ -943,7 +1068,8 @@ function updateCompanyVisibility() {
     document.querySelector('[data-company-logo]').src = {
         Robinhood: './src/assets/robinhood.svg',
         Starbucks: './src/assets/starbucks.svg',
-        Nike: './src/assets/nike.svg'
+        Nike: './src/assets/nike.svg',
+        Meta: './src/assets/meta.svg'
     }[selectedCompany];
     updateRobinhoodSections();
 
@@ -953,7 +1079,7 @@ function updateCompanyVisibility() {
 }
 
 function updateViewVisibility() {
-    const visibleView = activeView === 'home' ? 'home' : selectedCompany === 'Nike' ? activeView : 'dashboard';
+    const visibleView = activeView === 'home' ? 'home' : selectedCompany === 'Meta' ? 'meta' : selectedCompany === 'Nike' ? activeView : 'dashboard';
 
     document.querySelector('[data-dashboard-controls]').classList.toggle('is-hidden', activeView === 'home');
     document.querySelectorAll('[data-app-view]').forEach(view => {
@@ -1005,8 +1131,10 @@ function setupCompanyTabs() {
             updateViewVisibility();
             setupChartPeriodControls();
             window.scrollTo(0, 0);
-            if (selectedCompany !== 'Robinhood') {
+            if (selectedCompany !== 'Robinhood' && selectedCompany !== 'Meta') {
                 loadChartData().catch(showDashboardError);
+            } else if (selectedCompany === 'Meta') {
+                loadMetaDashboard();
             }
         });
     });
@@ -1168,6 +1296,7 @@ function renderNikeThemes(data) {
 }
 
 async function loadChartData(chartId = null) {
+    const companyAtStart = selectedCompany;
     activeRenderChartId = chartId;
 
     if (!chartId) {
@@ -1175,6 +1304,7 @@ async function loadChartData(chartId = null) {
     }
 
     const { monthly_metrics, stock_prices, financials, credit_card, nike_product_roadmap, nike_q1_27_themes } = await getDashboardData();
+    if (selectedCompany !== companyAtStart || companyAtStart === 'Meta') return;
     const companyData = financials.find(company => company.Company === selectedCompany);
     const companyBaseFinancials = companyData.Financials;
     const isRobinhood = selectedCompany === 'Robinhood';
@@ -2708,6 +2838,7 @@ setupRobinhoodSections();
 setupChartPeriodControls();
 setupCompanyTabs();
 setupViewTabs();
+setupMetaTabs();
 loadHomeCompanyCards();
 loadJson('./data/robinhood_metrics.json').then(loadTransactionVolumePreview).catch(showDashboardError);
 loadRotheraSnapshot().catch(showDashboardError);

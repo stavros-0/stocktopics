@@ -1,0 +1,420 @@
+{
+  "source": "Meta Investor Relations quarterly earnings releases (2023\u20132024); META.ods Financials and Cash sheets (2025\u20132026 financials and 2020\u20132026 cash)",
+  "units": "USD millions except EPS in USD and shares in millions",
+  "financials": [
+    {
+      "Quarter": "Q1 2023",
+      "Revenue": 28645,
+      "NetIncome": 5709,
+      "Shares": 2596,
+      "EPS": 2.2
+    },
+    {
+      "Quarter": "Q2 2023",
+      "Revenue": 31999,
+      "NetIncome": 7788,
+      "Shares": 2612,
+      "EPS": 2.98
+    },
+    {
+      "Quarter": "Q3 2023",
+      "Revenue": 34146,
+      "NetIncome": 11583,
+      "Shares": 2641,
+      "EPS": 4.39
+    },
+    {
+      "Quarter": "Q4 2023",
+      "Revenue": 40111,
+      "NetIncome": 14017,
+      "Shares": 2630,
+      "EPS": 5.33
+    },
+    {
+      "Quarter": "Q1 2024",
+      "Revenue": 36455,
+      "NetIncome": 12369,
+      "Shares": 2625,
+      "EPS": 4.71
+    },
+    {
+      "Quarter": "Q2 2024",
+      "Revenue": 39071,
+      "NetIncome": 13465,
+      "Shares": 2610,
+      "EPS": 5.16
+    },
+    {
+      "Quarter": "Q3 2024",
+      "Revenue": 40589,
+      "NetIncome": 15688,
+      "Shares": 2600,
+      "EPS": 6.03
+    },
+    {
+      "Quarter": "Q4 2024",
+      "Revenue": 48385,
+      "NetIncome": 20838,
+      "Shares": 2599,
+      "EPS": 8.02
+    },
+    {
+      "Quarter": "Q1 2025",
+      "Revenue": 42314,
+      "NetIncome": 16644,
+      "Shares": 2590,
+      "EPS": 6.42625482625483
+    },
+    {
+      "Quarter": "Q2 2025",
+      "Revenue": 47516,
+      "NetIncome": 18337,
+      "Shares": 2570,
+      "EPS": 7.13501945525292
+    },
+    {
+      "Quarter": "Q3 2025",
+      "Revenue": 51242,
+      "NetIncome": 2709,
+      "Shares": 2572,
+      "EPS": 1.05326594090202
+    },
+    {
+      "Quarter": "Q4 2025",
+      "Revenue": 59894,
+      "NetIncome": 22768,
+      "Shares": 2574,
+      "EPS": 8.84537684537685
+    },
+    {
+      "Quarter": "Q1 2026",
+      "Revenue": 56311,
+      "NetIncome": 26773,
+      "Shares": 2564,
+      "EPS": 10.441887675507
+    },
+    {
+      "Quarter": "Q2 2026",
+      "Revenue": 60801,
+      "NetIncome": 15848,
+      "Shares": 2566,
+      "EPS": 6.17614964925955
+    },
+    {
+      "Quarter": "Q3 2026",
+      "Revenue": 64601,
+      "NetIncome": 9860,
+      "Shares": 2573,
+      "EPS": 3.83210260396424
+    }
+  ],
+  "cash": [
+    {
+      "Quarter": "Q1 2020",
+      "CashAndEquivalents": 23618,
+      "MarketableSecurities": 36671,
+      "TotalCash": 60289,
+      "OperatingCashFlow": 11001,
+      "CapEx": 3658,
+      "FreeCashFlow": 7343,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q2 2020",
+      "CashAndEquivalents": 21044,
+      "MarketableSecurities": 37195,
+      "TotalCash": 58239,
+      "OperatingCashFlow": 3877,
+      "CapEx": 3364,
+      "FreeCashFlow": 513,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q3 2020",
+      "CashAndEquivalents": 11617,
+      "MarketableSecurities": 44003,
+      "TotalCash": 55620,
+      "OperatingCashFlow": 9829,
+      "CapEx": 3878,
+      "FreeCashFlow": 5951,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q4 2020",
+      "CashAndEquivalents": 17576,
+      "MarketableSecurities": 44378,
+      "TotalCash": 61954,
+      "OperatingCashFlow": 14040,
+      "CapEx": 4819,
+      "FreeCashFlow": 9221,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q1 2021",
+      "CashAndEquivalents": 19513,
+      "MarketableSecurities": 44706,
+      "TotalCash": 64219,
+      "OperatingCashFlow": 12242,
+      "CapEx": 4272,
+      "FreeCashFlow": 7970,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q2 2021",
+      "CashAndEquivalents": 16186,
+      "MarketableSecurities": 47894,
+      "TotalCash": 64080,
+      "OperatingCashFlow": 13247,
+      "CapEx": 4612,
+      "FreeCashFlow": 8635,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q3 2021",
+      "CashAndEquivalents": 14496,
+      "MarketableSecurities": 43579,
+      "TotalCash": 58075,
+      "OperatingCashFlow": 14090,
+      "CapEx": 4819,
+      "FreeCashFlow": 9271,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q4 2021",
+      "CashAndEquivalents": 16601,
+      "MarketableSecurities": 31397,
+      "TotalCash": 47998,
+      "OperatingCashFlow": 18104,
+      "CapEx": 5541,
+      "FreeCashFlow": 12563,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q1 2022",
+      "CashAndEquivalents": 14886,
+      "MarketableSecurities": 29004,
+      "TotalCash": 43890,
+      "OperatingCashFlow": 14076,
+      "CapEx": 5674,
+      "FreeCashFlow": 8402,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q2 2022",
+      "CashAndEquivalents": 12681,
+      "MarketableSecurities": 27808,
+      "TotalCash": 40489,
+      "OperatingCashFlow": 12196,
+      "CapEx": 7791,
+      "FreeCashFlow": 4405,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q3 2022",
+      "CashAndEquivalents": 14308,
+      "MarketableSecurities": 27468,
+      "TotalCash": 41776,
+      "OperatingCashFlow": 9692,
+      "CapEx": 9538,
+      "FreeCashFlow": 154,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q4 2022",
+      "CashAndEquivalents": 14681,
+      "MarketableSecurities": 26057,
+      "TotalCash": 40738,
+      "OperatingCashFlow": 14511,
+      "CapEx": 9278,
+      "FreeCashFlow": 5233,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q1 2023",
+      "CashAndEquivalents": 11551,
+      "MarketableSecurities": 25888,
+      "TotalCash": 37439,
+      "OperatingCashFlow": 13998,
+      "CapEx": 6842,
+      "FreeCashFlow": 7156,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q2 2023",
+      "CashAndEquivalents": 28785,
+      "MarketableSecurities": 24661,
+      "TotalCash": 53446,
+      "OperatingCashFlow": 17309,
+      "CapEx": 6700,
+      "FreeCashFlow": 10609,
+      "ConstructionInProgress": 24843,
+      "DepreciationAndAmortization": 5147
+    },
+    {
+      "Quarter": "Q3 2023",
+      "CashAndEquivalents": 36890,
+      "MarketableSecurities": 24233,
+      "TotalCash": 61123,
+      "OperatingCashFlow": 20402,
+      "CapEx": 6810,
+      "FreeCashFlow": 13592,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q4 2023",
+      "CashAndEquivalents": 41862,
+      "MarketableSecurities": 23541,
+      "TotalCash": 65403,
+      "OperatingCashFlow": 19404,
+      "CapEx": 7972,
+      "FreeCashFlow": 11432,
+      "ConstructionInProgress": null,
+      "DepreciationAndAmortization": null
+    },
+    {
+      "Quarter": "Q1 2024",
+      "CashAndEquivalents": 32307,
+      "MarketableSecurities": 25813,
+      "TotalCash": 58120,
+      "OperatingCashFlow": 19246,
+      "CapEx": 6715,
+      "FreeCashFlow": 12531,
+      "ConstructionInProgress": 22975,
+      "DepreciationAndAmortization": 3374
+    },
+    {
+      "Quarter": "Q2 2024",
+      "CashAndEquivalents": 32045,
+      "MarketableSecurities": 26035,
+      "TotalCash": 58080,
+      "OperatingCashFlow": 19370,
+      "CapEx": 8472,
+      "FreeCashFlow": 10898,
+      "ConstructionInProgress": 21666,
+      "DepreciationAndAmortization": 3637
+    },
+    {
+      "Quarter": "Q3 2024",
+      "CashAndEquivalents": 43852,
+      "MarketableSecurities": 27048,
+      "TotalCash": 70900,
+      "OperatingCashFlow": 24724,
+      "CapEx": 9202,
+      "FreeCashFlow": 15522,
+      "ConstructionInProgress": 23301,
+      "DepreciationAndAmortization": 4027
+    },
+    {
+      "Quarter": "Q4 2024",
+      "CashAndEquivalents": 43889,
+      "MarketableSecurities": 33926,
+      "TotalCash": 77815,
+      "OperatingCashFlow": 27988,
+      "CapEx": 14836,
+      "FreeCashFlow": 13152,
+      "ConstructionInProgress": 26802,
+      "DepreciationAndAmortization": 4460
+    },
+    {
+      "Quarter": "Q1 2025",
+      "CashAndEquivalents": 28750,
+      "MarketableSecurities": 41480,
+      "TotalCash": 70230,
+      "OperatingCashFlow": 24026,
+      "CapEx": 13692,
+      "FreeCashFlow": 10334,
+      "ConstructionInProgress": 32385,
+      "DepreciationAndAmortization": 3900
+    },
+    {
+      "Quarter": "Q2 2025",
+      "CashAndEquivalents": 12005,
+      "MarketableSecurities": 35066,
+      "TotalCash": 47071,
+      "OperatingCashFlow": 25561,
+      "CapEx": 17012,
+      "FreeCashFlow": 8549,
+      "ConstructionInProgress": 35942,
+      "DepreciationAndAmortization": 4342
+    },
+    {
+      "Quarter": "Q3 2025",
+      "CashAndEquivalents": 10187,
+      "MarketableSecurities": 34261,
+      "TotalCash": 44448,
+      "OperatingCashFlow": 29999,
+      "CapEx": 19374,
+      "FreeCashFlow": 10625,
+      "ConstructionInProgress": 44015,
+      "DepreciationAndAmortization": 4963
+    },
+    {
+      "Quarter": "Q4 2025",
+      "CashAndEquivalents": 35873,
+      "MarketableSecurities": 45719,
+      "TotalCash": 81592,
+      "OperatingCashFlow": 36214,
+      "CapEx": 22122,
+      "FreeCashFlow": 14092,
+      "ConstructionInProgress": 50521,
+      "DepreciationAndAmortization": 5411
+    },
+    {
+      "Quarter": "Q1 2026",
+      "CashAndEquivalents": 23426,
+      "MarketableSecurities": 57754,
+      "TotalCash": 81180,
+      "OperatingCashFlow": 32226,
+      "CapEx": 19840,
+      "FreeCashFlow": 12386,
+      "ConstructionInProgress": 61017,
+      "DepreciationAndAmortization": 5999
+    },
+    {
+      "Quarter": "Q2 2026",
+      "CashAndEquivalents": 15462,
+      "MarketableSecurities": 74798,
+      "TotalCash": 90260,
+      "OperatingCashFlow": 31862,
+      "CapEx": 31078,
+      "FreeCashFlow": 784,
+      "ConstructionInProgress": 80345,
+      "DepreciationAndAmortization": 6356
+    },
+    {
+      "Quarter": "Q3 2026",
+      "CashAndEquivalents": 11222,
+      "MarketableSecurities": 71227,
+      "TotalCash": 82449,
+      "OperatingCashFlow": 32785,
+      "CapEx": 34906,
+      "FreeCashFlow": -2121,
+      "ConstructionInProgress": 89499,
+      "DepreciationAndAmortization": 7154
+    }
+  ],
+  "financialSources": {
+    "Q1 2023": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-First-Quarter-2023-Results/default.aspx",
+    "Q2 2023": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Second-Quarter-2023-Results/default.aspx",
+    "Q3 2023": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Third-Quarter-2023-Results/default.aspx",
+    "Q4 2023": "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-Fourth-Quarter-and-Full-Year-2023-Results-Initiates-Quarterly-Dividend/default.aspx",
+    "Q1 2024": "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-First-Quarter-2024-Results/default.aspx",
+    "Q2 2024": "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-Second-Quarter-2024-Results/default.aspx",
+    "Q3 2024": "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-Third-Quarter-2024-Results/default.aspx",
+    "Q4 2024": "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-Fourth-Quarter-and-Full-Year-2024-Results/"
+  }
+}

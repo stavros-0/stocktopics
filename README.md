@@ -1,6 +1,6 @@
 # Stock Topics
 
-Homepage and static Chart.js dashboards for Robinhood, Starbucks, and Nike. Choose a company from the homepage or top navigation to explore its metrics.
+Homepage and static Chart.js dashboards for Robinhood, Starbucks, Nike, and Meta. Choose a company from the homepage or top navigation to explore its metrics. Meta's Financials view covers Q1 2023 through Q3 2026. The 2023–2024 rows come from Meta's quarterly earnings releases (linked by quarter in `data/meta.json`); 2025–2026 come from the Financials sheet of `META.ods`. Its Cash view covers Q1 2020 through Q3 2026 from the workbook's Cash sheet.
 
 ## Local Use
 

@@ -107,7 +107,7 @@ body {
 
 .home-company-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1px;
     padding: 1px;
     background: #3A423A;
@@ -218,6 +218,10 @@ body {
     stroke: #CAB6A0;
 }
 
+.home-company-card--meta .home-company-card__sparkline polyline {
+    stroke: #92A8BF;
+}
+
 .home-company-card__tag {
     margin-top: auto;
     padding-top: 20px;
@@ -254,6 +258,38 @@ body {
     margin-top: 22px;
     color: #777;
     font-size: 0.8rem;
+}
+
+.meta-tabs {
+    margin: 0 0 22px;
+}
+
+.meta-status:empty {
+    display: none;
+}
+
+.meta-panel__intro,
+.meta-source {
+    color: var(--text-dim);
+    line-height: 1.55;
+}
+
+.meta-panel__intro {
+    margin: 0 0 18px;
+}
+
+.meta-chart-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+}
+
+.meta-chart-grid .chart-container {
+    height: 360px;
+}
+
+.meta-source {
+    margin-top: 22px;
 }
 
 .dashboard-controls {
