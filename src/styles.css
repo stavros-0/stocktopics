@@ -158,6 +158,11 @@ body {
     filter: invert(1);
 }
 
+.home-company-card__mark img.meta-logo,
+.dashboard-controls__title img.meta-logo {
+    filter: none;
+}
+
 .home-company-card__index {
     color: #A3AAA0;
     font-family: "Menlo", "Consolas", monospace;

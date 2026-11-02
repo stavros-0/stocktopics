@@ -1065,12 +1065,14 @@ function setupChartPeriodControls() {
 
 function updateCompanyVisibility() {
     document.querySelector('[data-current-company]').textContent = selectedCompany;
-    document.querySelector('[data-company-logo]').src = {
+    const companyLogo = document.querySelector('[data-company-logo]');
+    companyLogo.src = {
         Robinhood: './src/assets/robinhood.svg',
         Starbucks: './src/assets/starbucks.svg',
         Nike: './src/assets/nike.svg',
         Meta: './src/assets/meta.svg'
     }[selectedCompany];
+    companyLogo.classList.toggle('meta-logo', selectedCompany === 'Meta');
     updateRobinhoodSections();
 
     document.querySelectorAll('[data-company-only]').forEach(element => {
