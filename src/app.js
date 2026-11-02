@@ -707,15 +707,54 @@ function renderMetaFinancials(rows) {
     renderMetaChart('metaRevenueSharesEps', {
         type: 'bar',
         data: { labels, datasets: [
-            { label: 'Revenue ($M)', data: rows.map(row => row.Revenue), backgroundColor: '#92A8BF', yAxisID: 'yRevenue', order: 2 },
-            { label: 'Shares (M)', data: rows.map(row => row.Shares), backgroundColor: '#C8B29B', yAxisID: 'yShares', order: 2 },
-            { label: 'EPS ($)', type: 'line', data: rows.map(row => row.EPS), borderColor: '#A7C9A4', backgroundColor: '#A7C9A4', borderWidth: 3, pointRadius: 4, tension: 0.2, yAxisID: 'yEps', order: 1 }
+            { label: 'Shares (M)', data: rows.map(row => row.Shares), backgroundColor: '#92A8BF', yAxisID: 'yShares', order: 2 },
+            { label: 'Revenue per share ($)', type: 'line', data: rows.map(row => Number((row.Revenue / row.Shares).toFixed(2))), borderColor: '#A7C9A4', backgroundColor: '#A7C9A4', borderWidth: 3, pointRadius: 3, tension: 0.2, yAxisID: 'yPerShare', order: 1 },
+            { label: 'EPS ($)', type: 'line', data: rows.map(row => Number(row.EPS.toFixed(2))), borderColor: '#C8B29B', backgroundColor: '#C8B29B', borderWidth: 3, pointRadius: 3, tension: 0.2, yAxisID: 'yPerShare', order: 1 }
         ] },
         options: metaChartOptions({
             y: { display: false },
-            yRevenue: { type: 'linear', position: 'left', title: { display: true, text: 'Revenue ($M)' } },
-            yShares: { type: 'linear', position: 'right', title: { display: true, text: 'Shares (M)' }, grid: { drawOnChartArea: false } },
-            yEps: { type: 'linear', position: 'right', title: { display: true, text: 'EPS ($)' }, grid: { drawOnChartArea: false } }
+            yShares: { type: 'linear', position: 'left', title: { display: true, text: 'Shares (M)' } },
+            yPerShare: { type: 'linear', position: 'right', title: { display: true, text: 'Per share ($)' }, grid: { drawOnChartArea: false } }
+        })
+    });
+}
+
+function metaPercentageChange(rows, field, index, previousIndex) {
+    const previous = rows[index - previousIndex]?.[field];
+    const current = rows[index][field];
+    if (!Number.isFinite(previous) || previous === 0 || !Number.isFinite(current)) return null;
+    return (current / previous - 1) * 100;
+}
+
+function renderMetaGrowthChart(id, rows, field) {
+    renderMetaChart(id, {
+        type: 'bar',
+        data: {
+            labels: rows.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Quarter over quarter',
+                    data: rows.map((_, index) => metaPercentageChange(rows, field, index, 1)),
+                    backgroundColor: '#92A8BF',
+                    maxBarThickness: 18
+                },
+                {
+                    label: 'Year over year',
+                    data: rows.map((_, index) => metaPercentageChange(rows, field, index, 4)),
+                    backgroundColor: '#A7C9A4',
+                    maxBarThickness: 18
+                }
+            ]
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true },
+                tooltip: { callbacks: { label: context => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%` } }
+            },
+            scales: {
+                x: { ticks: { maxTicksLimit: 9, maxRotation: 0 } },
+                y: { title: { display: true, text: 'Change (%)' }, ticks: { callback: value => `${value}%` } }
+            }
         })
     });
 }
@@ -741,13 +780,11 @@ function renderMetaCash(rows) {
         options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' }, beginAtZero: false } })
     });
 
-    const firstConstructionQuarter = rows.findIndex(row => row.ConstructionInProgress !== null || row.DepreciationAndAmortization !== null);
-    const constructionRows = rows.slice(firstConstructionQuarter);
     renderMetaChart('metaConstruction', {
         type: 'line',
-        data: { labels: constructionRows.map(row => row.Quarter), datasets: [
-            { label: 'Construction in progress', data: constructionRows.map(row => row.ConstructionInProgress), borderColor: '#C8B29B', backgroundColor: '#C8B29B', pointRadius: 3, tension: 0.2, yAxisID: 'yConstruction' },
-            { label: 'Depreciation and amortization', data: constructionRows.map(row => row.DepreciationAndAmortization), borderColor: '#A7C9A4', backgroundColor: '#A7C9A4', pointRadius: 3, tension: 0.2, yAxisID: 'yDepreciation' }
+        data: { labels, datasets: [
+            { label: 'Construction in progress', data: rows.map(row => row.ConstructionInProgress), borderColor: '#C8B29B', backgroundColor: '#C8B29B', pointRadius: 3, tension: 0.2, yAxisID: 'yConstruction' },
+            { label: 'Depreciation and amortization', data: rows.map(row => row.DepreciationAndAmortization), borderColor: '#A7C9A4', backgroundColor: '#A7C9A4', pointRadius: 3, tension: 0.2, yAxisID: 'yDepreciation' }
         ] },
         options: metaChartOptions({
             y: { display: false },
@@ -755,6 +792,9 @@ function renderMetaCash(rows) {
             yDepreciation: { type: 'linear', position: 'right', title: { display: true, text: 'D&A ($M)' }, grid: { drawOnChartArea: false } }
         })
     });
+
+    renderMetaGrowthChart('metaConstructionGrowth', rows, 'ConstructionInProgress');
+    renderMetaGrowthChart('metaDepreciationGrowth', rows, 'DepreciationAndAmortization');
 }
 
 async function loadMetaDashboard() {

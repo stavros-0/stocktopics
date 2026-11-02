@@ -1,7 +1,63 @@
 {
-  "source": "Meta Investor Relations quarterly earnings releases (2023\u20132024); META.ods Financials and Cash sheets (2025\u20132026 financials and 2020\u20132026 cash)",
+  "source": "Meta Investor Relations earnings releases (2021–2024 financials); META.ods Financials and Cash sheets (2025–2026 financials and 2020–2026 cash)",
   "units": "USD millions except EPS in USD and shares in millions",
   "financials": [
+    {
+      "Quarter": "Q1 2021",
+      "Revenue": 26171,
+      "NetIncome": 9497,
+      "Shares": 2882,
+      "EPS": 3.3
+    },
+    {
+      "Quarter": "Q2 2021",
+      "Revenue": 29077,
+      "NetIncome": 10394,
+      "Shares": 2877,
+      "EPS": 3.61
+    },
+    {
+      "Quarter": "Q3 2021",
+      "Revenue": 29010,
+      "NetIncome": 9194,
+      "Shares": 2859,
+      "EPS": 3.22
+    },
+    {
+      "Quarter": "Q4 2021",
+      "Revenue": 33671,
+      "NetIncome": 10285,
+      "Shares": 2799,
+      "EPS": 3.67
+    },
+    {
+      "Quarter": "Q1 2022",
+      "Revenue": 27908,
+      "NetIncome": 7465,
+      "Shares": 2742,
+      "EPS": 2.72
+    },
+    {
+      "Quarter": "Q2 2022",
+      "Revenue": 28822,
+      "NetIncome": 6687,
+      "Shares": 2713,
+      "EPS": 2.46
+    },
+    {
+      "Quarter": "Q3 2022",
+      "Revenue": 27714,
+      "NetIncome": 4395,
+      "Shares": 2687,
+      "EPS": 1.64
+    },
+    {
+      "Quarter": "Q4 2022",
+      "Revenue": 32165,
+      "NetIncome": 4652,
+      "Shares": 2640,
+      "EPS": 1.76
+    },
     {
       "Quarter": "Q1 2023",
       "Revenue": 28645,
@@ -117,8 +173,8 @@
       "OperatingCashFlow": 11001,
       "CapEx": 3658,
       "FreeCashFlow": 7343,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 10908,
+      "DepreciationAndAmortization": 1597
     },
     {
       "Quarter": "Q2 2020",
@@ -128,8 +184,8 @@
       "OperatingCashFlow": 3877,
       "CapEx": 3364,
       "FreeCashFlow": 513,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 11276,
+      "DepreciationAndAmortization": 1704
     },
     {
       "Quarter": "Q3 2020",
@@ -139,8 +195,8 @@
       "OperatingCashFlow": 9829,
       "CapEx": 3878,
       "FreeCashFlow": 5951,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 10449,
+      "DepreciationAndAmortization": 1698
     },
     {
       "Quarter": "Q4 2020",
@@ -150,8 +206,8 @@
       "OperatingCashFlow": 14040,
       "CapEx": 4819,
       "FreeCashFlow": 9221,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 11288,
+      "DepreciationAndAmortization": 1863
     },
     {
       "Quarter": "Q1 2021",
@@ -161,8 +217,8 @@
       "OperatingCashFlow": 12242,
       "CapEx": 4272,
       "FreeCashFlow": 7970,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 12318,
+      "DepreciationAndAmortization": 1972
     },
     {
       "Quarter": "Q2 2021",
@@ -172,8 +228,8 @@
       "OperatingCashFlow": 13247,
       "CapEx": 4612,
       "FreeCashFlow": 8635,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 12593,
+      "DepreciationAndAmortization": 1986
     },
     {
       "Quarter": "Q3 2021",
@@ -183,8 +239,8 @@
       "OperatingCashFlow": 14090,
       "CapEx": 4819,
       "FreeCashFlow": 9271,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 13201,
+      "DepreciationAndAmortization": 1995
     },
     {
       "Quarter": "Q4 2021",
@@ -194,8 +250,8 @@
       "OperatingCashFlow": 18104,
       "CapEx": 5541,
       "FreeCashFlow": 12563,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 14687,
+      "DepreciationAndAmortization": 2014
     },
     {
       "Quarter": "Q1 2022",
@@ -205,8 +261,8 @@
       "OperatingCashFlow": 14076,
       "CapEx": 5674,
       "FreeCashFlow": 8402,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 17031,
+      "DepreciationAndAmortization": 2156
     },
     {
       "Quarter": "Q2 2022",
@@ -216,8 +272,8 @@
       "OperatingCashFlow": 12196,
       "CapEx": 7791,
       "FreeCashFlow": 4405,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 21100,
+      "DepreciationAndAmortization": 1979
     },
     {
       "Quarter": "Q3 2022",
@@ -227,8 +283,8 @@
       "OperatingCashFlow": 9692,
       "CapEx": 9538,
       "FreeCashFlow": 154,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 23623,
+      "DepreciationAndAmortization": 2175
     },
     {
       "Quarter": "Q4 2022",
@@ -238,8 +294,8 @@
       "OperatingCashFlow": 14511,
       "CapEx": 9278,
       "FreeCashFlow": 5233,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 25052,
+      "DepreciationAndAmortization": 2376
     },
     {
       "Quarter": "Q1 2023",
@@ -249,8 +305,8 @@
       "OperatingCashFlow": 13998,
       "CapEx": 6842,
       "FreeCashFlow": 7156,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 25039,
+      "DepreciationAndAmortization": 2524
     },
     {
       "Quarter": "Q2 2023",
@@ -261,7 +317,7 @@
       "CapEx": 6700,
       "FreeCashFlow": 10609,
       "ConstructionInProgress": 24843,
-      "DepreciationAndAmortization": 5147
+      "DepreciationAndAmortization": 2623
     },
     {
       "Quarter": "Q3 2023",
@@ -271,8 +327,8 @@
       "OperatingCashFlow": 20402,
       "CapEx": 6810,
       "FreeCashFlow": 13592,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 22945,
+      "DepreciationAndAmortization": 2859
     },
     {
       "Quarter": "Q4 2023",
@@ -282,8 +338,8 @@
       "OperatingCashFlow": 19404,
       "CapEx": 7972,
       "FreeCashFlow": 11432,
-      "ConstructionInProgress": null,
-      "DepreciationAndAmortization": null
+      "ConstructionInProgress": 24269,
+      "DepreciationAndAmortization": 3172
     },
     {
       "Quarter": "Q1 2024",
@@ -408,6 +464,14 @@
     }
   ],
   "financialSources": {
+    "Q1 2021": "https://investor.atmeta.com/investor-news/press-release-details/2022/Meta-Reports-First-Quarter-2022-Results/default.aspx",
+    "Q2 2021": "https://investor.atmeta.com/investor-news/press-release-details/2022/Meta-Reports-Second-Quarter-2022-Results/default.aspx",
+    "Q3 2021": "https://investor.atmeta.com/investor-news/press-release-details/2022/Meta-Reports-Third-Quarter-2022-Results/default.aspx",
+    "Q4 2021": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Fourth-Quarter-and-Full-Year-2022-Results/default.aspx",
+    "Q1 2022": "https://investor.atmeta.com/investor-news/press-release-details/2022/Meta-Reports-First-Quarter-2022-Results/default.aspx",
+    "Q2 2022": "https://investor.atmeta.com/investor-news/press-release-details/2022/Meta-Reports-Second-Quarter-2022-Results/default.aspx",
+    "Q3 2022": "https://investor.atmeta.com/investor-news/press-release-details/2022/Meta-Reports-Third-Quarter-2022-Results/default.aspx",
+    "Q4 2022": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Fourth-Quarter-and-Full-Year-2022-Results/default.aspx",
     "Q1 2023": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-First-Quarter-2023-Results/default.aspx",
     "Q2 2023": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Second-Quarter-2023-Results/default.aspx",
     "Q3 2023": "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Third-Quarter-2023-Results/default.aspx",
