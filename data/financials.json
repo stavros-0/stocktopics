@@ -1184,7 +1184,12 @@
                 "Taxes": 279.8,
                 "NetIncome": 855.199999999999,
                 "Shares": 1152.9,
-                "EPS": 0.74178159424061
+                "EPS": 0.74178159424061,
+                "GrossMarginRate": 0.677503758363075,
+                "GrossMarginRateQoQ": -0.00379341271164879,
+                "OperatingMarginRate": 0.143804725782944,
+                "OperatingMarginRateQoQ": 0.00431927496160313,
+                "NetIncomeGrowthQoQ": -0.73953828348663
             },
             {
                 "Quarter": "Q223",
@@ -1204,7 +1209,12 @@
                 "Taxes": 301.3,
                 "NetIncome": 817.000000000001,
                 "Shares": 1152.7,
-                "EPS": 0.708770712240826
+                "EPS": 0.708770712240826,
+                "GrossMarginRate": 0.678696759099979,
+                "GrossMarginRateQoQ": 0.00176087692825017,
+                "OperatingMarginRate": 0.141769306635473,
+                "OperatingMarginRateQoQ": -0.0141540490855863,
+                "NetIncomeGrowthQoQ": -0.0446679139382586
             },
             {
                 "Quarter": "Q323",
@@ -1224,7 +1234,12 @@
                 "Taxes": 322.4,
                 "NetIncome": 1141.9,
                 "Shares": 1150.5,
-                "EPS": 0.992524989135158
+                "EPS": 0.992524989135158,
+                "GrossMarginRate": 0.687597482630368,
+                "GrossMarginRateQoQ": 0.0131144335243203,
+                "OperatingMarginRate": 0.172758308519573,
+                "OperatingMarginRateQoQ": 0.218587525181176,
+                "NetIncomeGrowthQoQ": 0.397674418604649
             },
             {
                 "Quarter": "Q423",
@@ -1245,7 +1260,12 @@
                 "Taxes": 373.7,
                 "NetIncome": 1310.6,
                 "Shares": 1151.3,
-                "EPS": 1.13836532615304
+                "EPS": 1.13836532615304,
+                "GrossMarginRate": 0.687099940257745,
+                "GrossMarginRateQoQ": -0.0007235953958404,
+                "OperatingMarginRate": 0.191772638047281,
+                "OperatingMarginRateQoQ": 0.110063184171281,
+                "NetIncomeGrowthQoQ": 0.147736229091863
             },
             {
                 "Quarter": "Q124",
@@ -1264,7 +1284,12 @@
                 "Taxes": 354.7,
                 "NetIncome": 1024.4,
                 "Shares": 1140.6,
-                "EPS": 0.898123794494126
+                "EPS": 0.898123794494126,
+                "GrossMarginRate": 0.683766033972393,
+                "GrossMarginRateQoQ": -0.00485214171915202,
+                "OperatingMarginRate": 0.157597105662419,
+                "OperatingMarginRateQoQ": -0.178208594994852,
+                "NetIncomeGrowthQoQ": -0.218373264153821
             },
             {
                 "Quarter": "Q224",
@@ -1283,7 +1308,12 @@
                 "Taxes": 219.9,
                 "NetIncome": 772.5,
                 "Shares": 1135.4,
-                "EPS": 0.680376959661793
+                "EPS": 0.680376959661793,
+                "GrossMarginRate": 0.690680836155553,
+                "GrossMarginRateQoQ": 0.010112819063251,
+                "OperatingMarginRate": 0.128331192339133,
+                "OperatingMarginRateQoQ": -0.185700829975741,
+                "NetIncomeGrowthQoQ": -0.245900039047248
             },
             {
                 "Quarter": "Q324",
@@ -1302,7 +1332,12 @@
                 "Taxes": 348.6,
                 "NetIncome": 1055.7,
                 "Shares": 1135.8,
-                "EPS": 0.929477020602219
+                "EPS": 0.929477020602219,
+                "GrossMarginRate": 0.699261567495803,
+                "GrossMarginRateQoQ": 0.0124235839349648,
+                "OperatingMarginRate": 0.166503911607545,
+                "OperatingMarginRateQoQ": 0.297454722991541,
+                "NetIncomeGrowthQoQ": 0.366601941747574
             },
             {
                 "Quarter": "Q424",
@@ -1321,7 +1356,12 @@
                 "Taxes": 284.1,
                 "NetIncome": 909.700000000002,
                 "Shares": 1137.3,
-                "EPS": 0.799876901433221
+                "EPS": 0.799876901433221,
+                "GrossMarginRate": 0.690279920652414,
+                "GrossMarginRateQoQ": -0.0128444737432871,
+                "OperatingMarginRate": 0.144037910513555,
+                "OperatingMarginRateQoQ": -0.134927767624717,
+                "NetIncomeGrowthQoQ": -0.138296864639574
             },
             {
                 "Quarter": "Q125",
@@ -1344,7 +1384,10 @@
                 "GrossMarginRate": 0.692087509842729,
                 "OperatingMarginRate": 0.119357722020047,
                 "OperatingIncomeExRestructuring": 1121.7,
-                "NetIncomeExRestructuring": 780.899999999999
+                "NetIncomeExRestructuring": 780.899999999999,
+                "GrossMarginRateQoQ": 0.00261863214651705,
+                "OperatingMarginRateQoQ": -0.171345088286222,
+                "NetIncomeGrowthQoQ": -0.141585137957572
             },
             {
                 "Quarter": "Q225",

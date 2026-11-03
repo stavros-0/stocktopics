@@ -1063,6 +1063,61 @@ function filteredFinancialRowsForChart(chartId, rows, quarterlyStart, annualStar
     return chartRows.slice(startIndex === -1 ? 0 : startIndex);
 }
 
+function renderStarbucksMetricChart(chartId, financials, series, unit) {
+    const rows = financials.filter(row => series.some(({ key }) => typeof row[key] === 'number'));
+    const value = (row, key) => typeof row[key] === 'number'
+        ? row[key] * (unit === 'percent' ? 100 : 1)
+        : null;
+    const format = amount => {
+        const rounded = Number(amount).toLocaleString('en-US', {
+            maximumFractionDigits: 1
+        });
+        if (unit === 'percent') return `${rounded}%`;
+        return `$${rounded}M`;
+    };
+
+    createChart(getChartContext(chartId), {
+        type: 'bar',
+        data: {
+            labels: rows.map(row => row.Quarter),
+            datasets: series.map(({ key, label, type = 'bar' }, index) => ({
+                label,
+                type,
+                data: rows.map(row => value(row, key)),
+                borderColor: chartColors[index % chartColors.length],
+                backgroundColor: type === 'line'
+                    ? chartColors[index % chartColors.length]
+                    : chartColor(index),
+                borderWidth: type === 'line' ? 3 : 1,
+                pointRadius: type === 'line' ? 3 : 0,
+                tension: type === 'line' ? 0.25 : 0,
+                order: type === 'line' ? 0 : 1
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: context => `${context.dataset.label}: ${format(context.parsed.y)}`
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: {
+                            percent: 'Percent (%)',
+                            millions: 'USD millions'
+                        }[unit]
+                    },
+                    ticks: { callback: format }
+                }
+            }
+        })
+    });
+}
+
 function setupChartPeriodControls() {
     periodChartIds.forEach(chartId => {
         const canvas = document.getElementById(chartId);
@@ -2290,6 +2345,39 @@ async function loadChartData(chartId = null) {
             }
         })
     });
+
+    if (selectedCompany === 'Starbucks') {
+        const starbucksCharts = [
+            ['starbucksMargins', 'percent', [
+                { key: 'GrossMarginRate', label: 'Gross margin', type: 'line' },
+                { key: 'OperatingMarginRate', label: 'Operating margin', type: 'line' }
+            ]],
+            ['starbucksGrossMarginChange', 'percent', [
+                { key: 'GrossMarginRateQoQ', label: 'Q/Q' },
+                { key: 'GrossMarginRateYoY', label: 'Y/Y' }
+            ]],
+            ['starbucksOperatingMarginChange', 'percent', [
+                { key: 'OperatingMarginRateQoQ', label: 'Q/Q' },
+                { key: 'OperatingMarginRateYoY', label: 'Y/Y' }
+            ]],
+            ['starbucksNetIncomeGrowth', 'percent', [
+                { key: 'NetIncomeGrowthQoQ', label: 'Q/Q' },
+                { key: 'NetIncomeGrowthYoY', label: 'Y/Y' }
+            ]],
+            ['starbucksOperatingIncomeAdjusted', 'millions', [
+                { key: 'OperatingIncome', label: 'Operating income' },
+                { key: 'OperatingIncomeExRestructuring', label: 'Operating income + restructuring' }
+            ]],
+            ['starbucksNetIncomeAdjusted', 'millions', [
+                { key: 'NetIncome', label: 'Net income' },
+                { key: 'NetIncomeExRestructuring', label: 'Net income + restructuring × tax rate' }
+            ]]
+        ];
+
+        starbucksCharts.forEach(([id, unit, series]) => {
+            renderStarbucksMetricChart(id, companyBaseFinancials, series, unit);
+        });
+    }
 
     const revenueMixPercentageFinancials = filteredFinancialRowsForChart('revenueMixPercentage', companyBaseFinancials, financialStartQuarter, financialStartYear);
     let selectedNikeRegionIndex = null;
