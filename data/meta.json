@@ -1,5 +1,5 @@
 {
-  "source": "Meta Investor Relations earnings releases (2021–2024 financials); META.ods Financials and Cash sheets (2025–2026 financials and 2020–2026 cash)",
+  "source": "Meta Investor Relations earnings releases (2021–2024 revenue, net income, shares, EPS); META.ods Financials sheet (R&D, 2025–2026 financials) and Cash sheet (2020–2026 cash). Q4 2021–2024 R&D equals full-year R&D less Q1–Q3.",
   "units": "USD millions except EPS in USD and shares in millions",
   "financials": [
     {
@@ -7,161 +7,184 @@
       "Revenue": 26171,
       "NetIncome": 9497,
       "Shares": 2882,
-      "EPS": 3.3
+      "EPS": 3.3,
+      "ResearchAndDevelopment": 5197
     },
     {
       "Quarter": "Q2 2021",
       "Revenue": 29077,
       "NetIncome": 10394,
       "Shares": 2877,
-      "EPS": 3.61
+      "EPS": 3.61,
+      "ResearchAndDevelopment": 6096
     },
     {
       "Quarter": "Q3 2021",
       "Revenue": 29010,
       "NetIncome": 9194,
       "Shares": 2859,
-      "EPS": 3.22
+      "EPS": 3.22,
+      "ResearchAndDevelopment": 6316
     },
     {
       "Quarter": "Q4 2021",
       "Revenue": 33671,
       "NetIncome": 10285,
       "Shares": 2799,
-      "EPS": 3.67
+      "EPS": 3.67,
+      "ResearchAndDevelopment": 7046
     },
     {
       "Quarter": "Q1 2022",
       "Revenue": 27908,
       "NetIncome": 7465,
       "Shares": 2742,
-      "EPS": 2.72
+      "EPS": 2.72,
+      "ResearchAndDevelopment": 7707
     },
     {
       "Quarter": "Q2 2022",
       "Revenue": 28822,
       "NetIncome": 6687,
       "Shares": 2713,
-      "EPS": 2.46
+      "EPS": 2.46,
+      "ResearchAndDevelopment": 8690
     },
     {
       "Quarter": "Q3 2022",
       "Revenue": 27714,
       "NetIncome": 4395,
       "Shares": 2687,
-      "EPS": 1.64
+      "EPS": 1.64,
+      "ResearchAndDevelopment": 9170
     },
     {
       "Quarter": "Q4 2022",
       "Revenue": 32165,
       "NetIncome": 4652,
       "Shares": 2640,
-      "EPS": 1.76
+      "EPS": 1.76,
+      "ResearchAndDevelopment": 9771
     },
     {
       "Quarter": "Q1 2023",
       "Revenue": 28645,
       "NetIncome": 5709,
       "Shares": 2596,
-      "EPS": 2.2
+      "EPS": 2.2,
+      "ResearchAndDevelopment": 9381
     },
     {
       "Quarter": "Q2 2023",
       "Revenue": 31999,
       "NetIncome": 7788,
       "Shares": 2612,
-      "EPS": 2.98
+      "EPS": 2.98,
+      "ResearchAndDevelopment": 9344
     },
     {
       "Quarter": "Q3 2023",
       "Revenue": 34146,
       "NetIncome": 11583,
       "Shares": 2641,
-      "EPS": 4.39
+      "EPS": 4.39,
+      "ResearchAndDevelopment": 9241
     },
     {
       "Quarter": "Q4 2023",
       "Revenue": 40111,
       "NetIncome": 14017,
       "Shares": 2630,
-      "EPS": 5.33
+      "EPS": 5.33,
+      "ResearchAndDevelopment": 10517
     },
     {
       "Quarter": "Q1 2024",
       "Revenue": 36455,
       "NetIncome": 12369,
       "Shares": 2625,
-      "EPS": 4.71
+      "EPS": 4.71,
+      "ResearchAndDevelopment": 9978
     },
     {
       "Quarter": "Q2 2024",
       "Revenue": 39071,
       "NetIncome": 13465,
       "Shares": 2610,
-      "EPS": 5.16
+      "EPS": 5.16,
+      "ResearchAndDevelopment": 10537
     },
     {
       "Quarter": "Q3 2024",
       "Revenue": 40589,
       "NetIncome": 15688,
       "Shares": 2600,
-      "EPS": 6.03
+      "EPS": 6.03,
+      "ResearchAndDevelopment": 11177
     },
     {
       "Quarter": "Q4 2024",
       "Revenue": 48385,
       "NetIncome": 20838,
       "Shares": 2599,
-      "EPS": 8.02
+      "EPS": 8.02,
+      "ResearchAndDevelopment": 12181
     },
     {
       "Quarter": "Q1 2025",
       "Revenue": 42314,
       "NetIncome": 16644,
       "Shares": 2590,
-      "EPS": 6.42625482625483
+      "EPS": 6.42625482625483,
+      "ResearchAndDevelopment": 12150
     },
     {
       "Quarter": "Q2 2025",
       "Revenue": 47516,
       "NetIncome": 18337,
       "Shares": 2570,
-      "EPS": 7.13501945525292
+      "EPS": 7.13501945525292,
+      "ResearchAndDevelopment": 12942
     },
     {
       "Quarter": "Q3 2025",
       "Revenue": 51242,
       "NetIncome": 2709,
       "Shares": 2572,
-      "EPS": 1.05326594090202
+      "EPS": 1.05326594090202,
+      "ResearchAndDevelopment": 15144
     },
     {
       "Quarter": "Q4 2025",
       "Revenue": 59894,
       "NetIncome": 22768,
       "Shares": 2574,
-      "EPS": 8.84537684537685
+      "EPS": 8.84537684537685,
+      "ResearchAndDevelopment": 17136
     },
     {
       "Quarter": "Q1 2026",
       "Revenue": 56311,
       "NetIncome": 26773,
       "Shares": 2564,
-      "EPS": 10.441887675507
+      "EPS": 10.441887675507,
+      "ResearchAndDevelopment": 17699
     },
     {
       "Quarter": "Q2 2026",
       "Revenue": 60801,
       "NetIncome": 15848,
       "Shares": 2566,
-      "EPS": 6.17614964925955
+      "EPS": 6.17614964925955,
+      "ResearchAndDevelopment": 21656
     },
     {
       "Quarter": "Q3 2026",
       "Revenue": 64601,
       "NetIncome": 9860,
       "Shares": 2573,
-      "EPS": 3.83210260396424
+      "EPS": 3.83210260396424,
+      "ResearchAndDevelopment": 20054
     }
   ],
   "cash": [

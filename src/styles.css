@@ -289,8 +289,20 @@ body {
     gap: 20px;
 }
 
+.meta-chart-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
 .meta-chart-grid .chart-container {
     height: 360px;
+}
+
+@media (max-width: 800px) {
+    .meta-chart-pair {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 .meta-source {

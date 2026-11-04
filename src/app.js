@@ -717,6 +717,46 @@ function renderMetaFinancials(rows) {
             yPerShare: { type: 'linear', position: 'right', title: { display: true, text: 'Per share ($)' }, grid: { drawOnChartArea: false } }
         })
     });
+
+    renderMetaChart('metaResearchAmount', {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'R&D expense ($M)', data: rows.map(row => row.ResearchAndDevelopment), backgroundColor: '#92A8BF', maxBarThickness: 22 }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' } } })
+    });
+
+    renderMetaChart('metaResearchPercentChange', {
+        type: 'bar',
+        data: { labels, datasets: [
+            {
+                label: 'Quarter over quarter R&D change (%)',
+                data: rows.map((_, index) => metaPercentageChange(rows, 'ResearchAndDevelopment', index, 1)),
+                backgroundColor: rows.map((row, index) => index > 0 && row.ResearchAndDevelopment < rows[index - 1].ResearchAndDevelopment ? '#E45756' : '#C8B29B'),
+                maxBarThickness: 22
+            }
+        ] },
+        options: withDarkChartDefaults({
+            plugins: { legend: { display: true }, tooltip: { callbacks: { label: context => `${context.parsed.y.toFixed(1)}%` } } },
+            scales: {
+                x: { ticks: { maxTicksLimit: 9, maxRotation: 0 } },
+                y: { title: { display: true, text: 'Change (%)' }, ticks: { callback: value => `${value}%` } }
+            }
+        })
+    });
+
+    renderMetaChart('metaResearchAmountChange', {
+        type: 'bar',
+        data: { labels, datasets: [
+            {
+                label: 'Quarter over quarter R&D change ($M)',
+                data: rows.map((row, index) => index === 0 ? null : row.ResearchAndDevelopment - rows[index - 1].ResearchAndDevelopment),
+                backgroundColor: rows.map((row, index) => index > 0 && row.ResearchAndDevelopment < rows[index - 1].ResearchAndDevelopment ? '#E45756' : '#C8B29B'),
+                maxBarThickness: 22
+            }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' } } })
+    });
 }
 
 function metaPercentageChange(rows, field, index, previousIndex) {
@@ -793,7 +833,60 @@ function renderMetaCash(rows) {
         })
     });
 
+    renderMetaChart('metaConstructionChange', {
+        type: 'bar',
+        data: { labels, datasets: [
+            {
+                label: 'Net change in construction in progress ($M)',
+                data: rows.map((row, index) => index === 0 ? null : row.ConstructionInProgress - rows[index - 1].ConstructionInProgress),
+                backgroundColor: rows.map((row, index) => index > 0 && row.ConstructionInProgress < rows[index - 1].ConstructionInProgress ? '#E45756' : '#C8B29B'),
+                maxBarThickness: 22
+            }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' } } })
+    });
+
+    renderMetaChart('metaConstructionBalance', {
+        type: 'bar',
+        data: { labels, datasets: [
+            {
+                label: 'Construction in progress balance ($M)',
+                data: rows.map(row => row.ConstructionInProgress),
+                backgroundColor: '#92A8BF',
+                maxBarThickness: 22
+            }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' } } })
+    });
+
     renderMetaGrowthChart('metaConstructionGrowth', rows, 'ConstructionInProgress');
+
+    renderMetaChart('metaDepreciationChange', {
+        type: 'bar',
+        data: { labels, datasets: [
+            {
+                label: 'Change in quarterly D&A ($M)',
+                data: rows.map((row, index) => index === 0 ? null : row.DepreciationAndAmortization - rows[index - 1].DepreciationAndAmortization),
+                backgroundColor: rows.map((row, index) => index > 0 && row.DepreciationAndAmortization < rows[index - 1].DepreciationAndAmortization ? '#E45756' : '#C8B29B'),
+                maxBarThickness: 22
+            }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' } } })
+    });
+
+    renderMetaChart('metaDepreciationAmount', {
+        type: 'bar',
+        data: { labels, datasets: [
+            {
+                label: 'Quarterly D&A ($M)',
+                data: rows.map(row => row.DepreciationAndAmortization),
+                backgroundColor: '#92A8BF',
+                maxBarThickness: 22
+            }
+        ] },
+        options: metaChartOptions({ y: { title: { display: true, text: 'USD millions' } } })
+    });
+
     renderMetaGrowthChart('metaDepreciationGrowth', rows, 'DepreciationAndAmortization');
 }
 

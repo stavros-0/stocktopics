@@ -86,10 +86,15 @@
         </div>
         <p class="meta-status" data-meta-status role="status"></p>
         <section class="meta-panel" data-meta-panel="financials" aria-label="Meta financials">
-            <p class="meta-panel__intro">Quarterly results, 2021–2026 · revenue and net income in USD millions, shares in millions, EPS in USD</p>
+            <p class="meta-panel__intro">Quarterly results, 2021–2026 · revenue, net income and R&amp;D in USD millions, shares in millions, EPS in USD</p>
             <div class="meta-chart-grid">
                 <div class="card"><h2>Revenue and net income</h2><div class="chart-container"><canvas id="metaRevenueIncome" aria-label="Meta quarterly revenue and net income" role="img"></canvas></div></div>
                 <div class="card"><h2>Shares, revenue per share and EPS</h2><div class="chart-container"><canvas id="metaRevenueSharesEps" aria-label="Meta quarterly shares bars with revenue per share and earnings per share lines" role="img"></canvas></div></div>
+                <div class="card"><h2>Research and development expense</h2><div class="chart-container"><canvas id="metaResearchAmount" aria-label="Meta quarterly research and development expense" role="img"></canvas></div></div>
+                <div class="meta-chart-pair">
+                    <div class="card"><h2>R&amp;D change from prior quarter (%)</h2><div class="chart-container"><canvas id="metaResearchPercentChange" aria-label="Meta research and development percentage change from prior quarter" role="img"></canvas></div></div>
+                    <div class="card"><h2>R&amp;D change from prior quarter ($M)</h2><div class="chart-container"><canvas id="metaResearchAmountChange" aria-label="Meta research and development dollar change from prior quarter" role="img"></canvas></div></div>
+                </div>
             </div>
         </section>
         <section class="meta-panel is-hidden" data-meta-panel="cash" aria-label="Meta cash">
@@ -98,11 +103,19 @@
                 <div class="card"><h2>Cash and marketable securities</h2><div class="chart-container"><canvas id="metaCashHoldings" aria-label="Meta cash and marketable securities by quarter" role="img"></canvas></div></div>
                 <div class="card"><h2>Operating cash flow, capital expenditure and free cash flow</h2><div class="chart-container"><canvas id="metaCashFlow" aria-label="Meta quarterly operating cash flow, capital expenditure and free cash flow" role="img"></canvas></div></div>
                 <div class="card"><h2>Construction in progress and depreciation</h2><div class="chart-container"><canvas id="metaConstruction" aria-label="Meta construction in progress and depreciation and amortization" role="img"></canvas></div></div>
+                <div class="meta-chart-pair">
+                    <div class="card"><h2>Quarterly change in construction in progress</h2><div class="chart-container"><canvas id="metaConstructionChange" aria-label="Meta quarterly net change in construction in progress balance" role="img"></canvas></div></div>
+                    <div class="card"><h2>Construction in progress balance</h2><div class="chart-container"><canvas id="metaConstructionBalance" aria-label="Meta full construction in progress balance at each quarter end" role="img"></canvas></div></div>
+                </div>
                 <div class="card"><h2>Construction in progress growth</h2><div class="chart-container"><canvas id="metaConstructionGrowth" aria-label="Meta construction in progress quarter-over-quarter and year-over-year percentage changes" role="img"></canvas></div></div>
+                <div class="meta-chart-pair">
+                    <div class="card"><h2>Quarterly change in depreciation and amortization</h2><div class="chart-container"><canvas id="metaDepreciationChange" aria-label="Meta change in quarterly depreciation and amortization from the prior quarter" role="img"></canvas></div></div>
+                    <div class="card"><h2>Quarterly depreciation and amortization</h2><div class="chart-container"><canvas id="metaDepreciationAmount" aria-label="Meta full depreciation and amortization amount for each quarter" role="img"></canvas></div></div>
+                </div>
                 <div class="card"><h2>Depreciation and amortization growth</h2><div class="chart-container"><canvas id="metaDepreciationGrowth" aria-label="Meta depreciation and amortization quarter-over-quarter and year-over-year percentage changes" role="img"></canvas></div></div>
             </div>
         </section>
-        <p class="meta-source">Sources: Meta quarterly earnings releases for 2021–2024 financials (<a href="./data/meta.json">per-quarter source links</a>), and META.ods Financials and Cash sheets for the remaining data. All cash-series values, including construction in progress and D&amp;A, are copied from the Cash sheet. Cash, marketable securities and construction in progress are quarter-end balances. Cash flow, capital expenditure and free cash flow are quarterly amounts. Capital expenditure includes property, plant and equipment and principal payments on finance leases.</p>
+        <p class="meta-source">Sources: Meta quarterly earnings releases for 2021–2024 revenue, net income, shares and EPS (<a href="./data/meta.json">per-quarter source links</a>), and META.ods Financials and Cash sheets for the remaining data. R&amp;D comes from the Financials sheet; Q4 2021–2024 amounts are full-year R&amp;D less Q1–Q3. All cash-series values, including construction in progress and D&amp;A, are copied from the Cash sheet. Cash, marketable securities and construction in progress are quarter-end balances. The quarterly change in construction in progress is the difference between consecutive balances; it does not measure cash spent on construction. Cash flow, capital expenditure and free cash flow are quarterly amounts. Capital expenditure includes property, plant and equipment and principal payments on finance leases.</p>
     </main>
 
     <main class="dashboard-view is-hidden" data-app-view="dashboard">

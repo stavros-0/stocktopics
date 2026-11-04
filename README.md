@@ -1,6 +1,6 @@
 # Stock Topics
 
-Homepage and static Chart.js dashboards for Robinhood, Starbucks, Nike, and Meta. Choose a company from the homepage or top navigation to explore its metrics. Meta's Financials view covers Q1 2021 through Q3 2026. The 2021–2024 rows come from Meta's quarterly earnings releases (linked by quarter in `data/meta.json`); 2025–2026 come from the Financials sheet of `META.ods`. Its Cash view covers Q1 2020 through Q3 2026, with all values copied from the workbook's Cash sheet.
+Homepage and static Chart.js dashboards for Robinhood, Starbucks, Nike, and Meta. Choose a company from the homepage or top navigation to explore its metrics. Meta's Financials view covers Q1 2021 through Q3 2026. The 2021–2024 revenue, net income, shares and EPS rows come from Meta's quarterly earnings releases (linked by quarter in `data/meta.json`); R&D and 2025–2026 financials come from the Financials sheet of `META.ods`. Q4 2021–2024 R&D is the workbook's full-year amount less Q1–Q3. R&D charts show quarterly expense and its percentage and dollar changes from the prior quarter. Meta's Cash view covers Q1 2020 through Q3 2026, with all values copied from the workbook's Cash sheet. Side-by-side construction in progress bar charts show the quarterly change and full quarter-end balance. The change is not a measure of cash spent on construction. Paired depreciation and amortization charts show each quarterly amount and its change from the prior quarter.
 
 
 ## Rothera Daily Data
