@@ -1,0 +1,46 @@
+name = "stock-topics-filings"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+[[r2_buckets]]
+binding = "FILINGS"
+bucket_name = "stock-topics-filings"
+
+[vars]
+# Replace with the exact origin of the GitHub Pages site (no trailing slash).
+ALLOWED_ORIGIN = "https://stavros-0.github.io"
+MAX_SEC_DOWNLOADS_PER_DAY = 50
+MAX_SEC_OBJECT_BYTES = 30000000
+MAX_REQUESTS_PER_DAY = 2000
+
+[[durable_objects.bindings]]
+name = "DOWNLOAD_BUDGET"
+class_name = "DownloadBudget"
+
+[exports.DownloadBudget]
+type = "durable-object"
+storage = "sqlite"
+
+[[ratelimits]]
+name = "SEARCH_LIMIT"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+[[ratelimits]]
+name = "ARCHIVE_LIMIT"
+namespace_id = "1002"
+
+  [ratelimits.simple]
+  limit = 120
+  period = 60
+
+[[ratelimits]]
+name = "GLOBAL_LIMIT"
+namespace_id = "1003"
+
+  [ratelimits.simple]
+  limit = 180
+  period = 60

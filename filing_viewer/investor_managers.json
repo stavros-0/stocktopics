@@ -1,0 +1,10 @@
+[
+  {"person": "Bill Ackman", "aliases": ["William Ackman"], "manager": "PERSHING SQUARE INC.", "cik": 2026053},
+  {"person": "Bill Ackman", "aliases": ["William Ackman"], "manager": "Pershing Square Capital Management, L.P.", "cik": 1336528, "note": "earlier filings"},
+  {"person": "Ken Griffin", "aliases": ["Kenneth Griffin"], "manager": "CITADEL ADVISORS LLC", "cik": 1423053},
+  {"person": "Daniel Loeb", "aliases": ["Dan Loeb"], "manager": "Third Point LLC", "cik": 1040273},
+  {"person": "David Tepper", "manager": "Appaloosa LP", "cik": 1656456},
+  {"person": "Seth Klarman", "manager": "BAUPOST GROUP LLC/MA", "cik": 1061768},
+  {"person": "Warren Buffett", "manager": "BERKSHIRE HATHAWAY INC", "cik": 1067983, "note": "Berkshire filings"},
+  {"person": "George Soros", "manager": "SOROS FUND MANAGEMENT LLC", "cik": 1029160, "note": "firm he founded"}
+]

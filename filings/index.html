@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Filings | Stock Topics</title>
+  <link rel="icon" type="image/png" href="../src/assets/stock_topics_favicon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js"></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><button id="brand-menu" class="brand-menu" type="button" aria-label="Close sidebar" aria-controls="sidebar" aria-expanded="true">☰</button><img src="data:image/png;base64,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" alt="" width="34" height="34"><div><strong>Stock Topics</strong><small>Filing reader</small></div></div>
+      <div class="side-scroll">
+        <section class="side-section">
+          <label class="eyebrow" for="company-search">FILER</label>
+          <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="company-search" autocomplete="off" placeholder="Search available after backend setup" disabled></div>
+          <div class="suggestions" id="company-results" role="listbox"></div>
+          <div class="company-card" id="company-card" hidden></div>
+        </section>
+        <section class="side-section">
+          <label class="eyebrow" for="form-filter">FILING TYPE</label>
+          <select id="form-filter"><option value="periodic">10-Q + 10-K (quarterly reading)</option><option value="all">All filing types</option></select>
+        </section>
+        <section class="side-section">
+          <div class="section-head"><span class="eyebrow">FISCAL QUARTER</span><span class="help-dot" title="Quarters are based on the company's fiscal year end, using the reported period end date. Annual 10-K filings represent Q4.">?</span></div>
+          <div class="segmented" id="quarter-filter" aria-label="Fiscal quarter"><button data-quarter="all" class="active">All</button><button data-quarter="1">Q1</button><button data-quarter="2">Q2</button><button data-quarter="3">Q3</button><button data-quarter="4">Q4</button></div>
+          <p class="hint" id="fiscal-hint">Choose a filer to see its reported periods.</p>
+        </section>
+        <section class="side-section years-section">
+          <div class="section-head"><span class="eyebrow">FISCAL YEAR</span><button class="text-button" id="all-years">All years</button></div>
+          <div id="year-list" class="year-list"><span class="muted">Choose a filer first.</span></div>
+        </section>
+        <section class="side-section">
+          <span class="eyebrow">FILING DATE</span>
+          <div class="date-row"><label>From<input id="date-from" type="date"></label><label>To<input id="date-to" type="date"></label></div>
+        </section>
+        <section class="side-section result-section">
+          <div class="section-head"><span class="eyebrow">MATCHING FILINGS</span><span id="match-count" class="count">0</span></div>
+          <div id="filing-list" class="filing-list"></div>
+        </section>
+      </div>
+      <div class="side-footer"><span class="live-dot"></span> SEC FILINGS · BACKEND SETUP PENDING</div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><button id="menu-button" class="icon-button mobile-menu" aria-label="Toggle filters">☰</button><div class="crumb"><span>FILINGS</span><span class="slash">/</span><strong id="header-company">SELECT A FILER</strong><span class="slash">/</span><span id="header-context">SEARCH TO BEGIN</span></div><div class="top-actions"><a class="home-link" href="../">← Stock Topics</a><button id="scroll-left" class="arrow-button" aria-label="Previous filing">←</button><button id="scroll-right" class="arrow-button" aria-label="Next filing">→</button><span id="cache-status"></span></div></header>
+      <div class="notice" id="notice">Search will be available after the SEC backend is connected.</div>
+      <div class="viewer-track" id="viewer-track" aria-label="Filing columns"><div class="empty-state"><span class="empty-icon">⌁</span><strong>Choose a filer</strong><span>Search by company, ticker, CIK, or investor name to view filings.</span></div></div>
+    </main>
+  </div>
+</body>
+</html>
