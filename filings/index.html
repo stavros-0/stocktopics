@@ -7,7 +7,7 @@
   <title>Filings | Stock Topics</title>
   <link rel="icon" type="image/png" href="../src/assets/stock_topics_favicon.png">
   <link rel="stylesheet" href="./styles.css">
-  <script src="./config.js"></script>
+  <script src="./config.js?v=20261106"></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -17,7 +17,7 @@
       <div class="side-scroll">
         <section class="side-section">
           <label class="eyebrow" for="company-search">FILER</label>
-          <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="company-search" autocomplete="off" placeholder="Search available after backend setup" disabled></div>
+          <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="company-search" autocomplete="off" placeholder="Search available after backend setup" disabled><button id="company-search-button" type="button" aria-label="Search filers">Search</button></div>
           <div class="suggestions" id="company-results" role="listbox"></div>
           <div class="company-card" id="company-card" hidden></div>
         </section>

@@ -40,6 +40,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
 .search-wrap span { color: var(--text-dim); font-size: 23px; line-height: 0; transform: translateY(-2px); }
 .search-wrap input { width: 100%; min-width: 0; border: 0; outline: 0; color: var(--text-main); background: transparent; font-size: 12px; }
 .search-wrap input::placeholder { color: #818a80; }
+.search-wrap button { flex: none; padding: 5px 6px; border: 0; color: var(--accent); background: transparent; font: 600 10px/1 Menlo, Consolas, monospace; cursor: pointer; }
+.search-wrap button:hover, .search-wrap button:focus-visible { color: var(--text-main); }
+.search-wrap button:disabled { color: var(--text-dim); cursor: default; }
 .suggestions { position: relative; }
 .suggestions:not(:empty) { max-height: 220px; overflow-y: auto; margin-top: 5px; border: 1px solid var(--border); }
 .suggestions button { display: flex; justify-content: space-between; gap: 8px; width: 100%; padding: 9px; text-align: left; color: var(--text-main); background: var(--bg-dark); border: 0; font-size: 11px; }

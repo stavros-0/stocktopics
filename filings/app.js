@@ -3,7 +3,7 @@ const configuredBase = window.FILINGS_API_BASE;
 const localServer = ["127.0.0.1", "localhost"].includes(location.hostname) && location.port === "8765";
 const API_BASE = typeof configuredBase === "string" ? configuredBase.replace(/\/$/, "") : localServer ? location.origin : null;
 const apiUrl = (path) => `${API_BASE || ""}${path}`;
-const state = { cik: null, company: null, filings: [], quarter: "all", form: "periodic", years: null, open: [], searchTimer: null, observer: null, generation: 0 };
+const state = { cik: null, company: null, filings: [], quarter: "all", form: "periodic", years: null, open: [], observer: null, generation: 0 };
 const track = $("#viewer-track");
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -257,24 +257,32 @@ async function searchCompany(query) {
   } catch (error) { showNotice(error.message); }
 }
 
-$("#company-search").addEventListener("input", event => {
-  clearTimeout(state.searchTimer);
-  state.searchTimer = setTimeout(() => searchCompany(event.target.value), 250);
-});
+$("#company-search").addEventListener("input", () => { $("#company-results").innerHTML = ""; });
+
+function submitCompanySearch() {
+  const query = $("#company-search").value.trim();
+  if (/^\d{1,10}$/.test(query)) loadCompany(query);
+  else searchCompany(query);
+}
+
+$("#company-search-button").addEventListener("click", submitCompanySearch);
 
 if (API_BASE) {
   $("#company-search").disabled = false;
+  $("#company-search-button").disabled = false;
   $("#company-search").placeholder = "Company, ticker, CIK, or investor";
   $(".side-footer").innerHTML = '<span class="live-dot"></span> SEC EDGAR FILINGS';
   showNotice("");
 } else {
+  $("#company-search-button").disabled = true;
   showNotice("The filing backend has not been configured.");
 }
 $("#company-search").addEventListener("keydown", event => {
   if (event.key === "Enter") {
+    event.preventDefault();
     const selected = $("#company-results button");
     if (selected) selected.click();
-    else if (/^\d{1,10}$/.test(event.target.value.trim())) loadCompany(event.target.value.trim());
+    else submitCompanySearch();
   }
 });
 $("#company-results").addEventListener("click", event => {

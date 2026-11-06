@@ -11,7 +11,8 @@ class SecError extends Error {
 
 function cors(env, request) {
   const origin = request.headers.get("Origin");
-  return origin && origin === env.ALLOWED_ORIGIN ? { "Access-Control-Allow-Origin": origin, "Vary": "Origin" } : {};
+  const allowed = String(env.ALLOWED_ORIGIN || "").split(",").map(value => value.trim());
+  return origin && allowed.includes(origin) ? { "Access-Control-Allow-Origin": origin, "Vary": "Origin" } : {};
 }
 
 function json(value, status, headers) {

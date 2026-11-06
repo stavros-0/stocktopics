@@ -6,7 +6,7 @@ function environment() {
   const objects = new Map();
   return {
     SEC_USER_AGENT: "Test User test@example.com",
-    ALLOWED_ORIGIN: "https://example.github.io",
+    ALLOWED_ORIGIN: "https://example.github.io,https://www.example.github.io",
     SEARCH_LIMIT: { limit: async () => ({ success: true }) },
     ARCHIVE_LIMIT: { limit: async () => ({ success: true }) },
     GLOBAL_LIMIT: { limit: async () => ({ success: true }) },
@@ -54,10 +54,10 @@ test("filings API joins older submission files and caches SEC responses", async 
     return Response.json({ accessionNumber: ["0000320187-95-000001"], form: ["10-Q"], filingDate: ["1995-10-01"], reportDate: ["1995-08-31"], primaryDocument: ["older.htm"] });
   };
   try {
-    const request = new Request("https://worker.example/api/filings?cik=320187", { headers: { Origin: env.ALLOWED_ORIGIN } });
+    const request = new Request("https://worker.example/api/filings?cik=320187", { headers: { Origin: "https://www.example.github.io" } });
     const first = await worker.fetch(request, env);
     assert.equal(first.status, 200);
-    assert.equal(first.headers.get("Access-Control-Allow-Origin"), env.ALLOWED_ORIGIN);
+    assert.equal(first.headers.get("Access-Control-Allow-Origin"), "https://www.example.github.io");
     const data = await first.json();
     assert.equal(data.filings.length, 2);
     assert.equal(data.filings[0].fiscalQuarter, 1);

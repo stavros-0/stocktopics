@@ -7,8 +7,8 @@ binding = "FILINGS"
 bucket_name = "stock-topics-filings"
 
 [vars]
-# Replace with the exact origin of the GitHub Pages site (no trailing slash).
-ALLOWED_ORIGIN = "https://stocktopics.org"
+# Browser origins that can read the API (comma-separated, no trailing slashes).
+ALLOWED_ORIGIN = "https://stocktopics.org,https://www.stocktopics.org"
 MAX_SEC_DOWNLOADS_PER_DAY = 50
 MAX_SEC_OBJECT_BYTES = 30000000
 MAX_REQUESTS_PER_DAY = 2000
