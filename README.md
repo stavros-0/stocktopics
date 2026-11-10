@@ -2,6 +2,9 @@
 
 Homepage and static Chart.js dashboards for Robinhood, Starbucks, Nike, and Meta. Choose a company from the homepage or top navigation to explore its metrics. Meta's Financials view covers Q1 2021 through Q3 2026. The 2021–2024 revenue, net income, shares and EPS rows come from Meta's quarterly earnings releases (linked by quarter in `data/meta.json`); R&D and 2025–2026 financials come from the Financials sheet of `META.ods`. Q4 2021–2024 R&D is the workbook's full-year amount less Q1–Q3. R&D charts show quarterly expense and its percentage and dollar changes from the prior quarter. Meta's Cash view covers Q1 2020 through Q3 2026, with all values copied from the workbook's Cash sheet. Side-by-side construction in progress bar charts show the quarterly change and full quarter-end balance. The change is not a measure of cash spent on construction. Paired depreciation and amortization charts show each quarterly amount and its change from the prior quarter.
 
+## Starbucks Cost Changes
+
+Starbucks' product and distribution costs rose from 30.9% of revenue in fiscal 2024 to 31.4% in 2025 and 32.3% in 2026. The `SGA` field in `data/financials.json` combines store operating expenses, other operating expenses, depreciation and amortization, and general and administrative expenses; it rose from 55.0% of revenue in 2024 to 59.0% in 2025, then fell to 57.0% in 2026. Restructuring and impairments added 2.4% of revenue in 2025 and 1.8% in 2026, versus essentially zero in 2024. Starbucks attributed the 2025 cost pressure to store closures, labor investments, inflation, and sales that did not keep pace with costs. [FY2025 results](https://investor.starbucks.com/news/financial-releases/news-details/2025/Starbucks-Reports-Q4-and-Full-Fiscal-Year-2025-Results/default.aspx) · [FY2026 results](https://investor.starbucks.com/news/financial-releases/news-details/2026/Starbucks-Reports-Q4-and-Full-Fiscal-Year-2026-Results/default.aspx)
 
 ## Rothera Daily Data
 

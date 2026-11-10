@@ -914,6 +914,11 @@ p { color: var(--text-dim); font-size: 0.9rem; }
     height: 320px;
 }
 
+.chart-note {
+    margin: 12px 0 0;
+    font-size: 0.78rem;
+}
+
 .net-interest-legend {
     margin-top: 14px;
 }

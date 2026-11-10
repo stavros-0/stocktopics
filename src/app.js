@@ -85,7 +85,9 @@ const periodChartIds = new Set([
     'goldShare',
     'creditCardProvisions',
     'dilutedShares',
-    'starbucksDilutedShares'
+    'starbucksDilutedShares',
+    'starbucksMarginsPerShare',
+    'starbucksCostMix'
 ]);
 
 const chartPeriods = {};
@@ -2101,6 +2103,139 @@ async function loadChartData(chartId = null) {
                 }
             })
         });
+    });
+
+    const starbucksMarginsPerShareFinancials = filteredFinancialRowsForChart('starbucksMarginsPerShare', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        row.Revenue !== undefined && row.COGS !== undefined && row.OperatingIncome !== undefined && row.NetIncome !== undefined && row.Shares
+    );
+
+    createChart(getChartContext('starbucksMarginsPerShare'), {
+        type: 'bar',
+        data: {
+            labels: starbucksMarginsPerShareFinancials.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'Gross Margin',
+                    data: starbucksMarginsPerShareFinancials.map(row => (row.Revenue - row.COGS) / row.Revenue * 100),
+                    borderColor: 'hsl(220, 85%, 45%)',
+                    backgroundColor: 'hsla(220, 85%, 45%, 0.7)',
+                    yAxisID: 'yMargin'
+                },
+                {
+                    label: 'Operating Margin',
+                    data: starbucksMarginsPerShareFinancials.map(row => row.OperatingIncome / row.Revenue * 100),
+                    borderColor: 'hsl(270, 65%, 55%)',
+                    backgroundColor: 'hsla(270, 65%, 55%, 0.7)',
+                    yAxisID: 'yMargin'
+                },
+                {
+                    label: 'Revenue per Share',
+                    type: 'line',
+                    data: starbucksMarginsPerShareFinancials.map(row => row.Revenue / row.Shares),
+                    borderColor: '#00C805',
+                    backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    yAxisID: 'yPerShare'
+                },
+                {
+                    label: 'Earnings per Share',
+                    type: 'line',
+                    data: starbucksMarginsPerShareFinancials.map(row => row.NetIncome / row.Shares),
+                    borderColor: 'rgba(255, 159, 64, 0.9)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.1)',
+                    fill: false,
+                    tension: 0.3,
+                    yAxisID: 'yPerShare'
+                }
+            ]
+        },
+        options: withDarkChartDefaults({
+            plugins: { legend: { display: true } },
+            scales: {
+                yMargin: {
+                    type: 'linear',
+                    position: 'left',
+                    title: { display: true, text: 'Margin (%)' },
+                    ticks: { callback: value => `${value}%` }
+                },
+                yPerShare: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'Per Share ($)' },
+                    grid: { drawOnChartArea: false }
+                }
+            }
+        })
+    });
+
+    const starbucksCostFinancials = filteredFinancialRowsForChart('starbucksCostMix', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+        row.Revenue > 0 && row.COGS !== undefined && row.SGA !== undefined
+    );
+
+    const starbucksCostReclassification = {
+        id: 'starbucksCostReclassification',
+        afterDraw(chart) {
+            const index = chart.data.labels.findIndex(label => label === 'Q119' || label === '2019');
+            if (index < 1) return;
+
+            const { ctx, chartArea, scales } = chart;
+            const boundary = (scales.x.getPixelForValue(index - 1) + scales.x.getPixelForValue(index)) / 2;
+            ctx.save();
+            ctx.strokeStyle = '#A3AAA0';
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(boundary, chartArea.top);
+            ctx.lineTo(boundary, chartArea.bottom);
+            ctx.stroke();
+            ctx.restore();
+        }
+    };
+
+    createChart(getChartContext('starbucksCostMix'), {
+        type: 'bar',
+        data: {
+            labels: starbucksCostFinancials.map(row => row.Quarter),
+            datasets: [
+                {
+                    label: 'COGS',
+                    data: starbucksCostFinancials.map(row => row.COGS / row.Revenue * 100),
+                    borderColor: '#1f77b4',
+                    backgroundColor: '#1f77b4CC'
+                },
+                {
+                    label: 'Other operating costs (combined)',
+                    data: starbucksCostFinancials.map(row => row.SGA / row.Revenue * 100),
+                    borderColor: '#00C805',
+                    backgroundColor: '#00C805CC'
+                },
+                {
+                    label: 'Restructuring',
+                    data: starbucksCostFinancials.map(row => (row.Restructuring || 0) / row.Revenue * 100),
+                    borderColor: '#FF9F40',
+                    backgroundColor: '#FF9F40CC'
+                }
+            ]
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true },
+                tooltip: {
+                    callbacks: {
+                        label: context => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}% of revenue`
+                    }
+                }
+            },
+            scales: {
+                x: { stacked: true },
+                y: {
+                    stacked: true,
+                    title: { display: true, text: 'Share of revenue (%)' },
+                    ticks: { callback: value => `${value}%` }
+                }
+            }
+        }),
+        plugins: [starbucksCostReclassification]
     });
 
     const expenseMixFinancials = filteredFinancialRowsForChart('expenseMix', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
