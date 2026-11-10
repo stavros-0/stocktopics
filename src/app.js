@@ -84,7 +84,8 @@ const periodChartIds = new Set([
     'goldSubscribers',
     'goldShare',
     'creditCardProvisions',
-    'dilutedShares'
+    'dilutedShares',
+    'starbucksDilutedShares'
 ]);
 
 const chartPeriods = {};
@@ -1522,7 +1523,6 @@ async function loadChartData(chartId = null) {
     const ctx8 = getChartContext('fundedCustomers');
     const ctxVelocity = getChartContext('velocityChart');
     const revenue = getChartContext('revenueChart');
-    const diluted_shares = getChartContext('dilutedShares');
     const expense_mix = getChartContext('expenseMix');
     const expense_mix_percentage = getChartContext('expenseMixPercentage');
     const transaction_revenue_breakdown = getChartContext('transactionRevenueBreakdown');
@@ -2042,63 +2042,65 @@ async function loadChartData(chartId = null) {
         })
     });
 
-    const dilutedSharesFinancials = filteredFinancialRowsForChart('dilutedShares', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
-        row.Shares !== undefined
-    );
+    ['dilutedShares', 'starbucksDilutedShares'].forEach(chartId => {
+        const dilutedSharesFinancials = filteredFinancialRowsForChart(chartId, companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
+            row.Shares !== undefined
+        );
 
-    createChart(diluted_shares, {
-        type: 'bar',
-        data: {
-            labels: dilutedSharesFinancials.map(row => row.Quarter),
-            datasets: [
-                {
-                    label: 'Diluted Shares',
-                    data: dilutedSharesFinancials.map(row => row.Shares),
-                    borderColor: 'hsl(220, 85%, 45%)',
-                    backgroundColor: 'hsla(220, 85%, 45%, 0.7)',
-                    yAxisID: 'yShares'
-                },
-                {
-                    label: 'Revenue per Share',
-                    type: 'line',
-                    data: dilutedSharesFinancials.map(row => row.Revenue !== undefined ? row.Revenue / row.Shares : null),
-                    borderColor: '#00C805',
-                    backgroundColor: 'rgba(0, 200, 5, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                    yAxisID: 'yPerShare'
-                },
-                {
-                    label: 'Earnings per Share',
-                    type: 'line',
-                    data: dilutedSharesFinancials.map(row => row.NetIncome !== undefined ? row.NetIncome / row.Shares : null),
-                    borderColor: 'rgba(255, 159, 64, 0.9)',
-                    backgroundColor: 'rgba(255, 159, 64, 0.1)',
-                    fill: false,
-                    tension: 0.3,
-                    yAxisID: 'yPerShare'
-                }
-            ]
-        },
-        options: withDarkChartDefaults({
-            plugins: {
-                legend: { display: true }
+        createChart(getChartContext(chartId), {
+            type: 'bar',
+            data: {
+                labels: dilutedSharesFinancials.map(row => row.Quarter),
+                datasets: [
+                    {
+                        label: 'Diluted Shares',
+                        data: dilutedSharesFinancials.map(row => row.Shares),
+                        borderColor: 'hsl(220, 85%, 45%)',
+                        backgroundColor: 'hsla(220, 85%, 45%, 0.7)',
+                        yAxisID: 'yShares'
+                    },
+                    {
+                        label: 'Revenue per Share',
+                        type: 'line',
+                        data: dilutedSharesFinancials.map(row => row.Revenue !== undefined ? row.Revenue / row.Shares : null),
+                        borderColor: '#00C805',
+                        backgroundColor: 'rgba(0, 200, 5, 0.1)',
+                        fill: false,
+                        tension: 0.3,
+                        yAxisID: 'yPerShare'
+                    },
+                    {
+                        label: 'Earnings per Share',
+                        type: 'line',
+                        data: dilutedSharesFinancials.map(row => row.NetIncome !== undefined ? row.NetIncome / row.Shares : null),
+                        borderColor: 'rgba(255, 159, 64, 0.9)',
+                        backgroundColor: 'rgba(255, 159, 64, 0.1)',
+                        fill: false,
+                        tension: 0.3,
+                        yAxisID: 'yPerShare'
+                    }
+                ]
             },
-            scales: {
-                yShares: {
-                    type: 'linear',
-                    position: 'left',
-                    title: { display: true, text: 'Diluted Shares (M)' },
-                    min: 0
+            options: withDarkChartDefaults({
+                plugins: {
+                    legend: { display: true }
                 },
-                yPerShare: {
-                    type: 'linear',
-                    position: 'right',
-                    title: { display: true, text: 'Per Share ($)' },
-                    grid: { drawOnChartArea: false }
+                scales: {
+                    yShares: {
+                        type: 'linear',
+                        position: 'left',
+                        title: { display: true, text: 'Diluted Shares (M)' },
+                        min: 0
+                    },
+                    yPerShare: {
+                        type: 'linear',
+                        position: 'right',
+                        title: { display: true, text: 'Per Share ($)' },
+                        grid: { drawOnChartArea: false }
+                    }
                 }
-            }
-        })
+            })
+        });
     });
 
     const expenseMixFinancials = filteredFinancialRowsForChart('expenseMix', companyBaseFinancials, financialStartQuarter, financialStartYear).filter(row =>
