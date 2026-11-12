@@ -231,6 +231,87 @@ body {
     stroke: #92A8BF;
 }
 
+.other-view__intro {
+    margin: 0 0 20px;
+    line-height: 1.55;
+}
+
+.other-company {
+    border: 1px solid #3A423A;
+    background: var(--card-bg);
+}
+
+.other-company__summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding: 20px 24px;
+    cursor: pointer;
+}
+
+.other-company__summary:hover,
+.other-company__summary:focus-visible {
+    background: #222B22;
+}
+
+.other-company__identity {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2rem;
+}
+
+.other-company__identity img { flex: none; }
+
+.other-company__description {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+.other-company__body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 18px;
+    border-top: 1px solid #3A423A;
+}
+
+.other-company__body .coreweave-chart-card {
+    min-width: 0;
+    padding: 18px;
+}
+
+.coreweave-section-title {
+    grid-column: 1 / -1;
+    margin: 18px 0 0;
+}
+
+.coreweave-chart-card .chart-container {
+    height: 260px;
+}
+
+.coreweave-chart-card > p,
+.coreweave-source {
+    color: var(--text-dim);
+    line-height: 1.55;
+}
+
+.coreweave-source {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 0.76rem;
+}
+
+.coreweave-source a {
+    color: var(--rh-green);
+}
+
+.other-company__body > [data-coreweave-status] {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
 .home-company-card__tag {
     margin-top: auto;
     padding-top: 20px;
@@ -335,6 +416,10 @@ body {
     display: block;
     object-fit: contain;
     filter: invert(1);
+}
+
+.dashboard-controls__title img.is-hidden {
+    display: none;
 }
 
 .dashboard-controls h1 {
@@ -1135,6 +1220,11 @@ p { color: var(--text-dim); font-size: 0.9rem; }
 }
 
 @media (max-width: 760px) {
+    .other-company__body {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 14px;
+    }
+
     .home-section-heading {
         align-items: start;
         flex-direction: column;

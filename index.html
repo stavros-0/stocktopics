@@ -20,6 +20,7 @@
             <button type="button" data-open-company="Starbucks">Starbucks</button>
             <button type="button" data-open-company="Nike">Nike</button>
             <button type="button" data-open-company="Meta">Meta</button>
+            <button type="button" data-open-company="Other">Other</button>
             <a href="./filings/">Filings</a>
         </div>
     </nav>
@@ -78,6 +79,68 @@
             <p>More LibreOffice spreadsheets have yet to be translated into the site.</p>
             <p class="home-about__note">The charts are for research and exploration, not investment advice.</p>
         </section>
+    </main>
+
+    <main class="other-view is-hidden" data-app-view="other">
+        <details class="other-company" data-other-company="CoreWeave">
+            <summary class="other-company__summary"><span class="other-company__identity"><img src="./src/assets/coreweave.svg" alt="CoreWeave" width="155" height="36"></span><span class="other-company__description">Quarterly earnings · latest Q3 2026</span></summary>
+            <div class="other-company__body">
+                <section class="card coreweave-chart-card">
+                    <h2>Diluted Shares</h2>
+                    <p>Quarterly diluted weighted average shares, revenue per share and earnings per share.</p>
+                    <div class="chart-container"><canvas id="coreweaveDilutedShares" aria-label="CoreWeave quarterly diluted shares with revenue per share and earnings per share" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Revenue / Net Income</h2>
+                    <p>Quarterly revenue and net loss in USD millions.</p>
+                    <div class="chart-container"><canvas id="coreweaveRevenueIncome" aria-label="CoreWeave quarterly revenue and net loss" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Cost Mix %</h2>
+                    <p data-coreweave-cost-note>Cost of revenue, technology and infrastructure, and SG&amp;A as a share of operating expenses.</p>
+                    <div class="chart-container"><canvas id="coreweaveCostMix" aria-label="CoreWeave quarterly operating expense mix percentage" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Revenue and Cost Growth · QoQ</h2>
+                    <p>Change from the preceding quarter.</p>
+                    <div class="chart-container"><canvas id="coreweaveGrowthQoq" aria-label="CoreWeave quarter over quarter revenue and operating expense growth" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Revenue and Cost Growth · YoY</h2>
+                    <p>Change from the same quarter a year earlier.</p>
+                    <div class="chart-container"><canvas id="coreweaveGrowthYoy" aria-label="CoreWeave year over year revenue and operating expense growth" role="img"></canvas></div>
+                </section>
+                <h2 class="coreweave-section-title">Cash flows &amp; debt</h2>
+                <section class="card coreweave-chart-card">
+                    <h2>Operating Cash Flow vs. PP&amp;E Purchases</h2>
+                    <p>Quarterly cash flows. The gap is operating cash flow less cash spent on property and equipment.</p>
+                    <div class="chart-container"><canvas id="coreweaveFundingGap" aria-label="CoreWeave operating cash flow, property and equipment purchases, and funding gap by quarter" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Debt Proceeds vs. Repayments</h2>
+                    <p>Quarterly borrowing cash flows; net debt proceeds are issuance less repayments.</p>
+                    <div class="chart-container"><canvas id="coreweaveDebtFunding" aria-label="CoreWeave quarterly debt proceeds, repayments, and net debt proceeds" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Debt Balance and Cash</h2>
+                    <p>Quarter-end debt carrying amount and unrestricted cash. Lease liabilities are separate.</p>
+                    <div class="chart-container"><canvas id="coreweaveDebtBalance" aria-label="CoreWeave quarter-end debt balance and cash" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Recourse vs. Non-recourse Debt</h2>
+                    <p>Quarter-end debt by recourse status where separately reported.</p>
+                    <div class="chart-container"><canvas id="coreweaveDebtRecourse" aria-label="CoreWeave recourse and non-recourse debt balances where separately reported" role="img"></canvas></div>
+                </section>
+                <section class="card coreweave-chart-card">
+                    <h2>Interest Expense</h2>
+                    <p>Quarterly interest expense and its share of revenue. This is an expense measure, not cash interest paid.</p>
+                    <div class="chart-container"><canvas id="coreweaveInterest" aria-label="CoreWeave quarterly interest expense and interest as a percentage of revenue" role="img"></canvas></div>
+                </section>
+                <p class="meta-status" data-coreweave-status role="status"></p>
+                <p class="coreweave-source">Sources: Coreweave (CRWV).ods, Sheet1, for Q1–Q3 2025 and Q1–Q3 2026; <a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Fourth-Quarter-and-Fiscal-Year-2025-Results/" target="_blank" rel="noopener noreferrer">CoreWeave Q4 2025 results</a> for Q4 2025 and its Q4 2024 YoY comparison. Workbook “Q4” columns are full year figures and are excluded.</p>
+                <p class="coreweave-source">Cash flow and debt figures: <a href="./data/coreweave_cash_debt.json">quarterly data with source links</a>. Cash purchases of PP&amp;E exclude noncash equipment additions; borrowing proceeds do not fully explain changes in debt balances.</p>
+            </div>
+        </details>
     </main>
 
     <main class="meta-view is-hidden" data-app-view="meta">

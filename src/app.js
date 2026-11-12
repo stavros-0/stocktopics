@@ -94,6 +94,8 @@ const chartPeriods = {};
 let activeRenderChartId = null;
 let cachedDashboardData = null;
 let metaDataPromise = null;
+let coreweaveDataPromise = null;
+let coreweaveCashDebtPromise = null;
 let dynamicCharts = [];
 const chartInstances = {};
 let selectedCompany = 'Robinhood';
@@ -668,8 +670,236 @@ async function loadHomeCompanyCards() {
         document.querySelector('[data-home-revenue="Meta"]').textContent = `$${(latestMeta.Revenue / 1000).toFixed(2)}B`;
         document.querySelector('[data-home-quarter="Meta"]').textContent = latestMeta.Quarter;
         document.querySelector('[data-home-sparkline="Meta"]').setAttribute('points', sparklinePoints(meta.financials.map(row => row.Revenue)));
+
     } catch (error) {
         console.warn('Could not load home company financials', error);
+    }
+}
+
+function getCoreWeaveData() {
+    if (!coreweaveDataPromise) coreweaveDataPromise = loadJson('./data/coreweave.json').catch(error => {
+        coreweaveDataPromise = null;
+        throw error;
+    });
+    return coreweaveDataPromise;
+}
+
+function getCoreWeaveCashDebtData() {
+    if (!coreweaveCashDebtPromise) coreweaveCashDebtPromise = loadJson('./data/coreweave_cash_debt.json').catch(error => {
+        coreweaveCashDebtPromise = null;
+        throw error;
+    });
+    return coreweaveCashDebtPromise;
+}
+
+function coreweaveValue(period, label) {
+    return period.groups['Income statement'].find(metric => metric.label === label)?.value;
+}
+
+function renderCoreWeaveGrowthChart(chartId, quarters, comparison, referencePeriods = []) {
+    const byPeriod = new Map([...referencePeriods, ...quarters].map(period => [period.period, period]));
+    const priorPeriod = period => {
+        const [, quarter, year] = period.period.match(/^Q([1-4]) (\d{4})$/);
+        return comparison === 'yoy'
+            ? byPeriod.get(`Q${quarter} ${Number(year) - 1}`)
+            : byPeriod.get(quarter === '1' ? `Q4 ${Number(year) - 1}` : `Q${Number(quarter) - 1} ${year}`);
+    };
+    const rows = comparison === 'yoy' ? quarters.filter(priorPeriod) : quarters;
+    const series = [
+        { label: 'Revenue Growth', field: 'Revenue', color: '#2563EB' },
+        { label: 'Cost Growth', field: 'Operating Expenses', color: '#16A34A' }
+    ];
+    clearChart(chartId);
+    createChart(getChartContext(chartId), {
+        type: 'line',
+        data: {
+            labels: rows.map(period => period.period),
+            datasets: series.map(({ label, field, color }) => ({
+                label,
+                data: rows.map(period => {
+                    const previous = priorPeriod(period);
+                    if (!previous) return null;
+                    const previousValue = coreweaveValue(previous, field);
+                    return previousValue ? (coreweaveValue(period, field) / previousValue - 1) * 100 : null;
+                }),
+                borderColor: color,
+                backgroundColor: color,
+                borderWidth: 2,
+                pointRadius: 4,
+                tension: 0.2,
+                spanGaps: false
+            }))
+        },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true },
+                tooltip: { callbacks: { label: context => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%` } }
+            },
+            scales: {
+                y: { title: { display: true, text: 'Growth (%)' }, ticks: { callback: value => `${value}%` } }
+            }
+        })
+    });
+}
+
+function renderCoreWeaveCashDebtCharts(rows, incomeQuarters) {
+    const labels = rows.map(row => row.quarter);
+    const formatMillions = value => `${value < 0 ? '-' : ''}$${Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 1 })}M`;
+    const dollarTooltip = { callbacks: { label: context => `${context.dataset.label}: ${formatMillions(context.parsed.y)}` } };
+    const millionAxis = { title: { display: true, text: 'USD millions' } };
+
+    clearChart('coreweaveFundingGap');
+    createChart(getChartContext('coreweaveFundingGap'), {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Operating cash flow', data: rows.map(row => row.operatingCashFlow), backgroundColor: '#16A34A' },
+            { label: 'PP&E cash purchases', data: rows.map(row => -row.ppePurchases), backgroundColor: '#F97316' },
+            { label: 'OCF less PP&E', type: 'line', data: rows.map(row => row.operatingCashFlow - row.ppePurchases), borderColor: '#8B5CF6', backgroundColor: '#8B5CF6', borderWidth: 2, pointRadius: 3, tension: 0.2 }
+        ] },
+        options: withDarkChartDefaults({ plugins: { legend: { display: true }, tooltip: dollarTooltip }, scales: { y: millionAxis } })
+    });
+
+    clearChart('coreweaveDebtFunding');
+    createChart(getChartContext('coreweaveDebtFunding'), {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Debt proceeds', data: rows.map(row => row.debtProceeds), backgroundColor: '#2563EB' },
+            { label: 'Debt repayments', data: rows.map(row => -row.debtRepayments), backgroundColor: '#EF4444' },
+            { label: 'Net debt proceeds', type: 'line', data: rows.map(row => row.debtProceeds - row.debtRepayments), borderColor: '#16A34A', backgroundColor: '#16A34A', borderWidth: 2, pointRadius: 3, tension: 0.2 }
+        ] },
+        options: withDarkChartDefaults({ plugins: { legend: { display: true }, tooltip: dollarTooltip }, scales: { y: millionAxis } })
+    });
+
+    clearChart('coreweaveDebtBalance');
+    createChart(getChartContext('coreweaveDebtBalance'), {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Debt carrying amount', data: rows.map(row => row.debtBalance), backgroundColor: '#2563EB' },
+            { label: 'Cash and equivalents', data: rows.map(row => row.cash), backgroundColor: '#16A34A' }
+        ] },
+        options: withDarkChartDefaults({ plugins: { legend: { display: true }, tooltip: dollarTooltip }, scales: { y: millionAxis } })
+    });
+
+    const splitRows = rows.filter(row => Number.isFinite(row.recourseDebt) && Number.isFinite(row.nonRecourseDebt));
+    clearChart('coreweaveDebtRecourse');
+    createChart(getChartContext('coreweaveDebtRecourse'), {
+        type: 'bar',
+        data: { labels: splitRows.map(row => row.quarter), datasets: [
+            { label: 'Recourse debt', data: splitRows.map(row => row.recourseDebt), backgroundColor: '#2563EB' },
+            { label: 'Non-recourse debt', data: splitRows.map(row => row.nonRecourseDebt), backgroundColor: '#F97316' }
+        ] },
+        options: withDarkChartDefaults({
+            plugins: { legend: { display: true }, tooltip: dollarTooltip },
+            scales: { x: { stacked: true }, y: { ...millionAxis, stacked: true } }
+        })
+    });
+
+    const revenueByQuarter = new Map(incomeQuarters.map(period => [period.period, coreweaveValue(period, 'Revenue')]));
+    clearChart('coreweaveInterest');
+    createChart(getChartContext('coreweaveInterest'), {
+        type: 'bar',
+        data: { labels, datasets: [
+            { label: 'Interest expense', data: rows.map(row => row.interestExpense), backgroundColor: '#F97316', yAxisID: 'y' },
+            { label: 'Interest / revenue', type: 'line', data: rows.map(row => row.interestExpense / revenueByQuarter.get(row.quarter) * 100), borderColor: '#8B5CF6', backgroundColor: '#8B5CF6', borderWidth: 2, pointRadius: 3, tension: 0.2, yAxisID: 'yPercent' }
+        ] },
+        options: withDarkChartDefaults({
+            plugins: {
+                legend: { display: true },
+                tooltip: { callbacks: { label: context => context.dataset.yAxisID === 'yPercent'
+                    ? `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%`
+                    : `${context.dataset.label}: ${formatMillions(context.parsed.y)}` } }
+            },
+            scales: {
+                y: { ...millionAxis, position: 'left' },
+                yPercent: { type: 'linear', position: 'right', min: 0, title: { display: true, text: '% of revenue' }, grid: { drawOnChartArea: false }, ticks: { callback: value => `${value}%` } }
+            }
+        })
+    });
+}
+
+async function loadCoreWeaveDashboard() {
+    const status = document.querySelector('[data-coreweave-status]');
+    try {
+        const { periods, comparisonPeriods = [] } = await getCoreWeaveData();
+        if (selectedCompany !== 'Other' || !document.querySelector('[data-other-company="CoreWeave"]').open) return;
+        const quarters = periods.filter(period => period.kind === 'quarter');
+        const labels = quarters.map(period => period.period);
+        activeRenderChartId = null;
+        clearChart('coreweaveRevenueIncome');
+        createChart(getChartContext('coreweaveRevenueIncome'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    { label: 'Revenue', data: quarters.map(period => coreweaveValue(period, 'Revenue')), backgroundColor: 'hsla(220, 85%, 45%, 0.7)', borderColor: 'hsl(220, 85%, 45%)' },
+                    { label: 'Net Income', data: quarters.map(period => coreweaveValue(period, 'Net Loss')), backgroundColor: 'rgba(255, 107, 107, 0.75)', borderColor: '#FF6B6B' }
+                ]
+            },
+            options: withDarkChartDefaults({
+                plugins: { legend: { display: true } },
+                scales: { y: { title: { display: true, text: 'USD millions' } } }
+            })
+        });
+
+        clearChart('coreweaveDilutedShares');
+        createChart(getChartContext('coreweaveDilutedShares'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    { label: 'Diluted Shares', data: quarters.map(period => coreweaveValue(period, 'Shares Diluted')), borderColor: 'hsl(220, 85%, 45%)', backgroundColor: 'hsla(220, 85%, 45%, 0.7)', yAxisID: 'yShares' },
+                    { label: 'Revenue per Share', type: 'line', data: quarters.map(period => coreweaveValue(period, 'Revenue') / coreweaveValue(period, 'Shares Diluted')), borderColor: '#00C805', backgroundColor: 'rgba(0, 200, 5, 0.1)', fill: false, tension: 0.3, yAxisID: 'yPerShare' },
+                    { label: 'Earnings per Share', type: 'line', data: quarters.map(period => coreweaveValue(period, 'Net Loss') / coreweaveValue(period, 'Shares Diluted')), borderColor: 'rgba(255, 159, 64, 0.9)', backgroundColor: 'rgba(255, 159, 64, 0.1)', fill: false, tension: 0.3, yAxisID: 'yPerShare' }
+                ]
+            },
+            options: withDarkChartDefaults({
+                plugins: { legend: { display: true } },
+                scales: {
+                    yShares: { type: 'linear', position: 'left', title: { display: true, text: 'Diluted Shares (M)' }, min: 0 },
+                    yPerShare: { type: 'linear', position: 'right', title: { display: true, text: 'Per Share ($)' }, grid: { drawOnChartArea: false } }
+                }
+            })
+        });
+
+        const costCategories = [
+            { label: 'Cost of Revenue', color: '#2563EB' },
+            { label: 'Tech & infra', color: '#16A34A' },
+            { label: 'SG&A', color: '#F97316' }
+        ];
+        clearChart('coreweaveCostMix');
+        createChart(getChartContext('coreweaveCostMix'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: costCategories.map(category => ({
+                    label: category.label,
+                    data: quarters.map(period => {
+                        const total = coreweaveValue(period, 'Operating Expenses');
+                        return total ? coreweaveValue(period, category.label) / total * 100 : null;
+                    }),
+                    backgroundColor: category.color,
+                    borderColor: category.color
+                }))
+            },
+            options: withDarkChartDefaults({
+                plugins: {
+                    legend: { display: true },
+                    tooltip: { callbacks: { label: context => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%` } }
+                },
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true, min: 0, max: 100, title: { display: true, text: 'Operating Expense Mix (%)' }, ticks: { callback: value => `${value}%` } }
+                }
+            })
+        });
+        renderCoreWeaveGrowthChart('coreweaveGrowthQoq', quarters, 'qoq');
+        renderCoreWeaveGrowthChart('coreweaveGrowthYoy', quarters, 'yoy', comparisonPeriods);
+        const cashDebtData = await getCoreWeaveCashDebtData();
+        if (selectedCompany !== 'Other' || !document.querySelector('[data-other-company="CoreWeave"]').open) return;
+        renderCoreWeaveCashDebtCharts(cashDebtData.periods, quarters);
+        status.textContent = '';
+    } catch (error) {
+        status.textContent = `CoreWeave earnings could not load: ${error.message}`;
     }
 }
 
@@ -1257,12 +1487,14 @@ function setupChartPeriodControls() {
 function updateCompanyVisibility() {
     document.querySelector('[data-current-company]').textContent = selectedCompany;
     const companyLogo = document.querySelector('[data-company-logo]');
-    companyLogo.src = {
+    const logo = {
         Robinhood: './src/assets/robinhood.svg',
         Starbucks: './src/assets/starbucks.svg',
         Nike: './src/assets/nike.svg',
         Meta: './src/assets/meta.svg'
     }[selectedCompany];
+    if (logo) companyLogo.src = logo;
+    companyLogo.classList.toggle('is-hidden', selectedCompany === 'Other');
     companyLogo.classList.toggle('meta-logo', selectedCompany === 'Meta');
     updateRobinhoodSections();
 
@@ -1272,7 +1504,7 @@ function updateCompanyVisibility() {
 }
 
 function updateViewVisibility() {
-    const visibleView = activeView === 'home' ? 'home' : selectedCompany === 'Meta' ? 'meta' : selectedCompany === 'Nike' ? activeView : 'dashboard';
+    const visibleView = activeView === 'home' ? 'home' : selectedCompany === 'Meta' ? 'meta' : selectedCompany === 'Other' ? 'other' : selectedCompany === 'Nike' ? activeView : 'dashboard';
 
     document.querySelector('[data-dashboard-controls]').classList.toggle('is-hidden', activeView === 'home');
     document.querySelectorAll('[data-app-view]').forEach(view => {
@@ -1324,7 +1556,9 @@ function setupCompanyTabs() {
             updateViewVisibility();
             setupChartPeriodControls();
             window.scrollTo(0, 0);
-            if (selectedCompany !== 'Robinhood' && selectedCompany !== 'Meta') {
+            if (selectedCompany === 'Other') {
+                if (document.querySelector('[data-other-company="CoreWeave"]').open) loadCoreWeaveDashboard();
+            } else if (selectedCompany !== 'Robinhood' && selectedCompany !== 'Meta') {
                 loadChartData().catch(showDashboardError);
             } else if (selectedCompany === 'Meta') {
                 loadMetaDashboard();
@@ -1332,6 +1566,12 @@ function setupCompanyTabs() {
         });
     });
 }
+
+document.querySelector('[data-other-company="CoreWeave"]').addEventListener('toggle', event => {
+    if (event.currentTarget.open && selectedCompany === 'Other' && activeView !== 'home') {
+        loadCoreWeaveDashboard();
+    }
+});
 
 function setupViewTabs() {
     document.querySelectorAll('[data-view]').forEach(button => {
@@ -1497,7 +1737,10 @@ async function loadChartData(chartId = null) {
     }
 
     const { monthly_metrics, stock_prices, financials, credit_card, nike_product_roadmap, nike_q1_27_themes } = await getDashboardData();
-    if (selectedCompany !== companyAtStart || companyAtStart === 'Meta') return;
+    if (selectedCompany !== companyAtStart || companyAtStart === 'Meta') {
+        activeRenderChartId = null;
+        return;
+    }
     const companyData = financials.find(company => company.Company === selectedCompany);
     const companyBaseFinancials = companyData.Financials;
     const isRobinhood = selectedCompany === 'Robinhood';

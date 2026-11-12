@@ -1,0 +1,95 @@
+{
+  "unit": "USD millions",
+  "notes": {
+    "cashFlows": "Standalone three-month cash flows. Proceeds from debt issuance are net of issuance costs. PP&E purchases are cash outflows.",
+    "debtBalance": "Quarter-end carrying amount of current plus non-current debt. Finance and operating lease liabilities are excluded.",
+    "cash": "Quarter-end cash and cash equivalents; restricted cash is excluded.",
+    "recourseSplit": "Shown only for balance sheets that separately report recourse and non-recourse debt."
+  },
+  "periods": [
+    {
+      "quarter": "Q1 2025",
+      "operatingCashFlow": 61,
+      "ppePurchases": 1407,
+      "debtProceeds": 785,
+      "debtRepayments": 271,
+      "debtBalance": 8711.666,
+      "cash": 1276.456,
+      "interestExpense": 264,
+      "source": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000010/coreweave1q25earningspress.htm"
+    },
+    {
+      "quarter": "Q2 2025",
+      "operatingCashFlow": -251,
+      "ppePurchases": 2453,
+      "debtProceeds": 3611,
+      "debtRepayments": 1304,
+      "debtBalance": 11051.501,
+      "cash": 1152.883,
+      "interestExpense": 267,
+      "source": "https://investors.coreweave.com/news/news-details/2025/CoreWeave-Reports-Strong-Second-Quarter-2025-Results/"
+    },
+    {
+      "quarter": "Q3 2025",
+      "operatingCashFlow": 1689,
+      "ppePurchases": 3279,
+      "debtProceeds": 4010,
+      "debtRepayments": 1404,
+      "debtBalance": 14034.934,
+      "cash": 1894.399,
+      "interestExpense": 310,
+      "source": "https://investors.coreweave.com/news/news-details/2025/CoreWeave-Reports-Strong-Third-Quarter-2025-Results/"
+    },
+    {
+      "quarter": "Q4 2025",
+      "operatingCashFlow": 1559,
+      "ppePurchases": 4060,
+      "debtProceeds": 4312,
+      "debtRepayments": 420,
+      "debtBalance": 21373,
+      "recourseDebt": 20726,
+      "nonRecourseDebt": 647,
+      "cash": 3127,
+      "interestExpense": 388,
+      "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Fourth-Quarter-and-Fiscal-Year-2025-Results/",
+      "splitSource": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/"
+    },
+    {
+      "quarter": "Q1 2026",
+      "operatingCashFlow": 2984,
+      "ppePurchases": 7695,
+      "debtProceeds": 3290,
+      "debtRepayments": 1335,
+      "debtBalance": 24859,
+      "cash": 2244,
+      "interestExpense": 536,
+      "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-First-Quarter-2026-Results/"
+    },
+    {
+      "quarter": "Q2 2026",
+      "operatingCashFlow": 679,
+      "ppePurchases": 6422,
+      "debtProceeds": 13457,
+      "debtRepayments": 3884,
+      "debtBalance": 35068,
+      "recourseDebt": 31405,
+      "nonRecourseDebt": 3663,
+      "cash": 5524,
+      "interestExpense": 640,
+      "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx"
+    },
+    {
+      "quarter": "Q3 2026",
+      "operatingCashFlow": 1975,
+      "ppePurchases": 9441,
+      "debtProceeds": 10301,
+      "debtRepayments": 2344,
+      "debtBalance": 46873,
+      "recourseDebt": 41600,
+      "nonRecourseDebt": 5273,
+      "cash": 4122,
+      "interestExpense": 846,
+      "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Third-Quarter-2026-Results/default.aspx"
+    }
+  ]
+}

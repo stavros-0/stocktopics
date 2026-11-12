@@ -1,0 +1,1729 @@
+{
+  "source": "Coreweave (CRWV).ods / Sheet1",
+  "periods": [
+    {
+      "period": "FY 2023",
+      "kind": "annual",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 229
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 69
+          },
+          {
+            "label": "Tech & infra",
+            "value": 131
+          },
+          {
+            "label": "SG&A",
+            "value": 43
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 243
+          },
+          {
+            "label": "Operating Income",
+            "value": -14
+          },
+          {
+            "label": "Gain/Loss on fair value adjustments",
+            "value": -534
+          },
+          {
+            "label": "Interest expense",
+            "value": -28
+          },
+          {
+            "label": "Other income/expense",
+            "value": 18
+          },
+          {
+            "label": "EBT",
+            "value": -558
+          },
+          {
+            "label": "Taxes",
+            "value": 36
+          },
+          {
+            "label": "Net Loss",
+            "value": -594
+          },
+          {
+            "label": "Net loss attributable to shareholder",
+            "value": -594
+          },
+          {
+            "label": "EPS",
+            "value": -3.09375
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 192
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -594
+          },
+          {
+            "label": "D&A",
+            "value": 103
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 16
+          },
+          {
+            "label": "SBC",
+            "value": 15
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 20
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": 36
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": 534
+          },
+          {
+            "label": "othr non-cash reconciling items",
+            "value": 1
+          },
+          {
+            "label": "other",
+            "value": -1
+          },
+          {
+            "label": "AR",
+            "value": -162
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -139
+          },
+          {
+            "label": "AP",
+            "value": 27
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 1986
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -9
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 1833
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -2943
+          },
+          {
+            "label": "purchases of marketable securities",
+            "value": -172
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 6
+          },
+          {
+            "label": "other investing activities",
+            "value": -39
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -3148
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 1404
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -2
+          },
+          {
+            "label": "Issuance of redeemable convertible preferred stock",
+            "value": 421
+          },
+          {
+            "label": "Proceeds from exercise of stock options",
+            "value": 2
+          },
+          {
+            "label": "Proceeds from exercise of common stock",
+            "value": 15
+          },
+          {
+            "label": "Other financing activities",
+            "value": -52
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 1788
+          }
+        ]
+      },
+      "cashFlowBasis": "annual"
+    },
+    {
+      "period": "FY 2024",
+      "kind": "annual",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 1915
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 493
+          },
+          {
+            "label": "Tech & infra",
+            "value": 961
+          },
+          {
+            "label": "SG&A",
+            "value": 137
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 1591
+          },
+          {
+            "label": "Operating Income",
+            "value": 324
+          },
+          {
+            "label": "Gain/Loss on fair value adjustments",
+            "value": -756
+          },
+          {
+            "label": "Interest expense",
+            "value": -361
+          },
+          {
+            "label": "Other income/expense",
+            "value": 49
+          },
+          {
+            "label": "EBT",
+            "value": -744
+          },
+          {
+            "label": "Taxes",
+            "value": 119
+          },
+          {
+            "label": "Net Loss",
+            "value": -863
+          },
+          {
+            "label": "Net loss attributable to shareholder",
+            "value": -937
+          },
+          {
+            "label": "EPS",
+            "value": -4.29816513761468
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 218
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -863
+          },
+          {
+            "label": "D&A",
+            "value": 863
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 33
+          },
+          {
+            "label": "SBC",
+            "value": 31
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 123
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": 113
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": 756
+          },
+          {
+            "label": "Debt extinguishment loss",
+            "value": 12
+          },
+          {
+            "label": "othr non-cash reconciling items",
+            "value": 3
+          },
+          {
+            "label": "AR",
+            "value": -280
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -514
+          },
+          {
+            "label": "AP",
+            "value": 511
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 2049
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -88
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 2749
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -8702
+          },
+          {
+            "label": "purchases of marketable securities",
+            "value": -34
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 188
+          },
+          {
+            "label": "business combinations, net of cash acquired",
+            "value": -60
+          },
+          {
+            "label": "other investing activities",
+            "value": -50
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -8658
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 7018
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -589
+          },
+          {
+            "label": "Issuance of redeemable convertible preferred stock",
+            "value": 1172
+          },
+          {
+            "label": "Proceeds from exercise of stock options",
+            "value": 3
+          },
+          {
+            "label": "Redeemable convertible preferred stock cash dividends",
+            "value": -58
+          },
+          {
+            "label": "Other financing activities",
+            "value": -82
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 7464
+          }
+        ]
+      },
+      "cashFlowBasis": "annual"
+    },
+    {
+      "period": "Q1 2025",
+      "kind": "quarter",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 982
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 262
+          },
+          {
+            "label": "Tech & infra",
+            "value": 561
+          },
+          {
+            "label": "SG&A",
+            "value": 186
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 1009
+          },
+          {
+            "label": "Operating Income",
+            "value": -27
+          },
+          {
+            "label": "Gain/Loss on fair value adjustments",
+            "value": 27
+          },
+          {
+            "label": "Interest expense",
+            "value": -264
+          },
+          {
+            "label": "Other income/expense",
+            "value": -5
+          },
+          {
+            "label": "EBT",
+            "value": -269
+          },
+          {
+            "label": "Taxes",
+            "value": 46
+          },
+          {
+            "label": "Net Loss",
+            "value": -315
+          },
+          {
+            "label": "Total comprehensive loss",
+            "value": -315
+          },
+          {
+            "label": "EPS",
+            "value": -1.26506024096386
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 249
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -315
+          },
+          {
+            "label": "D&A",
+            "value": 443
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 38
+          },
+          {
+            "label": "SBC",
+            "value": 184
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 67
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": 45
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": -27
+          },
+          {
+            "label": "other",
+            "value": 23
+          },
+          {
+            "label": "AR",
+            "value": -639
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": 247
+          },
+          {
+            "label": "AP",
+            "value": 62
+          },
+          {
+            "label": "Deferred revenue",
+            "value": -16
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -51
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 61
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -1407
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 29
+          },
+          {
+            "label": "issueance of notes receivable",
+            "value": -55
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -1433
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 785
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -271
+          },
+          {
+            "label": "Payment of tax witholdings on RSUs",
+            "value": -16
+          },
+          {
+            "label": "Proceeds from IPO",
+            "value": 1423
+          },
+          {
+            "label": "Redeemable convertible preferred stock cash dividends",
+            "value": -26
+          },
+          {
+            "label": "Other financing activities",
+            "value": -41
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 1854
+          }
+        ]
+      },
+      "cashFlowBasis": "quarter",
+      "cashFlowSource": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000010/coreweave1q25earningspress.htm"
+    },
+    {
+      "period": "Q2 2025",
+      "kind": "quarter",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 1212
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 313
+          },
+          {
+            "label": "Tech & infra",
+            "value": 670
+          },
+          {
+            "label": "SG&A",
+            "value": 210
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 1193
+          },
+          {
+            "label": "Operating Income",
+            "value": 19
+          },
+          {
+            "label": "Interest expense",
+            "value": -267
+          },
+          {
+            "label": "Other income/expense",
+            "value": 6
+          },
+          {
+            "label": "EBT",
+            "value": -242
+          },
+          {
+            "label": "Taxes",
+            "value": 48
+          },
+          {
+            "label": "Net Loss",
+            "value": -290
+          },
+          {
+            "label": "Total comprehensive loss",
+            "value": -290
+          },
+          {
+            "label": "EPS",
+            "value": -0.595482546201232
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 487
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -605
+          },
+          {
+            "label": "D&A",
+            "value": 1003
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 67
+          },
+          {
+            "label": "SBC",
+            "value": 329
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 144
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": 91
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": -27
+          },
+          {
+            "label": "other",
+            "value": 39
+          },
+          {
+            "label": "AR",
+            "value": -1505
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -70
+          },
+          {
+            "label": "AP",
+            "value": -289
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 743
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -110
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": -190
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -3860
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 29
+          },
+          {
+            "label": "investments related to unconsolidated joint venture..",
+            "value": -32
+          },
+          {
+            "label": "sales of warrants\u2026",
+            "value": 101
+          },
+          {
+            "label": "issueance of notes receivable",
+            "value": -73
+          },
+          {
+            "label": "business combinations, net of cash acquired",
+            "value": -46
+          },
+          {
+            "label": "other investing activities",
+            "value": 6
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -3875
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 4396
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -1575
+          },
+          {
+            "label": "Payment of tax witholdings on RSUs",
+            "value": -133
+          },
+          {
+            "label": "Proceeds from IPO",
+            "value": 1491
+          },
+          {
+            "label": "Redeemable convertible preferred stock cash dividends",
+            "value": -29
+          },
+          {
+            "label": "Other financing activities",
+            "value": -66
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 4084
+          }
+        ]
+      },
+      "cashFlowBasis": "year_to_date",
+      "cashFlowSource": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000039/coreweave2q25earningspress.htm"
+    },
+    {
+      "period": "Q3 2025",
+      "kind": "quarter",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 1365
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 369
+          },
+          {
+            "label": "Tech & infra",
+            "value": 747
+          },
+          {
+            "label": "SG&A",
+            "value": 197
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 1313
+          },
+          {
+            "label": "Operating Income",
+            "value": 52
+          },
+          {
+            "label": "Interest expense",
+            "value": -310
+          },
+          {
+            "label": "Other income/expense",
+            "value": 21
+          },
+          {
+            "label": "EBT",
+            "value": -237
+          },
+          {
+            "label": "Taxes",
+            "value": -127
+          },
+          {
+            "label": "Net Loss",
+            "value": -110
+          },
+          {
+            "label": "Total comprehensive loss",
+            "value": -110
+          },
+          {
+            "label": "EPS",
+            "value": -0.220883534136546
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 498
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -110
+          },
+          {
+            "label": "D&A",
+            "value": 630
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 21
+          },
+          {
+            "label": "SBC",
+            "value": 144
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 90
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": -128
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": 0
+          },
+          {
+            "label": "Non-cash interest expense",
+            "value": 18
+          },
+          {
+            "label": "other",
+            "value": 7
+          },
+          {
+            "label": "AR",
+            "value": 252
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -446
+          },
+          {
+            "label": "AP",
+            "value": 622
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 659
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -70
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 1689
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -3279
+          },
+          {
+            "label": "purchases of marketable securities",
+            "value": -47
+          },
+          {
+            "label": "investments related to unconsolidated joint venture..",
+            "value": -1
+          },
+          {
+            "label": "purchases of strategic investments",
+            "value": -2
+          },
+          {
+            "label": "business combinations, net of cash acquired",
+            "value": -10
+          },
+          {
+            "label": "other investing activities",
+            "value": -21
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -3360
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 4010
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -1404
+          },
+          {
+            "label": "Payment of tax witholdings on RSUs",
+            "value": -11
+          },
+          {
+            "label": "Other financing activities",
+            "value": -9
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 2586
+          }
+        ]
+      },
+      "cashFlowBasis": "quarter",
+      "cashFlowSource": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000059/coreweave3q25earningspress.htm"
+    },
+    {
+      "period": "Q4 2025",
+      "kind": "quarter",
+      "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Fourth-Quarter-and-Fiscal-Year-2025-Results/",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 1572
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 509
+          },
+          {
+            "label": "Tech & infra",
+            "value": 950
+          },
+          {
+            "label": "SG&A",
+            "value": 202
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 1661
+          },
+          {
+            "label": "Operating Income",
+            "value": -89
+          },
+          {
+            "label": "Interest expense",
+            "value": -388
+          },
+          {
+            "label": "Other income/expense",
+            "value": 10
+          },
+          {
+            "label": "EBT",
+            "value": -467
+          },
+          {
+            "label": "Taxes",
+            "value": -15
+          },
+          {
+            "label": "Net Loss",
+            "value": -452
+          },
+          {
+            "label": "EPS",
+            "value": -0.89
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 506
+          }
+        ],
+        "Operating cash flow": [],
+        "Investing cash flow": [],
+        "Financing cash flow": []
+      }
+    },
+    {
+      "period": "FY 2025",
+      "kind": "annual",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 5131
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 1453
+          },
+          {
+            "label": "Tech & infra",
+            "value": 2929
+          },
+          {
+            "label": "SG&A",
+            "value": 795
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 5177
+          },
+          {
+            "label": "Operating Income",
+            "value": -46
+          },
+          {
+            "label": "Gain/Loss on fair value adjustments",
+            "value": 27
+          },
+          {
+            "label": "Interest expense",
+            "value": -1229
+          },
+          {
+            "label": "Other income/expense",
+            "value": 33
+          },
+          {
+            "label": "EBT",
+            "value": -1215
+          },
+          {
+            "label": "Taxes",
+            "value": -48
+          },
+          {
+            "label": "Net Loss",
+            "value": -1167
+          },
+          {
+            "label": "Net loss attributable to shareholder",
+            "value": -1196
+          },
+          {
+            "label": "EPS",
+            "value": -2.74311926605505
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 436
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -1167
+          },
+          {
+            "label": "D&A",
+            "value": 2454
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 110
+          },
+          {
+            "label": "SBC",
+            "value": 630
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 357
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": -53
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": -27
+          },
+          {
+            "label": "Debt extinguishment loss",
+            "value": 19
+          },
+          {
+            "label": "othr non-cash reconciling items",
+            "value": 103
+          },
+          {
+            "label": "AR",
+            "value": -2749
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -784
+          },
+          {
+            "label": "AP",
+            "value": 253
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 4174
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -262
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 3058
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -10309
+          },
+          {
+            "label": "purchases of marketable securities",
+            "value": -47
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 43
+          },
+          {
+            "label": "sales of warrants\u2026",
+            "value": 254
+          },
+          {
+            "label": "issueance of notes receivable",
+            "value": -90
+          },
+          {
+            "label": "business combinations, net of cash acquired",
+            "value": -108
+          },
+          {
+            "label": "other investing activities",
+            "value": -14
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -10271
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 11829
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -3399
+          },
+          {
+            "label": "Purchases of capped calls related to convertible senior notes",
+            "value": -340
+          },
+          {
+            "label": "Payment of tax witholdings on RSUs",
+            "value": -144
+          },
+          {
+            "label": "Proceeds from IPO",
+            "value": 1491
+          },
+          {
+            "label": "Proceeds from exercise of stock options",
+            "value": 20
+          },
+          {
+            "label": "Redeemable convertible preferred stock cash dividends",
+            "value": -29
+          },
+          {
+            "label": "Other financing activities",
+            "value": -120
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 9308
+          }
+        ]
+      },
+      "cashFlowBasis": "annual"
+    },
+    {
+      "period": "Q1 2026",
+      "kind": "quarter",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 2078
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 716
+          },
+          {
+            "label": "Tech & infra",
+            "value": 1273
+          },
+          {
+            "label": "SG&A",
+            "value": 233
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 2222
+          },
+          {
+            "label": "Operating Income",
+            "value": -144
+          },
+          {
+            "label": "Interest expense",
+            "value": -536
+          },
+          {
+            "label": "Other income/expense",
+            "value": 24
+          },
+          {
+            "label": "EBT",
+            "value": -656
+          },
+          {
+            "label": "Taxes",
+            "value": 84
+          },
+          {
+            "label": "Net Loss",
+            "value": -740
+          },
+          {
+            "label": "Other comprehensive loss",
+            "value": 5
+          },
+          {
+            "label": "Total comprehensive loss",
+            "value": -735
+          },
+          {
+            "label": "EPS",
+            "value": -1.40417457305503
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 527
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -740
+          },
+          {
+            "label": "D&A",
+            "value": 1147
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 41
+          },
+          {
+            "label": "SBC",
+            "value": 153
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 167
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": 79
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": 0
+          },
+          {
+            "label": "other",
+            "value": 121
+          },
+          {
+            "label": "AR",
+            "value": 1042
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -471
+          },
+          {
+            "label": "AP",
+            "value": 960
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 575
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -90
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 2984
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -7695
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 12
+          },
+          {
+            "label": "other investing activities",
+            "value": -25
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -7708
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 3290
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -1335
+          },
+          {
+            "label": "Purchases of capped calls related to convertible senior notes",
+            "value": 1985
+          },
+          {
+            "label": "Other financing activities",
+            "value": -26
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 3914
+          }
+        ]
+      },
+      "cashFlowBasis": "quarter"
+    },
+    {
+      "period": "Q2 2026",
+      "kind": "quarter",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 2575
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 879
+          },
+          {
+            "label": "Tech & infra",
+            "value": 1507
+          },
+          {
+            "label": "SG&A",
+            "value": 238
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 2624
+          },
+          {
+            "label": "Operating Income",
+            "value": -49
+          },
+          {
+            "label": "Interest expense",
+            "value": -640
+          },
+          {
+            "label": "Other income/expense",
+            "value": 125
+          },
+          {
+            "label": "EBT",
+            "value": -564
+          },
+          {
+            "label": "Taxes",
+            "value": 62
+          },
+          {
+            "label": "Net Loss",
+            "value": -626
+          },
+          {
+            "label": "Other comprehensive loss",
+            "value": -23
+          },
+          {
+            "label": "Total comprehensive loss",
+            "value": -649
+          },
+          {
+            "label": "EPS",
+            "value": -1.13611615245009
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 551
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -1366
+          },
+          {
+            "label": "D&A",
+            "value": 2540
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 86
+          },
+          {
+            "label": "SBC",
+            "value": 318
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 365
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": 140
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": 0
+          },
+          {
+            "label": "other",
+            "value": 97
+          },
+          {
+            "label": "AR",
+            "value": 607
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -611
+          },
+          {
+            "label": "AP",
+            "value": 304
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 1365
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -182
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 3663
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -14117
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 18
+          },
+          {
+            "label": "investments related to unconsolidated joint venture..",
+            "value": -550
+          },
+          {
+            "label": "purchases of strategic investments",
+            "value": -138
+          },
+          {
+            "label": "other investing activities",
+            "value": -87
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -14874
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 16747
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -5219
+          },
+          {
+            "label": "Purchases of capped calls related to convertible senior notes",
+            "value": -492
+          },
+          {
+            "label": "Issuance of common stock",
+            "value": 2982
+          },
+          {
+            "label": "Other financing activities",
+            "value": -33
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 13985
+          }
+        ]
+      },
+      "cashFlowBasis": "year_to_date"
+    },
+    {
+      "period": "Q3 2026",
+      "kind": "quarter",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 3661
+          },
+          {
+            "label": "Cost of Revenue",
+            "value": 1183
+          },
+          {
+            "label": "Tech & infra",
+            "value": 2025
+          },
+          {
+            "label": "SG&A",
+            "value": 246
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 3454
+          },
+          {
+            "label": "Operating Income",
+            "value": 207
+          },
+          {
+            "label": "Interest expense",
+            "value": -846
+          },
+          {
+            "label": "Other income/expense",
+            "value": 13
+          },
+          {
+            "label": "EBT",
+            "value": -626
+          },
+          {
+            "label": "Taxes",
+            "value": 83
+          },
+          {
+            "label": "Net Loss",
+            "value": -709
+          },
+          {
+            "label": "Total comprehensive loss",
+            "value": -709
+          },
+          {
+            "label": "EPS",
+            "value": -1.26833631484794
+          },
+          {
+            "label": "Shares Diluted",
+            "value": 559
+          }
+        ],
+        "Operating cash flow": [
+          {
+            "label": "Net Loss",
+            "value": -709
+          },
+          {
+            "label": "D&A",
+            "value": 1889
+          },
+          {
+            "label": "Amortization of debt discounts\u2026",
+            "value": 57
+          },
+          {
+            "label": "SBC",
+            "value": 160
+          },
+          {
+            "label": "Non cash lease expense",
+            "value": 278
+          },
+          {
+            "label": "Deferred income taxes",
+            "value": 74
+          },
+          {
+            "label": "Loss (gain) on fair value adj",
+            "value": 0
+          },
+          {
+            "label": "Non-cash interest expense",
+            "value": 56
+          },
+          {
+            "label": "other",
+            "value": 30
+          },
+          {
+            "label": "AR",
+            "value": -1741
+          },
+          {
+            "label": "Prepaid Expenses",
+            "value": -442
+          },
+          {
+            "label": "AP",
+            "value": 309
+          },
+          {
+            "label": "Deferred revenue",
+            "value": 2127
+          },
+          {
+            "label": "Lease liabilities",
+            "value": -113
+          },
+          {
+            "label": "Operating Cash flow",
+            "value": 1975
+          }
+        ],
+        "Investing cash flow": [
+          {
+            "label": "Purchases of pp&e",
+            "value": -9441
+          },
+          {
+            "label": "purchases of marketable securities",
+            "value": -46
+          },
+          {
+            "label": "maturities and sales of marketable securities",
+            "value": 53
+          },
+          {
+            "label": "investments related to unconsolidated joint venture..",
+            "value": -410
+          },
+          {
+            "label": "purchases of strategic investments",
+            "value": -35
+          },
+          {
+            "label": "other investing activities",
+            "value": 43
+          },
+          {
+            "label": "Investing cash flows",
+            "value": -9836
+          }
+        ],
+        "Financing cash flow": [
+          {
+            "label": "Proceeds from issuance of debt",
+            "value": 10301
+          },
+          {
+            "label": "Repayments of debt",
+            "value": -2344
+          },
+          {
+            "label": "Purchases of capped calls related to convertible senior notes",
+            "value": -566
+          },
+          {
+            "label": "Other financing activities",
+            "value": -30
+          },
+          {
+            "label": "Financing cash flows",
+            "value": 7361
+          }
+        ]
+      },
+      "cashFlowBasis": "quarter"
+    }
+  ],
+  "comparisonPeriods": [
+    {
+      "period": "Q4 2024",
+      "source": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Fourth-Quarter-and-Fiscal-Year-2025-Results/",
+      "groups": {
+        "Income statement": [
+          {
+            "label": "Revenue",
+            "value": 747
+          },
+          {
+            "label": "Operating Expenses",
+            "value": 634
+          }
+        ]
+      }
+    }
+  ]
+}
