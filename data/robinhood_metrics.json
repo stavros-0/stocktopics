@@ -666,5 +666,18 @@
         "FundedCustomers": 28.7,
         "EventContracts": 5.6,
         "SecuritiesLending": 32
+    },
+    {
+        "Month": "10/26",
+        "Equities": 325.5,
+        "Options": 288.6,
+        "Crypto": 17.0,
+        "Margin": 22.9,
+        "CashSweep": 30.8,
+        "PlatformAssets": 383.2,
+        "NetDeposits": 15.1,
+        "FundedCustomers": 28.9,
+        "EventContracts": 5.9,
+        "SecuritiesLending": 34
     }
 ]
