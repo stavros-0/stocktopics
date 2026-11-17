@@ -46,11 +46,7 @@ function filingLabel(filing) {
 }
 
 function filingDocument(filing) {
-  const primary = filing.primaryDocument || "__full_submission__.txt";
-  if (["13F-HR", "13F-HR/A"].includes(filing.form) && /(?:^|\/)primary_doc\.xml$/i.test(primary)) {
-    return primary.replace(/primary_doc\.xml$/i, "infotable.xml");
-  }
-  return primary;
+  return filing.primaryDocument || "__full_submission__.txt";
 }
 
 function archivePath(filing) {
@@ -113,30 +109,29 @@ function showFilingError(frame, status, error) {
 }
 
 async function informationTablePath(fallback) {
-  const match = fallback.match(/^\/archive\/(\d+)\/(\d{10}-\d{2}-\d{6})\//);
-  if (!match) return fallback;
+  const match = new URL(fallback, location.href).pathname.match(/^\/archive\/(\d+)\/(\d{10}-\d{2}-\d{6})\//);
+  if (!match) throw new Error("Invalid 13F archive path");
   const [, cik, accession] = match;
   const prefix = `/archive/${cik}/${accession}/`;
   const indexUrl = apiUrl(`${prefix}${accession}-index.html`);
-  try {
-    const response = await fetch(indexUrl);
-    if (!response.ok) return fallback;
-    const index = new DOMParser().parseFromString(await response.text(), "text/html");
-    for (const row of index.querySelectorAll("tr")) {
-      if (![...row.querySelectorAll("td")].some(cell => cell.textContent.trim() === "INFORMATION TABLE")) continue;
-      const link = [...row.querySelectorAll("a")].find(anchor => /\.html?$/i.test(anchor.textContent.trim()));
-      if (!link) continue;
-      const href = link.getAttribute("href");
-      if (!href) continue;
-      const target = new URL(href, response.url);
-      if (target.origin === new URL(API_BASE).origin && target.pathname.startsWith(prefix)) return target.href;
-      const secPath = target.pathname.match(/^\/Archives\/edgar\/data\/(\d+)\/(\d{18})\/(.+)$/i);
-      if (["sec.gov", "www.sec.gov"].includes(target.hostname) && secPath && Number(secPath[1]) === Number(cik) && secPath[2] === accession.replaceAll("-", "")) {
-        return apiUrl(`${prefix}${secPath[3]}`);
-      }
+  const response = await fetch(indexUrl);
+  if (!response.ok) throw new Error(`Could not load SEC filing index (HTTP ${response.status})`);
+  const index = new DOMParser().parseFromString(await response.text(), "text/html");
+  for (const row of index.querySelectorAll("tr")) {
+    if (![...row.querySelectorAll("td")].some(cell => cell.textContent.trim() === "INFORMATION TABLE")) continue;
+    const links = [...row.querySelectorAll("a")];
+    const link = links.find(anchor => /\.html?$/i.test(anchor.textContent.trim()))
+      || links.find(anchor => /\.xml$/i.test(anchor.textContent.trim()));
+    const href = link?.getAttribute("href");
+    if (!href) continue;
+    const target = new URL(href, response.url);
+    if (target.origin === new URL(response.url).origin && target.pathname.startsWith(prefix)) return target.href;
+    const secPath = target.pathname.match(/^\/Archives\/edgar\/data\/(\d+)\/(\d{18})\/(.+)$/i);
+    if (["sec.gov", "www.sec.gov"].includes(target.hostname) && secPath && Number(secPath[1]) === Number(cik) && secPath[2] === accession.replaceAll("-", "")) {
+      return apiUrl(`${prefix}${secPath[3]}`);
     }
-  } catch { /* The known infotable.xml path still works for many filings offline. */ }
-  return fallback;
+  }
+  throw new Error("Information table not found in SEC filing index");
 }
 
 async function loadFilingFrame(frame, status) {
@@ -195,7 +190,7 @@ function renderColumns() {
     empty("No filings selected", "Adjust the filters or add a filing from the sidebar.");
     return;
   }
-  track.innerHTML = state.open.map(filing => `<article class="filing-column" data-accession="${escapeHtml(filing.accession)}"><div class="column-top"><button type="button" class="column-drag" aria-label="Reorder ${escapeHtml(filingLabel(filing))} ${escapeHtml(filing.form)}; drag or use left and right arrow keys" title="Drag to reorder · arrow keys also work">⠿</button><div class="column-heading"><span class="column-kicker">${escapeHtml(filingLabel(filing))} <span>·</span> ${escapeHtml(filing.form)}${filingDocument(filing) !== filing.primaryDocument ? " · HOLDINGS" : ""}</span><strong>${escapeHtml(state.company?.name || "SEC filing")}</strong><small>Period ${escapeHtml(filing.reportDate || "not listed")} · Filed ${escapeHtml(filing.filingDate)}</small></div><div class="column-actions"><a href="${escapeHtml(originalUrl(filing))}" target="_blank" rel="noopener noreferrer" title="Open filing on SEC EDGAR">SEC ↗</a><button type="button" data-remove="${escapeHtml(filing.accession)}" aria-label="Remove filing">×</button></div></div><div class="column-frame"><div class="frame-state"><span class="spinner"></span><strong>Waiting to load filing…</strong></div><iframe title="${escapeHtml(filingLabel(filing))} ${escapeHtml(filing.form)}" loading="lazy" sandbox="allow-same-origin" data-holdings="${["13F-HR", "13F-HR/A"].includes(filing.form)}" data-src="${escapeHtml(archivePath(filing))}"></iframe></div><div class="column-resizer" title="Drag to resize column" aria-hidden="true"></div></article>`).join("");
+  track.innerHTML = state.open.map(filing => `<article class="filing-column" data-accession="${escapeHtml(filing.accession)}"><div class="column-top"><button type="button" class="column-drag" aria-label="Reorder ${escapeHtml(filingLabel(filing))} ${escapeHtml(filing.form)}; drag or use left and right arrow keys" title="Drag to reorder · arrow keys also work">⠿</button><div class="column-heading"><span class="column-kicker">${escapeHtml(filingLabel(filing))} <span>·</span> ${escapeHtml(filing.form)}${["13F-HR", "13F-HR/A"].includes(filing.form) ? " · HOLDINGS" : ""}</span><strong>${escapeHtml(state.company?.name || "SEC filing")}</strong><small>Period ${escapeHtml(filing.reportDate || "not listed")} · Filed ${escapeHtml(filing.filingDate)}</small></div><div class="column-actions"><a href="${escapeHtml(originalUrl(filing))}" target="_blank" rel="noopener noreferrer" title="Open filing on SEC EDGAR">SEC ↗</a><button type="button" data-remove="${escapeHtml(filing.accession)}" aria-label="Remove filing">×</button></div></div><div class="column-frame"><div class="frame-state"><span class="spinner"></span><strong>Waiting to load filing…</strong></div><iframe title="${escapeHtml(filingLabel(filing))} ${escapeHtml(filing.form)}" loading="lazy" sandbox="allow-same-origin" data-holdings="${["13F-HR", "13F-HR/A"].includes(filing.form)}" data-src="${escapeHtml(archivePath(filing))}"></iframe></div><div class="column-resizer" title="Drag to resize column" aria-hidden="true"></div></article>`).join("");
   track.querySelectorAll(".filing-column").forEach(column => state.observer.observe(column));
 }
 
